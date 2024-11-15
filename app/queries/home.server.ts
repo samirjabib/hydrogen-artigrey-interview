@@ -80,3 +80,32 @@ export const RECOMMENDED_PRODUCTS_QUERY = `#graphql
     }
   }
 ` as const;
+
+export const BRANDS_QUERY = `#graphql
+  query BrandsCards($country: CountryCode, $language: LanguageCode)
+    @inContext(country: $country, language: $language) {
+    metaobjects(type: "brands", first: 10) {
+      edges {
+        node {
+          id
+          type
+          fields {
+            key
+            value
+            reference {
+              ... on MediaImage {
+                id
+                image {
+                  url
+                  altText
+                  width
+                  height
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+` as const;

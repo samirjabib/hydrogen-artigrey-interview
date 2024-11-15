@@ -1,4 +1,10 @@
-export const Brands = () => {
+import type {BrandsCardsQuery} from 'storefrontapi.generated';
+
+export const Brands = ({
+  brands,
+}: {
+  brands: BrandsCardsQuery['metaobjects']['edges'];
+}) => {
   return (
     <div className="w-full py-8 bg-white">
       <div className="container mx-auto px-4">

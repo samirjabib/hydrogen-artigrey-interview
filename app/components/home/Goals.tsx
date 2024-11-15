@@ -1,33 +1,8 @@
 import {Image} from '@shopify/hydrogen';
-
-interface GoalCardProps {
-  title: string;
-  description: string;
-  imageSrc: string;
-  imageAlt: string;
-  dimensions?: string;
-}
+import type {GoalsCardsQuery} from 'storefrontapi.generated';
 
 interface GoalsProps {
-  goals: {
-    node: {
-      id: string;
-      type: string;
-      fields: {
-        key: string;
-        value: string;
-        reference?: {
-          id: string;
-          image?: {
-            url: string;
-            altText: string;
-            width: number;
-            height: number;
-          };
-        };
-      }[];
-    };
-  }[];
+  goals: GoalsCardsQuery['metaobjects']['edges'];
 }
 
 export default function Goals({goals}: GoalsProps) {

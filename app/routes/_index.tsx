@@ -3,7 +3,10 @@ import {Await, useLoaderData, Link, type MetaFunction} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import type {
+  BrandsCardsQuery,
   FeaturedCollectionFragment,
+  FeaturedCollectionQuery,
+  GoalsCardsQuery,
   RecommendedProductsQuery,
 } from 'storefrontapi.generated';
 import {Banner, Brands, Promises} from '~/components';
@@ -14,54 +17,28 @@ export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
 };
 
-const GOALS_CARDS_QUERY = `#graphql
-  query GoalsCards($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
-    metaobjects(type: "goals_cards", first: 10) {
-      edges {
-        node {
-          id
-          type
-          fields {
-            key
-            value
-            reference {
-              ... on MediaImage {
-                id
-                image {
-                  url
-                  altText
-                  width
-                  height
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-` as const;
+type LoaderData = {
+  goals: GoalsCardsQuery['metaobjects']['edges'];
+  brands: BrandsCardsQuery['metaobjects']['edges'];
+  collections: FeaturedCollectionQuery;
+};
 
 export async function loader(args: LoaderFunctionArgs) {
-  // Start fetching non-critical data without blocking time to first byte
   const deferredData = getDeferredData(args);
   const criticalData = await getCriticalData(args);
-
-  return defer({...deferredData, ...criticalData});
 
   return defer({...deferredData, ...criticalData});
 }
 
 export default function Homepage() {
-  const data = useLoaderData<typeof loader>();
+  const data = useLoaderData<typeof loader>() as LoaderData;
   console.log(data);
   return (
     <div className="home">
       <Banner />
       <Promises />
-      <Brands />
-      <Goals goals={data.goals} />
+      <Brands brands={data?.brands} />
+      <Goals goals={data?.goals} />
       {/* <RecommendedProducts products={data.recommendedProducts} /> */}
     </div>
   );
