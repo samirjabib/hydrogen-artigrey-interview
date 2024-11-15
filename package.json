@@ -36,14 +36,22 @@
     "@types/eslint": "^8.4.10",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.2.7",
+    "autoprefixer": "^10.4.20",
     "eslint": "^8.20.0",
     "eslint-plugin-hydrogen": "^0.12.3",
+    "postcss": "^8.4.49",
     "prettier": "^2.8.4",
+    "tailwindcss": "^3.4.15",
     "typescript": "^5.2.2",
     "vite": "^5.4.3",
     "vite-tsconfig-paths": "^5.0.1"
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "description": "Hydrogen is Shopify’s stack for headless commerce. Hydrogen is designed to dovetail with [Remix](https://remix.run/), Shopify’s full stack web framework. This template contains a **minimal setup** of components, queries and tooling to get started with Hydrogen.",
+  "main": ".graphqlrc.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
