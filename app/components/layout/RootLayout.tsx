@@ -1,42 +1,30 @@
-import {Await, Link} from '@remix-run/react';
-import {Suspense} from 'react';
-import type {
-  CartApiQueryFragment,
-  FooterQuery,
-  HeaderQuery,
-} from 'storefrontapi.generated';
-import {Aside} from '~/components/Aside';
+import {Link} from '@remix-run/react';
+import {useId} from 'react';
+
 import {Footer} from '~/components/Footer';
-import {Header, HeaderMenu} from '~/components/Header';
-import {CartMain} from '~/components/CartMain';
 import {
   SEARCH_ENDPOINT,
   SearchFormPredictive,
 } from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
+import {Header} from './header/Header';
+import {Aside} from '../../providers/Aside';
+import {CartAside} from '../shared/cart/CartAside';
+import type {RootLayoutProps} from '~/types';
 
-interface PageLayoutProps {
-  cart: Promise<CartApiQueryFragment | null>;
-  footer: Promise<FooterQuery | null>;
-  header: HeaderQuery;
-  isLoggedIn: Promise<boolean>;
-  publicStoreDomain: string;
-  children?: React.ReactNode;
-}
-
-export function PageLayout({
+export function RootLayout({
   cart,
   children = null,
   footer,
   header,
   isLoggedIn,
   publicStoreDomain,
-}: PageLayoutProps) {
+}: RootLayoutProps) {
   return (
     <Aside.Provider>
       <CartAside cart={cart} />
+      {/* <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} /> */}
       <SearchAside />
-      <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
       {header && (
         <Header
           header={header}
@@ -55,21 +43,8 @@ export function PageLayout({
   );
 }
 
-function CartAside({cart}: {cart: PageLayoutProps['cart']}) {
-  return (
-    <Aside type="cart" heading="CART">
-      <Suspense fallback={<p>Loading cart ...</p>}>
-        <Await resolve={cart}>
-          {(cart) => {
-            return <CartMain cart={cart} layout="aside" />;
-          }}
-        </Await>
-      </Suspense>
-    </Aside>
-  );
-}
-
 function SearchAside() {
+  const queriesDatalistId = useId();
   return (
     <Aside type="search" heading="SEARCH">
       <div className="predictive-search">
@@ -84,6 +59,7 @@ function SearchAside() {
                 placeholder="Search"
                 ref={inputRef}
                 type="search"
+                list={queriesDatalistId}
               />
               &nbsp;
               <button onClick={goToSearch}>Search</button>
@@ -92,7 +68,7 @@ function SearchAside() {
         </SearchFormPredictive>
 
         <SearchResultsPredictive>
-          {({items, total, term, state, inputRef, closeSearch}) => {
+          {({items, total, term, state, closeSearch}) => {
             const {articles, collections, pages, products, queries} = items;
 
             if (state === 'loading' && term.current) {
@@ -107,7 +83,7 @@ function SearchAside() {
               <>
                 <SearchResultsPredictive.Queries
                   queries={queries}
-                  inputRef={inputRef}
+                  queriesDatalistId={queriesDatalistId}
                 />
                 <SearchResultsPredictive.Products
                   products={products}
@@ -153,19 +129,14 @@ function MobileMenuAside({
   header,
   publicStoreDomain,
 }: {
-  header: PageLayoutProps['header'];
-  publicStoreDomain: PageLayoutProps['publicStoreDomain'];
+  header: RootLayoutProps['header'];
+  publicStoreDomain: RootLayoutProps['publicStoreDomain'];
 }) {
   return (
     header.menu &&
     header.shop.primaryDomain?.url && (
       <Aside type="mobile" heading="MENU">
-        <HeaderMenu
-          menu={header.menu}
-          viewport="mobile"
-          primaryDomainUrl={header.shop.primaryDomain.url}
-          publicStoreDomain={publicStoreDomain}
-        />
+        menu aside
       </Aside>
     )
   );

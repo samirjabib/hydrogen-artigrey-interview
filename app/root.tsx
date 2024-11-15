@@ -12,9 +12,9 @@ import {
   type ShouldRevalidateFunction,
 } from '@remix-run/react';
 import favicon from '~/assets/favicon.svg';
-import {PageLayout} from '~/components/PageLayout';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import './styles/tailwind.css';
+import {RootLayout} from './components';
 export type RootLoader = typeof loader;
 
 /**
@@ -143,7 +143,7 @@ export function Layout({children}: {children?: React.ReactNode}) {
             shop={data.shop}
             consent={data.consent}
           >
-            <PageLayout {...data}>{children}</PageLayout>
+            <RootLayout {...data}>{children}</RootLayout>
           </Analytics.Provider>
         ) : (
           children

@@ -1,9 +1,9 @@
 import {useOptimisticCart} from '@shopify/hydrogen';
 import {Link} from '@remix-run/react';
 import type {CartApiQueryFragment} from 'storefrontapi.generated';
-import {useAside} from '~/components/Aside';
 import {CartLineItem} from '~/components/CartLineItem';
 import {CartSummary} from './CartSummary';
+import {useAside} from '~/providers/Aside';
 
 export type CartLayout = 'page' | 'aside';
 
@@ -26,7 +26,7 @@ export function CartMain({layout, cart: originalCart}: CartMainProps) {
     cart &&
     Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length);
   const className = `cart-main ${withDiscount ? 'with-discount' : ''}`;
-  const cartHasItems = (cart?.totalQuantity ?? 0) > 0;
+  const cartHasItems = cart?.totalQuantity! > 0;
 
   return (
     <div className={className}>
