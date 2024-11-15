@@ -6,7 +6,7 @@ import type {
   FeaturedCollectionFragment,
   RecommendedProductsQuery,
 } from 'storefrontapi.generated';
-import {Banner, Brands, Promises} from '~/components';
+import {Banner, Brands} from '~/components';
 import Goals from '~/components/home/Goals';
 
 export const meta: MetaFunction = () => {
@@ -116,7 +116,7 @@ export default function Homepage() {
   return (
     <div className="home">
       <Banner />
-      <Promises />
+      {/* <Promises /> */}
       <Brands />
       <Goals goals={data.goals} />
       {/* <RecommendedProducts products={data.recommendedProducts} /> */}
