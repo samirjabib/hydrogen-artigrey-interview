@@ -7,10 +7,62 @@ import type {
   RecommendedProductsQuery,
 } from 'storefrontapi.generated';
 import {Banner, Brands, Promises} from '~/components';
+import Goals from '~/components/home/Goals';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
 };
+
+// Añade el tipo para los Goals
+interface GoalCard {
+  node: {
+    id: string;
+    type: string;
+    fields: {
+      key: string;
+      value: string;
+      reference?: {
+        id: string;
+        image?: {
+          url: string;
+          altText: string;
+          width: number;
+          height: number;
+        };
+      };
+    }[];
+  };
+}
+
+// Añade la query para los goals
+const GOALS_CARDS_QUERY = `#graphql
+  query GoalsCards($country: CountryCode, $language: LanguageCode)
+    @inContext(country: $country, language: $language) {
+    metaobjects(type: "goals_cards", first: 10) {
+      edges {
+        node {
+          id
+          type
+          fields {
+            key
+            value
+            reference {
+              ... on MediaImage {
+                id
+                image {
+                  url
+                  altText
+                  width
+                  height
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+` as const;
 
 export async function loader(args: LoaderFunctionArgs) {
   // Start fetching non-critical data without blocking time to first byte
@@ -27,13 +79,15 @@ export async function loader(args: LoaderFunctionArgs) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  */
 async function loadCriticalData({context}: LoaderFunctionArgs) {
-  const [{collections}] = await Promise.all([
+  const [{collections}, goalsData] = await Promise.all([
     context.storefront.query(FEATURED_COLLECTION_QUERY),
+    context.storefront.query(GOALS_CARDS_QUERY),
     // Add other queries here, so that they are loaded in parallel
   ]);
 
   return {
     featuredCollection: collections.nodes[0],
+    goals: goalsData.metaobjects.edges,
   };
 }
 
@@ -58,13 +112,14 @@ function loadDeferredData({context}: LoaderFunctionArgs) {
 
 export default function Homepage() {
   const data = useLoaderData<typeof loader>();
+  console.log(data);
   return (
     <div className="home">
       <Banner />
       <Promises />
       <Brands />
-      {/* <FeaturedCollection collection={data.featuredCollection} /> */}
-      <RecommendedProducts products={data.recommendedProducts} />
+      <Goals goals={data.goals} />
+      {/* <RecommendedProducts products={data.recommendedProducts} /> */}
     </div>
   );
 }
