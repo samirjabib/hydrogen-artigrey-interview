@@ -6,8 +6,7 @@ import type {
   FeaturedCollectionFragment,
   RecommendedProductsQuery,
 } from 'storefrontapi.generated';
-import {Banner} from '~/components';
-import {Promises} from '~/components/home/Promises';
+import {Banner, Brands, Promises} from '~/components';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -63,7 +62,8 @@ export default function Homepage() {
     <div className="home">
       <Banner />
       <Promises />
-      <FeaturedCollection collection={data.featuredCollection} />
+      <Brands />
+      {/* <FeaturedCollection collection={data.featuredCollection} /> */}
       <RecommendedProducts products={data.recommendedProducts} />
     </div>
   );
