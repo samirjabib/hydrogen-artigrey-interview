@@ -14,7 +14,7 @@ import {
 import favicon from '~/assets/favicon.svg';
 import {PageLayout} from '~/components/PageLayout';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
-import tailwindCss from './styles/tailwind.css';
+import './styles/tailwind.css';
 export type RootLoader = typeof loader;
 
 /**
@@ -37,7 +37,7 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
 
 export function links() {
   return [
-    {rel: 'stylesheet', href: tailwindCss},
+    {rel: 'stylesheet', href: '/styles/tailwind.css'},
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',
