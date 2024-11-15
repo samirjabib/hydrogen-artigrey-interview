@@ -14,6 +14,7 @@ import {
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import './styles/tailwind.css';
 import {RootLayout} from './components';
+
 export type RootLoader = typeof loader;
 
 /**
@@ -45,7 +46,6 @@ export function links() {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
-    {rel: 'icon', type: 'image/svg+xml', href: '/star.svg'},
   ];
 }
 

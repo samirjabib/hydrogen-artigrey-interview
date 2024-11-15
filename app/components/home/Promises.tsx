@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import Marquee from 'react-fast-marquee';
-import StarIcon from '../../assets/star.svg';
+import {Image} from '@shopify/hydrogen';
 
 const PROMISES = [
   'High Quality Ingredients',
@@ -30,7 +30,7 @@ export const Promises = () => {
         <Marquee speed={50} gradient={false} className="h-full">
           {PROMISES.map((promise, i) => (
             <div key={i} className="flex items-center mx-8">
-              <img src={StarIcon} alt="Star" className="w-4 h-4" />
+              {/* <Image src={StarIcon} alt="Star" className="w-4 h-4" /> */}
               <h2 className="text-white pl-3 whitespace-nowrap">{promise}</h2>
             </div>
           ))}
@@ -39,7 +39,6 @@ export const Promises = () => {
         <div className="flex items-center h-full">
           {PROMISES.slice(0, 2).map((promise, i) => (
             <div key={i} className="flex items-center mx-8">
-              <img src={StarIcon} alt="Star" className="w-4 h-4" />
               <h2 className="text-white pl-3 whitespace-nowrap">{promise}</h2>
             </div>
           ))}

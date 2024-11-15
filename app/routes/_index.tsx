@@ -11,7 +11,7 @@ import type {
 } from 'storefrontapi.generated';
 import {Banner, Brands, Promises} from '~/components';
 import Goals from '~/components/home/Goals';
-import {getCriticalData, getDeferredData} from '~/services/home.server';
+import {getCriticalData, getDeferredData} from '~/services/home';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -36,10 +36,9 @@ export default function Homepage() {
   return (
     <div className="home">
       <Banner />
-      <Promises />
+      {/* <Promises /> */}
       <Brands brands={data?.brands} />
-      <Goals goals={data?.goals} />
-      {/* <RecommendedProducts products={data.recommendedProducts} /> */}
+      <Goals goals={data?.goals} /> */
     </div>
   );
 }
