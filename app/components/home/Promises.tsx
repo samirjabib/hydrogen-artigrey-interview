@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
 import Marquee from 'react-fast-marquee';
+import StarIcon from '../../assets/star.svg';
 
 const PROMISES = [
   'High Quality Ingredients',
