@@ -7,20 +7,22 @@ interface GoalsProps {
 
 export function Goals({goals}: GoalsProps) {
   return (
-    <section className="py-16 px-4 max-w-7xl mx-auto">
-      <div className="text-center mb-16">
-        <h4 className="text-sm uppercase tracking-wider mb-2">
+    <section className="pt-20 pb-[61px] px-4 wrapper mx-auto">
+      <div className="text-center mb-10">
+        <h4 className="text-base uppercase leading-5 mb-2 font-normal">
           COMFORTABLY UNCOMFORTABLE
         </h4>
-        <h2 className="text-4xl font-bold mb-4">Start with your Goals</h2>
-        <p className="text-gray-600">
+        <h2 className="text-[40px] font-medium leading-[47px] mb-4">
+          Start with your Goals
+        </h2>
+        <p className="text-[#1B1F23B2] font-normal">
           We cannot become what we want to be by
           <br />
           remaining what we are.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5  gap-9  md:gap-5">
         {goals.map(({node}) => {
           const title = node.fields.find((f) => f.key === 'title')?.value || '';
           const description =
@@ -34,8 +36,7 @@ export function Goals({goals}: GoalsProps) {
                 <div className="relative overflow-hidden rounded-2xl">
                   <Image
                     data={imageData}
-                    className="object-cover w-full h-[250px]"
-                    sizes="(min-width: 1024px) 20vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover w-full h-[392px]"
                   />
                 </div>
               )}

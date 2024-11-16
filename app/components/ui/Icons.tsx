@@ -22,6 +22,11 @@ const icons = [
     path: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/search.png?v=1731736138',
     alt: 'Search Icon',
   },
+  {
+    name: 'arrow',
+    path: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/arrow-goals.png?v=1731709282',
+    alt: 'Arrow Icon',
+  },
 ] as const;
 
 export type IconName = (typeof icons)[number]['name'];

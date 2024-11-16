@@ -25,3 +25,17 @@ export const getUrl = (
   }
   return itemUrl;
 };
+
+export function getScrollRatio() {
+  const currentScrollPosition = window.scrollY;
+  const documentHeight = document.documentElement.scrollHeight;
+  const windowHeight = window.innerHeight;
+  return currentScrollPosition / (documentHeight - windowHeight);
+}
+
+export function hasUserScrolledPastThreshold(
+  scrollRatio: number,
+  threshold: number,
+) {
+  return scrollRatio > threshold;
+}

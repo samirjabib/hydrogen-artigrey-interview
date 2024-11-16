@@ -6,7 +6,8 @@ import type {
   FeaturedCollectionQuery,
   GoalsCardsQuery,
 } from 'storefrontapi.generated';
-import {Banner, Brands, Promises} from '~/components';
+
+import {Banner, Brands, Goals, Promises} from '~/components';
 import {getCriticalData, getDeferredData} from '~/services/home';
 
 export const meta: MetaFunction = () => {
@@ -28,14 +29,14 @@ export async function loader(args: LoaderFunctionArgs) {
 
 export default function Homepage() {
   const data = useLoaderData<typeof loader>() as LoaderData;
-  console.log(data);
+  // console.log(data);
   return (
     <div className="home">
       <Banner />
       <Promises />
       <Brands brands={data?.brands} />
-      {/* 
-      <Goals goals={data?.goals} /> */}
+
+      <Goals goals={data?.goals} />
     </div>
   );
 }
