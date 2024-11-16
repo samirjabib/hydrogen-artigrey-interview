@@ -1,7 +1,7 @@
 import {Image} from '@shopify/hydrogen';
 import {cn} from '~/utils/cn';
 
-const icons = [
+export const icons = [
   {
     name: 'user',
     path: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/icon-user.png?v=1731734264',
@@ -26,6 +26,26 @@ const icons = [
     name: 'arrow',
     path: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/arrow-goals.png?v=1731709282',
     alt: 'Arrow Icon',
+  },
+  {
+    name: 'like',
+    path: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/todo.png?v=1731742189',
+    alt: 'Like Icon',
+  },
+  {
+    name: 'sheets',
+    path: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/sheets.png?v=1731742190',
+    alt: 'Sheets Icon',
+  },
+  {
+    name: 'diet',
+    path: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/diet.png?v=1731742190',
+    alt: 'Diet Icon',
+  },
+  {
+    name: 'todo',
+    path: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/todo.png?v=1731742189',
+    alt: 'Todo Icon',
   },
 ] as const;
 

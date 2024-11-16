@@ -19,7 +19,9 @@ export const MenuDesktop = ({
       role="navigation"
     >
       <NavLink prefetch="intent" to="/" end>
-        <strong className="font-bold text-xl leading-6">{shopName}</strong>
+        <strong className="font-bold text-xl leading-6 uppercase">
+          {shopName}
+        </strong>
       </NavLink>
       <div className="flex flex-row items-center gap-10">
         <SearchToggle />

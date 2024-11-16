@@ -6,7 +6,7 @@ import {ShoppingBag} from 'lucide-react';
 import type {CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/providers/Aside';
-import {Icon} from '../ui/Icons';
+import {Icon} from '../ui/Icon';
 
 export function CartToggle({cart}: CartToggleProps) {
   const originalCart = useAsyncValue() as CartApiQueryFragment | null;

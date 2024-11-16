@@ -17,4 +17,16 @@
   .wrapper {
     @apply max-w-screen-2xl mx-auto;
   }
+
+  .title {
+    @apply text-[32px] sm:text-[40px] font-medium leading-[47px];
+  }
+
+  .subtitle {
+    @apply text-base leading-5;
+  }
+
+  .text {
+    @apply text-[#1B1F23B2] font-normal text-base;
+  }
 }

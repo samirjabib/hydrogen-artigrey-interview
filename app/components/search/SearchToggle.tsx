@@ -1,5 +1,5 @@
 import {useAside} from '~/providers/Aside';
-import {Icon} from '../ui/Icons';
+import {Icon} from '../ui/Icon';
 
 export const SearchToggle = () => {
   const {open} = useAside();

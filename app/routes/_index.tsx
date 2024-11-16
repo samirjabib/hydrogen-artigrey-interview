@@ -3,11 +3,12 @@ import {useLoaderData, type MetaFunction} from '@remix-run/react';
 
 import type {
   BrandsCardsQuery,
+  CleanSuplementsQuery,
   FeaturedCollectionQuery,
   GoalsCardsQuery,
 } from 'storefrontapi.generated';
 
-import {Banner, Brands, Goals, Promises} from '~/components';
+import {Banner, Brands, CleanSuplements, Goals, Promises} from '~/components';
 import {getCriticalData, getDeferredData} from '~/services/home';
 
 export const meta: MetaFunction = () => {
@@ -18,12 +19,12 @@ type LoaderData = {
   goals: GoalsCardsQuery['metaobjects']['edges'];
   brands: BrandsCardsQuery['metaobjects']['edges'];
   collections: FeaturedCollectionQuery;
+  cleanSupplements: CleanSuplementsQuery['metaobjects']['edges'];
 };
 
 export async function loader(args: LoaderFunctionArgs) {
   const deferredData = getDeferredData(args);
   const criticalData = await getCriticalData(args);
-
   return defer({...deferredData, ...criticalData});
 }
 
@@ -35,8 +36,8 @@ export default function Homepage() {
       <Banner />
       <Promises />
       <Brands brands={data?.brands} />
-
       <Goals goals={data?.goals} />
+      <CleanSuplements cleanSupplements={data?.cleanSupplements} />
     </div>
   );
 }

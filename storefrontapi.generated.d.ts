@@ -410,6 +410,34 @@ export type BrandsCardsQuery = {
   };
 };
 
+export type CleanSuplementsQueryVariables = StorefrontAPI.Exact<{
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type CleanSuplementsQuery = {
+  metaobjects: {
+    edges: Array<{
+      node: Pick<StorefrontAPI.Metaobject, 'id' | 'type'> & {
+        fields: Array<
+          Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+            reference?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.MediaImage, 'id'> & {
+                image?: StorefrontAPI.Maybe<
+                  Pick<
+                    StorefrontAPI.Image,
+                    'url' | 'altText' | 'width' | 'height'
+                  >
+                >;
+              }
+            >;
+          }
+        >;
+      };
+    }>;
+  };
+};
+
 export type StoreRobotsQueryVariables = StorefrontAPI.Exact<{
   country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
   language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
@@ -1274,6 +1302,10 @@ interface GeneratedQueryTypes {
   '#graphql\n  query BrandsCards($country: CountryCode, $language: LanguageCode)\n    @inContext(country: $country, language: $language) {\n    metaobjects(type: "brands", first: 10) {\n      edges {\n        node {\n          id\n          type\n          fields {\n            key\n            value\n            reference {\n              ... on MediaImage {\n                id\n                image {\n                  url\n                  altText\n                  width\n                  height\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
     return: BrandsCardsQuery;
     variables: BrandsCardsQueryVariables;
+  };
+  '#graphql\n  query CleanSuplements($country: CountryCode, $language: LanguageCode)\n    @inContext(country: $country, language: $language) {\n    metaobjects(type: "clean_suplements", first: 10) {\n      edges {\n        node {\n          id\n          type\n          fields {\n            key\n            value\n            reference {\n              ... on MediaImage {\n                id\n                image {\n                  url\n                  altText\n                  width\n                  height\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
+    return: CleanSuplementsQuery;
+    variables: CleanSuplementsQueryVariables;
   };
   '#graphql\n  query StoreRobots($country: CountryCode, $language: LanguageCode)\n   @inContext(country: $country, language: $language) {\n    shop {\n      id\n    }\n  }\n': {
     return: StoreRobotsQuery;

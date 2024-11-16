@@ -1,6 +1,6 @@
 import {Image} from '@shopify/hydrogen';
 import type {GoalsCardsQuery} from 'storefrontapi.generated';
-import {Icon} from '~/components/ui/Icons';
+import {Icon} from '~/components/ui/Icon';
 
 interface GoalsProps {
   goals: GoalsCardsQuery['metaobjects']['edges'];
@@ -10,13 +10,9 @@ export function Goals({goals}: GoalsProps) {
   return (
     <section className="pt-20 pb-[61px] px-4 wrapper mx-auto">
       <div className="text-center mb-10">
-        <h4 className="text-base uppercase leading-5 mb-2 font-normal">
-          COMFORTABLY UNCOMFORTABLE
-        </h4>
-        <h2 className="text-[40px] font-medium leading-[47px] mb-4">
-          Start with your Goals
-        </h2>
-        <p className="text-[#1B1F23B2] font-normal">
+        <h4 className="subtitle uppercase mb-2 ">COMFORTABLY UNCOMFORTABLE</h4>
+        <h2 className="title mb-4">Start with your Goals</h2>
+        <p className="text">
           We cannot become what we want to be by
           <br />
           remaining what we are.
@@ -46,7 +42,9 @@ export function Goals({goals}: GoalsProps) {
                   <h3 className="text-xl font-semibold">{title}</h3>
                   <Icon name="arrow" size={36} />
                 </div>
-                <p className="text-gray-600 mt-1">{description}</p>
+                <p className="text-[#1B1F23CC] mt-1 text-base leading-5">
+                  {description}
+                </p>
               </div>
             </div>
           );

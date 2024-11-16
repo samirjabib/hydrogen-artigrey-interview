@@ -109,3 +109,32 @@ export const BRANDS_QUERY = `#graphql
     }
   }
 ` as const;
+
+export const CLEAN_SUPPLEMENTS_QUERY = `#graphql
+  query CleanSuplements($country: CountryCode, $language: LanguageCode)
+    @inContext(country: $country, language: $language) {
+    metaobjects(type: "clean_suplements", first: 10) {
+      edges {
+        node {
+          id
+          type
+          fields {
+            key
+            value
+            reference {
+              ... on MediaImage {
+                id
+                image {
+                  url
+                  altText
+                  width
+                  height
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+` as const;
