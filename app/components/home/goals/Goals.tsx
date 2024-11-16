@@ -1,5 +1,6 @@
 import {Image} from '@shopify/hydrogen';
 import type {GoalsCardsQuery} from 'storefrontapi.generated';
+import {Icon} from '~/components/ui/Icons';
 
 interface GoalsProps {
   goals: GoalsCardsQuery['metaobjects']['edges'];
@@ -41,21 +42,9 @@ export function Goals({goals}: GoalsProps) {
                 </div>
               )}
               <div className="mt-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-2">
                   <h3 className="text-xl font-semibold">{title}</h3>
-                  <svg
-                    className="w-6 h-6"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                  >
-                    <path
-                      d="M7 17L17 7M17 7H7M17 7V17"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <Icon name="arrow" size={36} />
                 </div>
                 <p className="text-gray-600 mt-1">{description}</p>
               </div>
