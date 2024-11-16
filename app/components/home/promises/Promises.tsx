@@ -26,7 +26,7 @@ export const Promises = () => {
   );
 
   return (
-    <div className="bg-black w-full h-[50px] overflow-hidden relative flex items-center">
+    <div className="bg-black w-full  overflow-hidden relative flex items-center py-4">
       <div className="flex animate-[marquee_120s_linear_infinite] whitespace-nowrap will-change-transform">
         <div className="flex items-center min-w-fit">{promiseItems}</div>
         <div className="flex items-center min-w-fit">{promiseItems}</div>

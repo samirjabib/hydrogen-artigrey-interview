@@ -1,9 +1,9 @@
 //Home components
-
 export * from './home/banner/Banner';
 export * from './home/promises/Promises';
-export * from './home/Brands';
+export * from './home/brands/Brands';
+export * from './home/goals/Goals';
 
 //Layout components
 export * from './layout/header/Header';
-export * from './layout/RootLayout';
+export * from '../providers/RootProvider';

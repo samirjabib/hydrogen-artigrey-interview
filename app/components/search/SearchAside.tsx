@@ -1,49 +1,13 @@
 import {Link} from '@remix-run/react';
 import {useId} from 'react';
-
-import {Footer} from '~/components/Footer';
 import {
   SEARCH_ENDPOINT,
   SearchFormPredictive,
 } from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
-import {Header} from './header/Header';
-import {Aside} from '../../providers/Aside';
-import {CartAside} from '../shared/cart/CartAside';
-import type {RootLayoutProps} from '~/types';
+import {Aside} from '~/providers/Aside';
 
-export function RootLayout({
-  cart,
-  children = null,
-  footer,
-  header,
-  isLoggedIn,
-  publicStoreDomain,
-}: RootLayoutProps) {
-  return (
-    <Aside.Provider>
-      <CartAside cart={cart} />
-      {/* <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} /> */}
-      <SearchAside />
-      {header && (
-        <Header
-          header={header}
-          cart={cart}
-          isLoggedIn={isLoggedIn}
-          publicStoreDomain={publicStoreDomain}
-        />
-      )}
-      <main>{children}</main>
-      <Footer
-        footer={footer}
-        header={header}
-        publicStoreDomain={publicStoreDomain}
-      />
-    </Aside.Provider>
-  );
-}
-
-function SearchAside() {
+export function SearchAside() {
   const queriesDatalistId = useId();
   return (
     <Aside type="search" heading="SEARCH">
@@ -122,22 +86,5 @@ function SearchAside() {
         </SearchResultsPredictive>
       </div>
     </Aside>
-  );
-}
-
-function MobileMenuAside({
-  header,
-  publicStoreDomain,
-}: {
-  header: RootLayoutProps['header'];
-  publicStoreDomain: RootLayoutProps['publicStoreDomain'];
-}) {
-  return (
-    header.menu &&
-    header.shop.primaryDomain?.url && (
-      <Aside type="mobile" heading="MENU">
-        menu aside
-      </Aside>
-    )
   );
 }

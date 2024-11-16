@@ -13,7 +13,7 @@ import {
 } from '@remix-run/react';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import './styles/tailwind.css';
-import {RootLayout} from './components';
+import {RootProvider} from './components';
 
 export type RootLoader = typeof loader;
 
@@ -142,7 +142,7 @@ export function Layout({children}: {children?: React.ReactNode}) {
             shop={data.shop}
             consent={data.consent}
           >
-            <RootLayout {...data}>{children}</RootLayout>
+            <RootProvider {...data}>{children}</RootProvider>
           </Analytics.Provider>
         ) : (
           children

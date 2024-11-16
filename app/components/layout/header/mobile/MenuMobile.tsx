@@ -4,7 +4,7 @@ import {HeaderActions} from '../shared/HeaderActions';
 import {Menu} from 'lucide-react';
 import {useAside} from '~/providers/Aside';
 
-export const HeaderMobile = ({
+export const MenuMobile = ({
   menu,
   primaryDomainUrl,
   publicStoreDomain,
@@ -22,8 +22,8 @@ export const HeaderMobile = ({
         type="button"
         aria-label="Open menu mobile"
         onClick={() => {
-          open('search');
-          console.log('open search');
+          open('menu-mobile');
+          console.log('open menu-mobile');
         }}
       >
         {' '}

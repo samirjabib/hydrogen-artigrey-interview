@@ -9,7 +9,7 @@ export const PromiseItem = React.memo(({promise}: {promise: string}) => (
       alt="star"
       className="flex-shrink-0"
     />
-    <span className="text-white ml-4">{promise}</span>
+    <span className="text-white ml-4 font-medium">{promise}</span>
   </div>
 ));
 

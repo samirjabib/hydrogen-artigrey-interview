@@ -5,7 +5,7 @@ import {
   flattenConnection,
 } from '@shopify/hydrogen';
 import {json, type LoaderFunctionArgs} from '@netlify/remix-runtime';
-import {CUSTOMER_ORDERS_QUERY} from '~/graphql/customer-account/CustomerOrdersQuery';
+import {CUSTOMER_ORDERS_QUERY} from '~/queries/customer-account/CustomerOrdersQuery';
 import type {
   CustomerOrdersFragment,
   OrderItemFragment,

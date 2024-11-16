@@ -3,11 +3,11 @@ import {FALLBACK_HEADER_MENU} from '../constants';
 import type {MenuDesktopProps} from '../types';
 import clsx from 'clsx';
 
-import {SearchToggle} from '../../../shared/search/SearchToggle';
+import {SearchToggle} from '../../../search/SearchToggle';
 import {HeaderActions} from '../shared/HeaderActions';
 import {MenuItems} from '../shared/MenuItems';
 
-export const HeaderDesktop = ({
+export const MenuDesktop = ({
   menu,
   primaryDomainUrl,
   cart,

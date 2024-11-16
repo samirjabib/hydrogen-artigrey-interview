@@ -10,7 +10,6 @@ import type {
   RecommendedProductsQuery,
 } from 'storefrontapi.generated';
 import {Banner, Brands, Promises} from '~/components';
-import Goals from '~/components/home/Goals';
 import {getCriticalData, getDeferredData} from '~/services/home';
 
 export const meta: MetaFunction = () => {
@@ -37,7 +36,8 @@ export default function Homepage() {
     <div className="home">
       <Banner />
       <Promises />
-      {/* <Brands brands={data?.brands} />
+      <Brands brands={data?.brands} />
+      {/* 
       <Goals goals={data?.goals} /> */}
     </div>
   );

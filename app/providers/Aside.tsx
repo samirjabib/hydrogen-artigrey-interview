@@ -6,7 +6,8 @@ import {
   useState,
 } from 'react';
 
-type AsideType = 'search' | 'cart' | 'mobile' | 'closed';
+type AsideType = 'search' | 'cart' | 'mobile' | 'closed' | 'menu-mobile';
+type AsideSide = 'left' | 'right'; // Nuevo tipo para determinar el lado
 type AsideContextValue = {
   type: AsideType;
   open: (mode: AsideType) => void;
@@ -17,7 +18,7 @@ type AsideContextValue = {
  * A side bar component with Overlay
  * @example
  * ```jsx
- * <Aside type="search" heading="SEARCH">
+ * <Aside type="search" heading="SEARCH" side="right">
  *  <input type="search" />
  *  ...
  * </Aside>
@@ -27,10 +28,12 @@ export function Aside({
   children,
   heading,
   type,
+  side = 'right',
 }: {
   children?: React.ReactNode;
   type: AsideType;
   heading: React.ReactNode;
+  side?: AsideSide;
 }) {
   const {type: activeType, close} = useAside();
   const expanded = type === activeType;
@@ -68,8 +71,14 @@ export function Aside({
         aria-label="Close overlay"
       />
       <aside
-        className={`fixed top-0 right-0 h-full w-80 max-w-full bg-white shadow-lg transition-transform transform ${
-          expanded ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed top-0 h-full w-80 max-w-full bg-white shadow-lg transition-transform transform ${
+          side === 'right'
+            ? expanded
+              ? 'right-0 translate-x-0'
+              : 'right-0 translate-x-full'
+            : expanded
+            ? 'left-0 -translate-x-0'
+            : 'left-0 -translate-x-full'
         }`}
       >
         <header className="flex items-center justify-between p-4 border-b border-gray-200">

@@ -1,6 +1,6 @@
 import {Await, NavLink} from '@remix-run/react';
 import {Suspense} from 'react';
-import {CartToggle} from '~/components/shared/cart/CartToggle';
+import {CartToggle} from '~/components/cart/CartToggle';
 import {LogIn} from 'lucide-react';
 import type {HeaderActionsProps} from '../types';
 
