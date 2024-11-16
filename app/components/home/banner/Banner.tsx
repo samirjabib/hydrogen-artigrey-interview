@@ -1,3 +1,4 @@
+import {Button} from '~/components/ui/Button';
 import {BackgroundVideo} from './BackgroundVideo';
 
 export const Banner: React.FC = () => {
@@ -16,12 +17,12 @@ export const Banner: React.FC = () => {
             Great things never came from comfort zones.
           </h1>
           <div className="mt-16 sm:mt-10 w-full md:w-auto">
-            <button
-              className="bg-white text-black py-3 rounded-lg px-10 font-medium text-base leading-5 w-full sm:w-auto"
-              type="button"
+            <Button
+              variant="secondary"
+              className="py-4 px-[42px] text-base leading-5 w-full md:w-auto"
             >
               Shop now
-            </button>
+            </Button>
           </div>
         </div>
       </div>

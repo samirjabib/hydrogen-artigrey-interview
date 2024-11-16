@@ -9,6 +9,7 @@ import type {
 } from 'storefrontapi.generated';
 
 import {Banner, Brands, CleanSuplements, Goals, Promises} from '~/components';
+import {SecondBanner} from '~/components/home/second-banner/SecondBanner';
 import {getCriticalData, getDeferredData} from '~/services/home';
 
 export const meta: MetaFunction = () => {
@@ -38,6 +39,7 @@ export default function Homepage() {
       <Brands brands={data?.brands} />
       <Goals goals={data?.goals} />
       <CleanSuplements cleanSupplements={data?.cleanSupplements} />
+      <SecondBanner />
     </div>
   );
 }
