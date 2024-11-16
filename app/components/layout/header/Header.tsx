@@ -2,6 +2,7 @@ import type {HeaderProps} from './types';
 
 import {HeaderDesktop} from './HeaderDesktop';
 import {HeaderMobile} from './HeaderMobile';
+import {useMediaQuery} from '~/hooks/useMediaQuery';
 
 export function Header({
   header,
@@ -11,11 +12,19 @@ export function Header({
 }: HeaderProps) {
   const {menu, shop} = header;
   const primaryDomainUrl = header.shop.primaryDomain.url;
+  const {matches: isMobile} = useMediaQuery('(max-width: 768px)');
 
   const getHeaderMenu = () => {
-    // if (viewport === 'mobile') {
-    //   return <MenuMobile menu={menu} primaryDomainUrl={primaryDomainUrl} />;
-    // }
+    if (isMobile) {
+      return (
+        <HeaderMobile
+          menu={menu}
+          primaryDomainUrl={primaryDomainUrl}
+          publicStoreDomain={publicStoreDomain}
+        />
+      );
+    }
+
     return (
       <HeaderDesktop
         menu={menu}

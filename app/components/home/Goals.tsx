@@ -5,7 +5,7 @@ interface GoalsProps {
   goals: GoalsCardsQuery['metaobjects']['edges'];
 }
 
-export default function Goals({goals}: GoalsProps) {
+export function Goals({goals}: GoalsProps) {
   return (
     <section className="py-16 px-4 max-w-7xl mx-auto">
       <div className="text-center mb-16">

@@ -2,7 +2,8 @@
   "include": [
     "./**/*.d.ts",
     "./**/*.ts",
-    "./**/*.tsx"
+    "./**/*.tsx",
+    "app/components/home/promises/Promises.tsx"
   ],
   "compilerOptions": {
     "lib": [
