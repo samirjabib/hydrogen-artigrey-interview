@@ -4,7 +4,7 @@ import {MobileMenuAside} from '../components/layout/header/mobile/MobileMenuAsid
 import {SearchAside} from '../components/search/SearchAside';
 import {CartAside} from '../components/cart/CartAside';
 import {Header} from '../components/layout/header/Header';
-import {Footer} from '../components/Footer';
+import {Footer} from '../components/layout/footer/Footer';
 
 export function RootProvider({
   cart,

@@ -5,8 +5,8 @@ import {
 } from '@netlify/remix-runtime';
 import {useLoaderData, type MetaFunction} from '@remix-run/react';
 import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
-import {SearchForm} from '~/components/SearchForm';
-import {SearchResults} from '~/components/SearchResults';
+import {SearchForm} from '~/components/search/SearchForm';
+import {SearchResults} from '~/components/search/SearchResults';
 import {
   type RegularSearchReturn,
   type PredictiveSearchReturn,

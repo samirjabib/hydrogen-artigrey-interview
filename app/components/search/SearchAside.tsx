@@ -3,8 +3,8 @@ import {useId} from 'react';
 import {
   SEARCH_ENDPOINT,
   SearchFormPredictive,
-} from '~/components/SearchFormPredictive';
-import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
+} from '~/components/search/SearchFormPredictive';
+import {SearchResultsPredictive} from '~/components/search/SearchResultsPredictive';
 import {Aside} from '~/providers/Aside';
 
 export function SearchAside() {

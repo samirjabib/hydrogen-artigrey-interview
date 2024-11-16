@@ -6,7 +6,7 @@ import {
   urlWithTrackingParams,
   type PredictiveSearchReturn,
 } from '~/lib/search';
-import {useAside} from '../providers/Aside';
+import {useAside} from '../../providers/Aside';
 
 type PredictiveSearchItems = PredictiveSearchReturn['result']['items'];
 

@@ -1,6 +1,6 @@
 import {Await} from '@remix-run/react';
 import {Suspense} from 'react';
-import {CartMain} from '~/components/CartMain';
+import {CartMain} from '~/components/cart/CartMain';
 import {Aside} from '~/providers/Aside';
 import type {RootLayoutProps} from '~/types';
 

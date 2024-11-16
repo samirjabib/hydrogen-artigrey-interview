@@ -10,7 +10,7 @@ import {
   GOALS_CARDS_QUERY,
   FEATURED_COLLECTION_QUERY,
   RECOMMENDED_PRODUCTS_QUERY,
-} from '~/queries/home';
+} from '~/graphql/home';
 
 // Define un tipo para el retorno de getCriticalData
 type CriticalData = {
