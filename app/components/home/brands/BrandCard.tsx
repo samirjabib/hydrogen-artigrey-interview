@@ -7,14 +7,13 @@ export const BrandCard = ({
   imageUrl: string;
   altText?: string | null;
 }) => {
-  console.log(imageUrl);
   return (
     <Image
       src={imageUrl}
       alt={altText || 'Brand Logo'}
-      className="h-8 object-contain grayscale opacity-70 hover:opacity-100 transition-opacity"
-      width={100}
-      height={40}
+      className="object-contain"
+      width={120}
+      height={90}
     />
   );
 };

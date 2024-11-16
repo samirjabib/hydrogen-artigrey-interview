@@ -11,7 +11,7 @@ export function MobileMenuAside({
   return (
     header.menu &&
     header.shop.primaryDomain?.url && (
-      <Aside type="mobile" heading="MENU" side="right">
+      <Aside type="menu-mobile" heading="MENU" side="left">
         menu aside
       </Aside>
     )

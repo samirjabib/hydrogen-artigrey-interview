@@ -3,8 +3,8 @@ import type {CartLayout} from '~/components/cart/CartMain';
 import {CartForm, Image, type OptimisticCartLine} from '@shopify/hydrogen';
 import {useVariantUrl} from '~/lib/variants';
 import {Link} from '@remix-run/react';
-import {ProductPrice} from './ProductPrice';
-import {useAside} from '../providers/Aside';
+import {ProductPrice} from '../product/ProductPrice';
+import {useAside} from '../../providers/Aside';
 import type {CartApiQueryFragment} from 'storefrontapi.generated';
 
 type CartLine = OptimisticCartLine<CartApiQueryFragment>;

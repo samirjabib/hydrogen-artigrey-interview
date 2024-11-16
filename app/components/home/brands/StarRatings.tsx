@@ -1,10 +1,10 @@
 export const StarsRating = ({reviews}: {reviews: string}) => (
-  <div className="flex items-center gap-2 flex-col-reverse">
-    <div className="flex text-yellow-400">
+  <div className="flex gap-2 flex-col-reverse md:flex-row items-center">
+    <div className="flex text-[#F5BD41]">
       {[...Array(5)].map((_, i) => (
         <svg
           key={i}
-          className="w-4 h-4"
+          className="w-5 h-5"
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -12,6 +12,6 @@ export const StarsRating = ({reviews}: {reviews: string}) => (
         </svg>
       ))}
     </div>
-    <span className="text-sm font-medium">{reviews}</span>
+    <span className="text-base leading-4 font-normal">{reviews}</span>
   </div>
 );

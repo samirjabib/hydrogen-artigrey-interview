@@ -20,12 +20,14 @@ export function RootProvider({
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
       <SearchAside />
       {header && (
-        <Header
-          header={header}
-          cart={cart}
-          isLoggedIn={isLoggedIn}
-          publicStoreDomain={publicStoreDomain}
-        />
+        <div className="wrapper relative">
+          <Header
+            header={header}
+            cart={cart}
+            isLoggedIn={isLoggedIn}
+            publicStoreDomain={publicStoreDomain}
+          />
+        </div>
       )}
       <main>{children}</main>
       <Footer

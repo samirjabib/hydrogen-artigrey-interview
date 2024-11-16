@@ -35,9 +35,6 @@ export type MenuItemsProps = {
 };
 
 export type MenuMobileProps = {
-  menu: HeaderProps['header']['menu'];
-  primaryDomainUrl: HeaderProps['header']['shop']['primaryDomain']['url'];
-  publicStoreDomain: HeaderProps['publicStoreDomain'];
   cart: Promise<CartApiQueryFragment | null>;
   shopName: string;
   isLoggedIn: Promise<boolean>;
@@ -46,4 +43,5 @@ export type MenuMobileProps = {
 export type HeaderActionsProps = {
   isLoggedIn: Promise<boolean>;
   cart: Promise<CartApiQueryFragment | null>;
+  isMobile?: boolean;
 };

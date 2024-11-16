@@ -1,13 +1,10 @@
 import {defer, type LoaderFunctionArgs} from '@netlify/remix-runtime';
-import {Await, useLoaderData, Link, type MetaFunction} from '@remix-run/react';
-import {Suspense} from 'react';
-import {Image, Money} from '@shopify/hydrogen';
+import {useLoaderData, type MetaFunction} from '@remix-run/react';
+
 import type {
   BrandsCardsQuery,
-  FeaturedCollectionFragment,
   FeaturedCollectionQuery,
   GoalsCardsQuery,
-  RecommendedProductsQuery,
 } from 'storefrontapi.generated';
 import {Banner, Brands, Promises} from '~/components';
 import {getCriticalData, getDeferredData} from '~/services/home';

@@ -6,6 +6,7 @@ import {ShoppingBag} from 'lucide-react';
 import type {CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/providers/Aside';
+import {Icon} from '../ui/Icons';
 
 export function CartToggle({cart}: CartToggleProps) {
   const originalCart = useAsyncValue() as CartApiQueryFragment | null;
@@ -18,7 +19,7 @@ export function CartToggle({cart}: CartToggleProps) {
       <Await resolve={cart}>
         <button
           aria-label="Open cart"
-          className="relative cursor-pointer"
+          className="relative cursor-pointer transition-all hover:bg-gray-200 rounded-lg"
           onClick={(e) => {
             e.preventDefault();
             open('cart');
@@ -31,7 +32,7 @@ export function CartToggle({cart}: CartToggleProps) {
           }}
         >
           <CartBadge count={cartUpdated?.totalQuantity ?? 0} />
-          <ShoppingBag size={16} />
+          <Icon name="bag" size={30} />
         </button>
       </Await>
     </Suspense>

@@ -13,7 +13,7 @@ export const HeaderText = ({
       className,
     )}
   >
-    <span className="text-gray-800 text-sm rounded-lg leading-4 font-medium">
+    <span className="text-[#1B1F23] text-sm rounded-lg leading-4 font-medium">
       {text}
     </span>
   </div>

@@ -1,5 +1,5 @@
-import {Search} from 'lucide-react';
 import {useAside} from '~/providers/Aside';
+import {Icon} from '../ui/Icons';
 
 export const SearchToggle = () => {
   const {open} = useAside();
@@ -12,7 +12,7 @@ export const SearchToggle = () => {
       aria-label="Open search"
       className="cursor-pointer"
     >
-      <Search size={16} />
+      <Icon name="search" size={30} />
     </button>
   );
 };

@@ -1,4 +1,5 @@
 import React, {useEffect, useRef} from 'react';
+import {cn} from '~/utils/cn';
 
 export type BackgroundVideoProps = {
   videoUrl: string;
@@ -26,10 +27,10 @@ export const BackgroundVideo: React.FC<BackgroundVideoProps> = ({
   }, [videoUrl]);
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={cn('absolute top-0 left-0 w-f', className)}>
       <video
         ref={videoRef}
-        className="absolute top-0 left-0 w-full h-full object-cover -z-10"
+        className=" w-full h-full object-cover -z-10"
         src={videoUrl}
         autoPlay={autoPlay}
         loop={loop}

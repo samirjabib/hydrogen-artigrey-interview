@@ -13,4 +13,8 @@
   body {
     font-family: var(--font-rubik);
   }
+
+  .wrapper {
+    @apply max-w-screen-2xl mx-auto;
+  }
 }

@@ -4,7 +4,7 @@ import type {
   ProductFragment,
   ProductVariantFragment,
 } from 'storefrontapi.generated';
-import {AddToCartButton} from '~/components/AddToCartButton';
+import {AddToCartButton} from '~/components/product/AddToCartButton';
 import {useAside} from '~/providers/Aside';
 
 export function ProductForm({
