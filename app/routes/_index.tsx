@@ -16,13 +16,37 @@ import {
   Goals,
   Promises,
 } from '~/components';
-import {InstagramSection} from '~/components/home/instagram/Instagram';
+import {mockImages} from '~/components/home/instagram-feed/constants';
+import {InstagramFeed} from '~/components/home/instagram-feed/InstagramFeed';
 import {SecondBanner} from '~/components/home/second-banner/SecondBanner';
 import type {BlogsQuery} from '~/queries/blogs';
 import {getCriticalData, getDeferredData} from '~/services/home';
 
 export const meta: MetaFunction = () => {
-  return [{title: 'Hydrogen | Home'}];
+  return [
+    {title: 'Uncomfort | Premium Supplements & Wellness Products'},
+    {
+      name: 'description',
+      content:
+        'Discover premium supplements and wellness products at Uncomfort. Clean ingredients, scientifically backed formulas for optimal health and performance.',
+    },
+    {
+      name: 'keywords',
+      content:
+        'supplements, wellness, clean supplements, health products, performance nutrition',
+    },
+    {
+      property: 'og:title',
+      content: 'Uncomfort | Premium Supplements & Wellness Products',
+    },
+    {
+      property: 'og:description',
+      content:
+        'Premium supplements and wellness products with clean ingredients',
+    },
+    {property: 'og:type', content: 'website'},
+    {name: 'twitter:card', content: 'summary_large_image'},
+  ];
 };
 
 type LoaderData = {
@@ -50,17 +74,7 @@ export default function Homepage() {
       <CleanSuplements cleanSupplements={data?.cleanSupplements} />
       <SecondBanner />
       <BlogsBanner blogs={data?.blogs} />
-      {/* <InstagramSection
-        logo="https://res.cloudinary.com/dsxn0nfhf/image/upload/v1669171503/instagram/logo.png"
-        username="samirjabib"
-        images={[
-          'https://s3-alpha-sig.figma.com/img/134d/3f4c/1eedbeee8e2ac3ae1779c55abddedda1?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=a8YHY8F8EXvzPaV0O8P2Ox6g0Ud7QwmjS76oMp-xKkf-SAzED72WdvZOtzs6uPNYUWYHfm4j3AirB0HJ8~U9mKS8sZ3N9vZ~B3WcmCQtZDxRoyxDE2om3Yv-iaYmir8blJpbqbZzMtRvYKvZbIPwY91rjreFX-HqNHg~qGUnskifXBm2nJCmR5AWmEFnIXIHrQJ9cD-v1LpQEzNibRV6SZ7hJ8FRfT3ab-Vpf4gLIvfT2l4GeCBAvHzRpUYPWzRyp3vSy6GYIz8m-PZngEG8gKX4wB7rglyr1AT1FygILgbSTlPnEIhy2M~vq71a7lB0DrG71nrXKNraUT6HUKUi6w__',
-          'https://s3-alpha-sig.figma.com/img/134d/3f4c/1eedbeee8e2ac3ae1779c55abddedda1?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=a8YHY8F8EXvzPaV0O8P2Ox6g0Ud7QwmjS76oMp-xKkf-SAzED72WdvZOtzs6uPNYUWYHfm4j3AirB0HJ8~U9mKS8sZ3N9vZ~B3WcmCQtZDxRoyxDE2om3Yv-iaYmir8blJpbqbZzMtRvYKvZbIPwY91rjreFX-HqNHg~qGUnskifXBm2nJCmR5AWmEFnIXIHrQJ9cD-v1LpQEzNibRV6SZ7hJ8FRfT3ab-Vpf4gLIvfT2l4GeCBAvHzRpUYPWzRyp3vSy6GYIz8m-PZngEG8gKX4wB7rglyr1AT1FygILgbSTlPnEIhy2M~vq71a7lB0DrG71nrXKNraUT6HUKUi6w__',
-          'https://s3-alpha-sig.figma.com/img/134d/3f4c/1eedbeee8e2ac3ae1779c55abddedda1?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=a8YHY8F8EXvzPaV0O8P2Ox6g0Ud7QwmjS76oMp-xKkf-SAzED72WdvZOtzs6uPNYUWYHfm4j3AirB0HJ8~U9mKS8sZ3N9vZ~B3WcmCQtZDxRoyxDE2om3Yv-iaYmir8blJpbqbZzMtRvYKvZbIPwY91rjreFX-HqNHg~qGUnskifXBm2nJCmR5AWmEFnIXIHrQJ9cD-v1LpQEzNibRV6SZ7hJ8FRfT3ab-Vpf4gLIvfT2l4GeCBAvHzRpUYPWzRyp3vSy6GYIz8m-PZngEG8gKX4wB7rglyr1AT1FygILgbSTlPnEIhy2M~vq71a7lB0DrG71nrXKNraUT6HUKUi6w__',
-          'https://s3-alpha-sig.figma.com/img/134d/3f4c/1eedbeee8e2ac3ae1779c55abddedda1?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=a8YHY8F8EXvzPaV0O8P2Ox6g0Ud7QwmjS76oMp-xKkf-SAzED72WdvZOtzs6uPNYUWYHfm4j3AirB0HJ8~U9mKS8sZ3N9vZ~B3WcmCQtZDxRoyxDE2om3Yv-iaYmir8blJpbqbZzMtRvYKvZbIPwY91rjreFX-HqNHg~qGUnskifXBm2nJCmR5AWmEFnIXIHrQJ9cD-v1LpQEzNibRV6SZ7hJ8FRfT3ab-Vpf4gLIvfT2l4GeCBAvHzRpUYPWzRyp3vSy6GYIz8m-PZngEG8gKX4wB7rglyr1AT1FygILgbSTlPnEIhy2M~vq71a7lB0DrG71nrXKNraUT6HUKUi6w__',
-          'https://s3-alpha-sig.figma.com/img/134d/3f4c/1eedbeee8e2ac3ae1779c55abddedda1?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=a8YHY8F8EXvzPaV0O8P2Ox6g0Ud7QwmjS76oMp-xKkf-SAzED72WdvZOtzs6uPNYUWYHfm4j3AirB0HJ8~U9mKS8sZ3N9vZ~B3WcmCQtZDxRoyxDE2om3Yv-iaYmir8blJpbqbZzMtRvYKvZbIPwY91rjreFX-HqNHg~qGUnskifXBm2nJCmR5AWmEFnIXIHrQJ9cD-v1LpQEzNibRV6SZ7hJ8FRfT3ab-Vpf4gLIvfT2l4GeCBAvHzRpUYPWzRyp3vSy6GYIz8m-PZngEG8gKX4wB7rglyr1AT1FygILgbSTlPnEIhy2M~vq71a7lB0DrG71nrXKNraUT6HUKUi6w__',
-        ]}
-      /> */}
+      <InstagramFeed images={mockImages} username="uncmfrt.com" />
     </div>
   );
 }

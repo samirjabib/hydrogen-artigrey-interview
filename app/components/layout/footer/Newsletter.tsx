@@ -3,7 +3,7 @@ import {Button} from '~/components/ui/Button';
 
 export const Newsletter: React.FC = () => {
   return (
-    <div className="flex flex-col gap-6 lg:max-w-[368px] pb-16 lg:pb-0 ">
+    <div className="flex flex-col gap-6 lg:max-w-[368px] pb-16 lg:pb-0">
       <div>
         <h3 className="text-xl md:text-2xl font-semibold mb-2">
           Be a Part of Our Journey
