@@ -1,4 +1,4 @@
-import {SwiperNavButton} from './SwiperNavButton';
+import {SwiperNavButton} from '../../ui/SwiperNavButton';
 
 export const CustomizedProteinHeader = () => {
   return (

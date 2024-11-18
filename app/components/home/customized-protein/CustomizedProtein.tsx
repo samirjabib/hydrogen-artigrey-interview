@@ -1,5 +1,7 @@
 import React, {useRef, useState} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
+import type {Swiper as SwiperClass} from 'swiper';
+
 import 'swiper/css';
 import {CustomizedProteinHeader} from './CuztomizedProteinHeader';
 import {ProductCard} from './product-card/ProductCard';
@@ -20,8 +22,10 @@ export const products: ProductProps[] = [
   },
 ];
 
+export type SwiperType = any | null;
+
 export const CustomizedProtein: React.FC = () => {
-  const swiperRef = useRef<any>(null);
+  const swiperRef = useRef<SwiperType>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
 
@@ -53,7 +57,6 @@ export const CustomizedProtein: React.FC = () => {
               <ProductCard product={product} />
             </SwiperSlide>
           ))}
-
 
           <NavButtonsDesktop
             swiperRef={swiperRef}

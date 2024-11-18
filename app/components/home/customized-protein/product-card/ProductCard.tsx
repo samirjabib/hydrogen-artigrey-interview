@@ -12,7 +12,10 @@ export const ProductCard: React.FC<{product: ProductProps}> = ({product}) => {
       aria-labelledby={`product-${product.id}-title`}
     >
       {/* Imagen */}
-      <div className="w-full md:max-w-[590px] bg-white border border-black/10 md:rounded-l-lg flex items-center justify-center h-auto">
+      <div
+        className="w-full md:max-w-[590px] bg-white 
+        border-x border-t rounded-t-lg md:rounded-t-none  md:border md:border-black/10 md:rounded-tl-lg md:rounded-bl-lg flex items-center justify-center h-auto"
+      >
         <Image
           src={product.image}
           alt={`Product image for ${product.id}`}
@@ -23,9 +26,14 @@ export const ProductCard: React.FC<{product: ProductProps}> = ({product}) => {
       </div>
 
       {/* Contenido */}
-      <div className="w-full md:max-w-[770px] border-black/10 bg-white rounded-r-lg md:rounded-t-lg border-b md:border-t md:border-r">
+      <div
+        className="w-full md:max-w-[770px] md:border-l-0 bg-white md:rounded-br-lg
+        border-x border-b rounded-b-lg 
+        md:rounded-b-none md:rounded-r-lg md:rounded-t-lg 
+        md:border-t md:border-r md:border-black/10"
+      >
         {/* Sección de características */}
-        <div className="bg-black py-6 md:py-10 px-4 md:px-[56px] md:rounded-tr-lg">
+        <div className="bg-black py-6 md:py-10 px-4 md:px-[56px]  md:rounded-t-none md:rounded-tr-lg">
           <h3
             id={`product-${product.id}-title`}
             className="text-center text-white font-medium leading-7 text-lg md:text-2xl mb-4 md:mb-6"
