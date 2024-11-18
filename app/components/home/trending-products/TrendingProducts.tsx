@@ -1,6 +1,7 @@
 import React, {useRef} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {HeadingSwiper} from '~/components/ui/HeadingSwiper';
+import {ProductCard} from './ProductCard';
 
 export const products = [
   {
@@ -102,10 +103,8 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({products}) => {
           className="w-full"
         >
           {products.map((product) => (
-            <SwiperSlide key={product.id}>
-              <div className="p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow">
-                swiper
-              </div>
+            <SwiperSlide key={product.id} className='w-full h-full'>
+              <ProductCard />
             </SwiperSlide>
           ))}
         </Swiper>
