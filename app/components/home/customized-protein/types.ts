@@ -7,4 +7,4 @@ export type NavButtonsProps = {
   isBeginning: boolean;
   isEnd: boolean;
   swiperRef: any;
-}
+};

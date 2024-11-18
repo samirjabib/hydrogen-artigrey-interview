@@ -7,7 +7,6 @@ export type HeadingProps = {
   className?: string;
 }
 
-
 export const Heading: React.FC<HeadingProps> = ({
   title,
   subtitle,

@@ -1,4 +1,4 @@
-import { Image } from "@shopify/hydrogen";
+import {Image} from '@shopify/hydrogen';
 
 export const ActiveIngredients: React.FC = () => {
   const ingredients = [

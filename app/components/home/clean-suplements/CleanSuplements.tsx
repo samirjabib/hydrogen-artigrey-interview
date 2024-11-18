@@ -7,31 +7,21 @@ export const CleanSuplements = ({
 }: {
   cleanSupplements: CleanSuplementsQuery['metaobjects']['edges'];
 }) => {
-  const subtitle = () => {
-    return (
-      <>
-        {' '}
-        Clean Supplements -
-        <br />
-        Made For You
-      </>
-    );
-  };
   return (
     <section
       className="wrapper bg-white py-20 px-4 md:px-10"
       aria-labelledby="clean-suplements-title"
     >
       <Heading
-        title="Clean Supplements"
-        className="mb-12"
-        subtitle={
+        title={
           <>
             Clean Supplements -
             <br />
             Made For You
           </>
         }
+        className="mb-12"
+        subtitle="🧐 Why Health & Fitness"
       />
       <div
         className="grid grid-cols-2 md:flex md:flex-row flex-row gap-8 "
