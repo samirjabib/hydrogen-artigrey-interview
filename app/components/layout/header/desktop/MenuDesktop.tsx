@@ -20,10 +20,9 @@ export const MenuDesktop = ({
       aria-label="Main menu"
     >
       <NavLink prefetch="intent" to="/" end>
-        <strong className="font-bold text-xl leading-6 uppercase sr-only">
+        <strong className="font-bold text-xl leading-6 uppercase ">
           {shopName}
         </strong>
-        <span aria-hidden="true">{shopName}</span>
       </NavLink>
       <div className="flex flex-row items-center gap-10">
         <SearchToggle aria-label="Toggle search" />

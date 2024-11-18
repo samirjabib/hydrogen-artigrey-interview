@@ -16,6 +16,7 @@ import {
   Goals,
   Promises,
 } from '~/components';
+import {CustomizedProtein} from '~/components/home/customized-protein/CustomizedProtein';
 import {mockImages} from '~/components/home/instagram-feed/constants';
 import {InstagramFeed} from '~/components/home/instagram-feed/InstagramFeed';
 import {SecondBanner} from '~/components/home/second-banner/SecondBanner';
@@ -77,6 +78,7 @@ export default function Homepage() {
       <Goals goals={data?.goals} />
       <TrendingProducts products={products} />
       <CleanSuplements cleanSupplements={data?.cleanSupplements} />
+      <CustomizedProtein />
       <SecondBanner />
       <BlogsBanner blogs={data?.blogs} />
       <InstagramFeed images={mockImages} username="uncmfrt.com" />
