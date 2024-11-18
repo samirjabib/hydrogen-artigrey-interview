@@ -22,16 +22,16 @@ export const Promises = () => {
       PROMISES.map((promise, index) => (
         <PromiseItem key={`promise-${index}`} promise={promise} />
       )),
-    [], // Sin dependencias ya que PROMISES es constante
+    [],
   );
 
   return (
-    <div className="bg-black w-full  overflow-hidden relative flex items-center py-4">
+    <section className="bg-black w-full  overflow-hidden relative flex items-center py-4">
       <div className="flex animate-[marquee_120s_linear_infinite] whitespace-nowrap will-change-transform">
         <div className="flex items-center min-w-fit">{promiseItems}</div>
         <div className="flex items-center min-w-fit">{promiseItems}</div>
       </div>
-    </div>
+    </section>
   );
 };
 

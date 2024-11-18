@@ -6,6 +6,8 @@ import type {
   RecommendedProductsQuery,
   CleanSuplementsQuery,
 } from 'storefrontapi.generated';
+import type {BlogsQuery} from '~/queries/blogs';
+import {GET_BLOGS_QUERY} from '~/queries/blogs';
 import {
   BRANDS_QUERY,
   GOALS_CARDS_QUERY,
@@ -19,6 +21,7 @@ type CriticalData = {
   goals: GoalsCardsQuery['metaobjects']['edges'];
   brands: BrandsCardsQuery['metaobjects']['edges'];
   cleanSupplements: CleanSuplementsQuery['metaobjects']['edges'];
+  blogs: BlogsQuery['blogs']['edges'][0]['node']['articles']['edges'];
 };
 
 type DeferredData = {
@@ -33,21 +36,28 @@ type DeferredData = {
 export async function getCriticalData({
   context,
 }: LoaderFunctionArgs): Promise<CriticalData> {
-  const [{collections}, goalsData, brandsData, cleanSupplementsData] =
-    await Promise.all([
-      context.storefront.query<FeaturedCollectionQuery>(
-        FEATURED_COLLECTION_QUERY,
-      ),
-      context.storefront.query<GoalsCardsQuery>(GOALS_CARDS_QUERY),
-      context.storefront.query<BrandsCardsQuery>(BRANDS_QUERY),
-      context.storefront.query<CleanSuplementsQuery>(CLEAN_SUPPLEMENTS_QUERY),
-    ]);
+  const [
+    {collections},
+    goalsData,
+    brandsData,
+    cleanSupplementsData,
+    blogsData,
+  ] = await Promise.all([
+    context.storefront.query<FeaturedCollectionQuery>(
+      FEATURED_COLLECTION_QUERY,
+    ),
+    context.storefront.query<GoalsCardsQuery>(GOALS_CARDS_QUERY),
+    context.storefront.query<BrandsCardsQuery>(BRANDS_QUERY),
+    context.storefront.query<CleanSuplementsQuery>(CLEAN_SUPPLEMENTS_QUERY),
+    context.storefront.query<BlogsQuery>(GET_BLOGS_QUERY),
+  ]);
 
   return {
     featuredCollection: collections.nodes[0],
     goals: goalsData.metaobjects.edges,
     brands: brandsData.metaobjects.edges,
     cleanSupplements: cleanSupplementsData.metaobjects.edges,
+    blogs: blogsData.blogs.edges[0].node.articles.edges,
   };
 }
 

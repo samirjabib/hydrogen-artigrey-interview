@@ -8,7 +8,7 @@ interface GoalsProps {
 
 export function Goals({goals}: GoalsProps) {
   return (
-    <section className="pt-20 pb-[61px] px-4 wrapper mx-auto">
+    <section className="pt-20 pb-[61px] wrapper px-4 md:px-10">
       <div className="text-center mb-10">
         <h4 className="subtitle uppercase mb-2 ">COMFORTABLY UNCOMFORTABLE</h4>
         <h2 className="title mb-4">Start with your Goals</h2>

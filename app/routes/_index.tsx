@@ -8,8 +8,17 @@ import type {
   GoalsCardsQuery,
 } from 'storefrontapi.generated';
 
-import {Banner, Brands, CleanSuplements, Goals, Promises} from '~/components';
+import {
+  Banner,
+  BlogsBanner,
+  Brands,
+  CleanSuplements,
+  Goals,
+  Promises,
+} from '~/components';
+import {InstagramSection} from '~/components/home/instagram/Instagram';
 import {SecondBanner} from '~/components/home/second-banner/SecondBanner';
+import type {BlogsQuery} from '~/queries/blogs';
 import {getCriticalData, getDeferredData} from '~/services/home';
 
 export const meta: MetaFunction = () => {
@@ -21,6 +30,7 @@ type LoaderData = {
   brands: BrandsCardsQuery['metaobjects']['edges'];
   collections: FeaturedCollectionQuery;
   cleanSupplements: CleanSuplementsQuery['metaobjects']['edges'];
+  blogs: BlogsQuery['blogs']['edges'][0]['node']['articles']['edges'];
 };
 
 export async function loader(args: LoaderFunctionArgs) {
@@ -31,7 +41,6 @@ export async function loader(args: LoaderFunctionArgs) {
 
 export default function Homepage() {
   const data = useLoaderData<typeof loader>() as LoaderData;
-  // console.log(data);
   return (
     <div className="home">
       <Banner />
@@ -40,6 +49,18 @@ export default function Homepage() {
       <Goals goals={data?.goals} />
       <CleanSuplements cleanSupplements={data?.cleanSupplements} />
       <SecondBanner />
+      <BlogsBanner blogs={data?.blogs} />
+      {/* <InstagramSection
+        logo="https://res.cloudinary.com/dsxn0nfhf/image/upload/v1669171503/instagram/logo.png"
+        username="samirjabib"
+        images={[
+          'https://s3-alpha-sig.figma.com/img/134d/3f4c/1eedbeee8e2ac3ae1779c55abddedda1?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=a8YHY8F8EXvzPaV0O8P2Ox6g0Ud7QwmjS76oMp-xKkf-SAzED72WdvZOtzs6uPNYUWYHfm4j3AirB0HJ8~U9mKS8sZ3N9vZ~B3WcmCQtZDxRoyxDE2om3Yv-iaYmir8blJpbqbZzMtRvYKvZbIPwY91rjreFX-HqNHg~qGUnskifXBm2nJCmR5AWmEFnIXIHrQJ9cD-v1LpQEzNibRV6SZ7hJ8FRfT3ab-Vpf4gLIvfT2l4GeCBAvHzRpUYPWzRyp3vSy6GYIz8m-PZngEG8gKX4wB7rglyr1AT1FygILgbSTlPnEIhy2M~vq71a7lB0DrG71nrXKNraUT6HUKUi6w__',
+          'https://s3-alpha-sig.figma.com/img/134d/3f4c/1eedbeee8e2ac3ae1779c55abddedda1?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=a8YHY8F8EXvzPaV0O8P2Ox6g0Ud7QwmjS76oMp-xKkf-SAzED72WdvZOtzs6uPNYUWYHfm4j3AirB0HJ8~U9mKS8sZ3N9vZ~B3WcmCQtZDxRoyxDE2om3Yv-iaYmir8blJpbqbZzMtRvYKvZbIPwY91rjreFX-HqNHg~qGUnskifXBm2nJCmR5AWmEFnIXIHrQJ9cD-v1LpQEzNibRV6SZ7hJ8FRfT3ab-Vpf4gLIvfT2l4GeCBAvHzRpUYPWzRyp3vSy6GYIz8m-PZngEG8gKX4wB7rglyr1AT1FygILgbSTlPnEIhy2M~vq71a7lB0DrG71nrXKNraUT6HUKUi6w__',
+          'https://s3-alpha-sig.figma.com/img/134d/3f4c/1eedbeee8e2ac3ae1779c55abddedda1?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=a8YHY8F8EXvzPaV0O8P2Ox6g0Ud7QwmjS76oMp-xKkf-SAzED72WdvZOtzs6uPNYUWYHfm4j3AirB0HJ8~U9mKS8sZ3N9vZ~B3WcmCQtZDxRoyxDE2om3Yv-iaYmir8blJpbqbZzMtRvYKvZbIPwY91rjreFX-HqNHg~qGUnskifXBm2nJCmR5AWmEFnIXIHrQJ9cD-v1LpQEzNibRV6SZ7hJ8FRfT3ab-Vpf4gLIvfT2l4GeCBAvHzRpUYPWzRyp3vSy6GYIz8m-PZngEG8gKX4wB7rglyr1AT1FygILgbSTlPnEIhy2M~vq71a7lB0DrG71nrXKNraUT6HUKUi6w__',
+          'https://s3-alpha-sig.figma.com/img/134d/3f4c/1eedbeee8e2ac3ae1779c55abddedda1?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=a8YHY8F8EXvzPaV0O8P2Ox6g0Ud7QwmjS76oMp-xKkf-SAzED72WdvZOtzs6uPNYUWYHfm4j3AirB0HJ8~U9mKS8sZ3N9vZ~B3WcmCQtZDxRoyxDE2om3Yv-iaYmir8blJpbqbZzMtRvYKvZbIPwY91rjreFX-HqNHg~qGUnskifXBm2nJCmR5AWmEFnIXIHrQJ9cD-v1LpQEzNibRV6SZ7hJ8FRfT3ab-Vpf4gLIvfT2l4GeCBAvHzRpUYPWzRyp3vSy6GYIz8m-PZngEG8gKX4wB7rglyr1AT1FygILgbSTlPnEIhy2M~vq71a7lB0DrG71nrXKNraUT6HUKUi6w__',
+          'https://s3-alpha-sig.figma.com/img/134d/3f4c/1eedbeee8e2ac3ae1779c55abddedda1?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=a8YHY8F8EXvzPaV0O8P2Ox6g0Ud7QwmjS76oMp-xKkf-SAzED72WdvZOtzs6uPNYUWYHfm4j3AirB0HJ8~U9mKS8sZ3N9vZ~B3WcmCQtZDxRoyxDE2om3Yv-iaYmir8blJpbqbZzMtRvYKvZbIPwY91rjreFX-HqNHg~qGUnskifXBm2nJCmR5AWmEFnIXIHrQJ9cD-v1LpQEzNibRV6SZ7hJ8FRfT3ab-Vpf4gLIvfT2l4GeCBAvHzRpUYPWzRyp3vSy6GYIz8m-PZngEG8gKX4wB7rglyr1AT1FygILgbSTlPnEIhy2M~vq71a7lB0DrG71nrXKNraUT6HUKUi6w__',
+        ]}
+      /> */}
     </div>
   );
 }

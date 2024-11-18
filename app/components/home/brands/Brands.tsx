@@ -9,8 +9,8 @@ export const Brands = ({
   brands: BrandsCardsQuery['metaobjects']['edges'];
 }) => {
   return (
-    <div className="w-full py-10 md:py-6 bg-[#F6F6F5] ">
-      <div className="px-4 wrapper">
+    <div className="w-full py-10 md:py-6 bg-[#F6F6F5]">
+      <div className="px-4 wrapper md:px-10">
         <div className="flex flex-col-reverse sm:flex-row sm:justify-between items-center gap-4 ">
           <div>
             <HeaderText text="#1 Doctor Recommended" className="mb-4" />
