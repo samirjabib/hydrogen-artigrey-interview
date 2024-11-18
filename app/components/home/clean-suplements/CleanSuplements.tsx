@@ -7,16 +7,25 @@ export const CleanSuplements = ({
   cleanSupplements: CleanSuplementsQuery['metaobjects']['edges'];
 }) => {
   return (
-    <section className="wrapper bg-white py-20 px-4 md:px-10">
+    <section
+      className="wrapper bg-white py-20 px-4 md:px-10"
+      aria-labelledby="clean-suplements-title"
+    >
       <div className="mb-12">
-        <h4 className="subtitle mb-2">🧐 Why Health & Fitness</h4>
-        <h2 className="title mb-4">
+        <h4 className="subtitle mb-2" id="clean-suplements-subtitle">
+          Why Health & Fitness
+        </h4>
+        <h2 className="title mb-4" id="clean-suplements-title">
           Clean Supplements -
           <br />
           Made For You
         </h2>
       </div>
-      <div className="grid grid-cols-2 md:flex md:flex-row flex-row gap-8 ">
+      <div
+        className="grid grid-cols-2 md:flex md:flex-row flex-row gap-8 "
+        aria-label="Clean Supplements"
+        role="list"
+      >
         {cleanSupplements.map(({node}) => {
           const title = node.fields.find((f) => f.key === 'title')?.value || '';
           const description =
@@ -25,23 +34,33 @@ export const CleanSuplements = ({
           const imageData = imageField?.reference?.image;
 
           return (
-            <div key={node.id} className="flex flex-col">
+            <li key={node.id} className="flex flex-col" aria-label={title}>
               {imageData && (
                 <div className="w-12 h-12 mb-6">
                   <Image
                     src={imageData.url}
                     alt={imageData.altText || ''}
                     className="object-contain "
+                    aria-hidden="true"
+                    loading="lazy"
                   />
                 </div>
               )}
               <div className="">
-                <h3 className="text-xl font-semibold mb-4">{title}</h3>
-                <p className="text-[#1B1F23CC] mt-1 text-base leading-5">
+                <h3
+                  className="text-xl font-semibold mb-4"
+                  id={`${node.id}-title`}
+                >
+                  {title}
+                </h3>
+                <p
+                  className="text-[#1B1F23CC] mt-1 text-base leading-5"
+                  aria-labelledby={`${node.id}-title`}
+                >
                   {description}
                 </p>
               </div>
-            </div>
+            </li>
           );
         })}
       </div>

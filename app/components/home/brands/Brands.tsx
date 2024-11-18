@@ -9,16 +9,29 @@ export const Brands = ({
   brands: BrandsCardsQuery['metaobjects']['edges'];
 }) => {
   return (
-    <div className="w-full py-10 md:py-6 bg-[#F6F6F5]">
+    <section
+      className="bg-[#F6F6F5] py-10 md:py-6"
+      aria-labelledby="brands-title"
+    >
       <div className="px-4 wrapper md:px-10">
-        <div className="flex flex-col-reverse sm:flex-row sm:justify-between items-center gap-4 ">
+        <div className="flex flex-col-reverse sm:flex-row sm:justify-between items-center gap-4">
           <div>
-            <HeaderText text="#1 Doctor Recommended" className="mb-4" />
-            <StarsRating reviews="12,000+ 5-star Reviews" />
+            <h2 id="brands-title" className="sr-only">
+              Brands
+            </h2>
+            <HeaderText
+              text="#1 Doctor Recommended"
+              className="mb-4"
+              aria-hidden="true"
+            />
+            <StarsRating
+              reviews="12,000+ 5-star Reviews"
+              aria-label="12,000+ 5-star Reviews"
+            />
           </div>
-          <BrandList brands={brands} />
+          <BrandList brands={brands} aria-label="Our Brands" />
         </div>
       </div>
-    </div>
+    </section>
   );
 };

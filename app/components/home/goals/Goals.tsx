@@ -8,10 +8,14 @@ interface GoalsProps {
 
 export function Goals({goals}: GoalsProps) {
   return (
-    <section className="pt-20 pb-[61px] wrapper px-4 md:px-10">
+    <section
+      aria-labelledby="goals-title"
+      className="pt-20 pb-[61px] wrapper px-4 md:px-10"
+    >
       <div className="text-center mb-10">
-        <h4 className="subtitle uppercase mb-2 ">COMFORTABLY UNCOMFORTABLE</h4>
-        <h2 className="title mb-4">Start with your Goals</h2>
+        <h2 id="goals-title" className="title mb-4">
+          Start with your Goals
+        </h2>
         <p className="text">
           We cannot become what we want to be by
           <br />
@@ -19,7 +23,7 @@ export function Goals({goals}: GoalsProps) {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5  gap-9  md:gap-5">
+      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-9 md:gap-5">
         {goals.map(({node}) => {
           const title = node.fields.find((f) => f.key === 'title')?.value || '';
           const description =
@@ -28,12 +32,13 @@ export function Goals({goals}: GoalsProps) {
           const imageData = imageField?.reference?.image;
 
           return (
-            <div key={node.id} className="relative group cursor-pointer">
+            <li key={node.id} className="relative group cursor-pointer">
               {imageData && (
                 <div className="relative overflow-hidden rounded-2xl">
                   <Image
                     data={imageData}
                     className="object-cover w-full h-[392px]"
+                    alt={imageData.altText || ''}
                   />
                 </div>
               )}
@@ -46,10 +51,10 @@ export function Goals({goals}: GoalsProps) {
                   {description}
                 </p>
               </div>
-            </div>
+            </li>
           );
         })}
-      </div>
+      </ul>
     </section>
   );
 }

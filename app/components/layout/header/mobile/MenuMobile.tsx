@@ -8,19 +8,20 @@ export const MenuMobile = ({shopName, isLoggedIn, cart}: MenuMobileProps) => {
   const {open} = useAside();
   return (
     <nav
-      className=" flex flex-row justify-between bg-white py-[23px] px-6 rounded-lg"
+      className="flex flex-row justify-between bg-white py-[23px] px-6 rounded-lg"
       role="navigation"
+      aria-label="Mobile menu"
     >
       <button
         type="button"
         aria-label="Open menu mobile"
+        aria-controls="menu-mobile"
         onClick={() => {
           open('menu-mobile');
-          console.log('open menu-mobile');
         }}
       >
-        {' '}
-        <Menu />
+        <span className="sr-only">Open menu</span>
+        <Menu aria-hidden="true" />
       </button>
       <NavLink prefetch="intent" to="/" end>
         <strong className="font-bold text-xl leading-6">{shopName}</strong>

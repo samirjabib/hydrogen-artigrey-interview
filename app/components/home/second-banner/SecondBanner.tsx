@@ -3,7 +3,10 @@ import {BackgroundImage} from './BackgroundImage';
 
 export const SecondBanner: React.FC = () => {
   return (
-    <section className="wrapper py-20 px-4 md:px-10" aria-label="Second banner">
+    <section
+      className="wrapper py-20 px-4 md:px-10"
+      aria-labelledby="second-banner-heading"
+    >
       <div className="relative h-[550px] sm:[600px] md:h-[750px] w-full">
         <BackgroundImage
           imageUrl="https://cdn.shopify.com/s/files/1/0917/5161/2725/files/image-second-banner.png?v=1731778812"
@@ -18,32 +21,27 @@ export const SecondBanner: React.FC = () => {
             >
               The Next Generation is Here
             </h2>
-            <p
-              className="text-white text-center sm:text-start text-base leading-5 font-normal"
-              aria-labelledby="second-banner-heading"
-            >
+            <p className="text-white text-center sm:text-start text-base leading-5 font-normal">
               Innovative Engineering. Intelligent Design. Meet The Plunge All-I.
             </p>
-            <div
-              className="mt-10 w-full md:w-auto gap-3 flex  flex-col md:flex-row items-center justify-center md:justify-start"
-              role="navigation"
-              aria-labelledby="second-banner-links"
-            >
-              <Button
-                variant="secondary"
-                className="py-4 w-full md:w-auto"
-                aria-label="Take the plunge"
-              >
-                Take The Plunge
-              </Button>
-              <Button
-                variant="outline"
-                className="py-4 w-full md:w-auto"
-                aria-label="Dive deeper"
-              >
-                Dive Deeper
-              </Button>
-            </div>
+            <nav aria-labelledby="second-banner-links">
+              <div className="mt-10 w-full md:w-auto gap-3 flex flex-col md:flex-row items-center justify-center md:justify-start">
+                <Button
+                  variant="secondary"
+                  className="py-4 w-full md:w-auto"
+                  aria-label="Take the plunge"
+                >
+                  Take The Plunge
+                </Button>
+                <Button
+                  variant="outline"
+                  className="py-4 w-full md:w-auto"
+                  aria-label="Dive deeper"
+                >
+                  Dive Deeper
+                </Button>
+              </div>
+            </nav>
           </div>
         </div>
       </div>

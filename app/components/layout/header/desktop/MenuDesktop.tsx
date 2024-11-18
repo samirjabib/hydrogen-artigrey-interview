@@ -17,21 +17,28 @@ export const MenuDesktop = ({
     <nav
       className="flex flex-row justify-between bg-white py-3 px-6 rounded-lg items-center"
       role="navigation"
+      aria-label="Main menu"
     >
       <NavLink prefetch="intent" to="/" end>
-        <strong className="font-bold text-xl leading-6 uppercase">
+        <strong className="font-bold text-xl leading-6 uppercase sr-only">
           {shopName}
         </strong>
+        <span aria-hidden="true">{shopName}</span>
       </NavLink>
       <div className="flex flex-row items-center gap-10">
-        <SearchToggle />
+        <SearchToggle aria-label="Toggle search" />
         <MenuItems
           menu={menu}
           primaryDomainUrl={primaryDomainUrl}
           publicStoreDomain={publicStoreDomain}
+          aria-label="Main menu"
         />
       </div>
-      <HeaderActions isLoggedIn={isLoggedIn} cart={cart} />
+      <HeaderActions
+        isLoggedIn={isLoggedIn}
+        cart={cart}
+        aria-label="Header actions"
+      />
     </nav>
   );
 };

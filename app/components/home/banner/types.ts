@@ -1,4 +1,3 @@
-
 export type BackgroundVideoProps = {
     videoUrl: string;
     className?: string;
@@ -6,4 +5,5 @@ export type BackgroundVideoProps = {
     loop?: boolean;
     muted?: boolean;
     controls?: boolean;
-  };
+};
+

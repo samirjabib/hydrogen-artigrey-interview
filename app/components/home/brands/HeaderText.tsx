@@ -7,14 +7,15 @@ export const HeaderText = ({
   text: string;
   className?: string;
 }) => (
-  <div
+  <h2
     className={cn(
       'text-center border-black border bg-black/10 p-[14px] rounded-lg',
       className,
     )}
+    aria-level={2}
   >
     <span className="text-[#1B1F23] text-sm rounded-lg leading-4 font-medium">
       {text}
     </span>
-  </div>
+  </h2>
 );

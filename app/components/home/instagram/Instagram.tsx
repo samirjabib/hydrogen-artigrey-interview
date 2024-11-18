@@ -2,9 +2,9 @@ import {Image} from '@shopify/hydrogen';
 import React from 'react';
 
 type InstagramSectionProps = {
-  logo: string; // Logo image URL
+  logo: string;
   username: string;
-  images: string[]; // Array of image URLs
+  images: string[];
 };
 
 export const InstagramSection: React.FC<InstagramSectionProps> = ({

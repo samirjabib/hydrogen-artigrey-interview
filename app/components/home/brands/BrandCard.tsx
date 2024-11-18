@@ -14,6 +14,7 @@ export const BrandCard = ({
       className="object-contain"
       width={120}
       height={90}
+      aria-label={altText || 'Brand Logo'}
     />
   );
 };
