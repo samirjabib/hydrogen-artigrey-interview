@@ -4,7 +4,8 @@ import 'swiper/css';
 import {CustomizedProteinHeader} from './CuztomizedProteinHeader';
 import {ProductCard} from './product-card/ProductCard';
 import type {ProductProps} from './types';
-import {SwiperNavButton} from './SwiperNavButton';
+import {NavButtonsDesktop} from './NavButtonsDesktop';
+import {NavButtonsMobile} from './NavButtonsMobile';
 
 export const products: ProductProps[] = [
   {
@@ -29,23 +30,11 @@ export const CustomizedProtein: React.FC = () => {
       <div className="container mx-auto">
         <CustomizedProteinHeader />
 
-        {/* Slider navigation buttons mobile */}
-        <div className="md:hidden flex flex-row items-center gap-2 justifyt-center justify-center mb-6">
-          <SwiperNavButton
-            direction="prev"
-            onClick={() => swiperRef.current?.slidePrev()}
-            className={`z-10 ${
-              isBeginning ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
-            disabled={isBeginning}
-          />
-          <SwiperNavButton
-            direction="next"
-            onClick={() => swiperRef.current?.slideNext()}
-            className={`z-10 ${isEnd ? 'opacity-50 cursor-not-allowed' : ''}`}
-            disabled={isEnd}
-          />
-        </div>
+        <NavButtonsMobile
+          swiperRef={swiperRef}
+          isBeginning={isBeginning}
+          isEnd={isEnd}
+        />
 
         <Swiper
           spaceBetween={0}
@@ -65,26 +54,12 @@ export const CustomizedProtein: React.FC = () => {
             </SwiperSlide>
           ))}
 
-          {/* Slider navigation buttons desktop */}
 
-          <div className="hidden md:flex">
-            <SwiperNavButton
-              direction="prev"
-              onClick={() => swiperRef.current?.slidePrev()}
-              className={`absolute left-12 top-1/2 -translate-y-1/2 z-10 ${
-                isBeginning ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-              disabled={isBeginning}
-            />
-            <SwiperNavButton
-              direction="next"
-              onClick={() => swiperRef.current?.slideNext()}
-              className={`absolute right-12 top-1/2 -translate-y-1/2 z-10 ${
-                isEnd ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-              disabled={isEnd}
-            />
-          </div>
+          <NavButtonsDesktop
+            swiperRef={swiperRef}
+            isBeginning={isBeginning}
+            isEnd={isEnd}
+          />
         </Swiper>
       </div>
     </section>
