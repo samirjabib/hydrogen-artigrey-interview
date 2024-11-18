@@ -10,7 +10,10 @@ export const InstagramFeed: React.FC<InstagramFeedProps> = ({
   images,
 }) => {
   return (
-    <div aria-labelledby="instagram-feed" className="pb-20 w-full wrapper px-4 md:px-10 ">
+    <div
+      aria-labelledby="instagram-feed"
+      className="pb-20 w-full wrapper px-4 md:px-10 "
+    >
       <InstagramGridDesktop username={username} images={images} />
       <InstagramGridMobile username={username} images={images} />
     </div>

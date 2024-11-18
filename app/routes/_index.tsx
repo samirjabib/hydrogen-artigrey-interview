@@ -19,6 +19,10 @@ import {
 import {mockImages} from '~/components/home/instagram-feed/constants';
 import {InstagramFeed} from '~/components/home/instagram-feed/InstagramFeed';
 import {SecondBanner} from '~/components/home/second-banner/SecondBanner';
+import {
+  products,
+  TrendingProducts,
+} from '~/components/home/trending-products/TrendingProducts';
 import type {BlogsQuery} from '~/queries/blogs';
 import {getCriticalData, getDeferredData} from '~/services/home';
 
@@ -71,6 +75,7 @@ export default function Homepage() {
       <Promises />
       <Brands brands={data?.brands} />
       <Goals goals={data?.goals} />
+      <TrendingProducts products={products} />
       <CleanSuplements cleanSupplements={data?.cleanSupplements} />
       <SecondBanner />
       <BlogsBanner blogs={data?.blogs} />

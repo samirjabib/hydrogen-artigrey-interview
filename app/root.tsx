@@ -13,6 +13,7 @@ import {
 } from '@remix-run/react';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import './styles/tailwind.css';
+
 import {RootProvider} from './components';
 
 export type RootLoader = typeof loader;

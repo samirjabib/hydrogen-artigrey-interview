@@ -14,7 +14,7 @@ export const InstagramFollow = ({username}: {username: string}) => {
           </h2>
         </div>
 
-        <a 
+        <a
           href={`https://www.instagram.com/${username}`}
           className="mt-4 block text-center text-sm font-medium hover:underline"
         >
