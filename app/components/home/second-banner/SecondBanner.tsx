@@ -4,7 +4,7 @@ import {BackgroundImage} from './BackgroundImage';
 export const SecondBanner: React.FC = () => {
   return (
     <section
-      className="wrapper py-20 px-4 md:px-10"
+      className="wrapper pt-20 px-4 md:px-10"
       aria-labelledby="second-banner-heading"
     >
       <div className="relative h-[550px] sm:[600px] md:h-[750px] w-full">

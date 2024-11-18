@@ -15,7 +15,7 @@ export const BlogsBanner: React.FC<BlogBannerProps> = ({blogs}) => {
   return (
     <section className="py-20 w-full wrapper mt-12 px-4 md:px-10">
       <div className="flex flex-row justify-between items-center w-full mb-[50px]">
-        <div >
+        <div>
           <h4 className="text-base font-normal leading-5 mb-2">✍️ Blogs</h4>
           <h2 className="title">Latest Blogs</h2>
         </div>
