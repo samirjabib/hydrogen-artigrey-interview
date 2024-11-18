@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {HeadingSwiper} from '~/components/ui/HeadingSwiper';
 import {ProductCard} from './ProductCard';
@@ -78,11 +78,18 @@ type ProductSliderProps = {
 
 export const TrendingProducts: React.FC<ProductSliderProps> = ({products}) => {
   const swiperRef = useRef<any>(null);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
+
+  console.log('isBeginning', isBeginning);
+  console.log('isEnd', isEnd);
 
   return (
     <section className="py-20 bg-[#F6F6F5]">
       <div className="container mx-auto">
         <HeadingSwiper
+          isBeginning={isBeginning}
+          isEnd={isEnd}
           title="Trending Supplements"
           swiperRef={swiperRef}
           subtitle="COMFORTABLY UNCOMFORTABLE"
@@ -100,10 +107,14 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({products}) => {
             1024: {slidesPerView: 3},
             1280: {slidesPerView: 4},
           }}
+          onSlideChange={(swiper) => {
+            setIsBeginning(swiper.isBeginning);
+            setIsEnd(swiper.isEnd);
+          }}
           className="w-full"
         >
           {products.map((product) => (
-            <SwiperSlide key={product.id} className='w-full h-full'>
+            <SwiperSlide key={product.id} className="h-auto">
               <ProductCard />
             </SwiperSlide>
           ))}

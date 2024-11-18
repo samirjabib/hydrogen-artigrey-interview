@@ -8,13 +8,13 @@ export const NavButtonsMobile = forwardRef(
       <SwiperNavButton
         direction="prev"
         onClick={() => swiperRef.current?.slidePrev()}
-        className={`z-10 ${isBeginning ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className="z-10"
         disabled={isBeginning}
       />
       <SwiperNavButton
         direction="next"
         onClick={() => swiperRef.current?.slideNext()}
-        className={`z-10 ${isEnd ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className="z-10"
         disabled={isEnd}
       />
     </div>
