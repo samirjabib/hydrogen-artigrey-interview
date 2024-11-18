@@ -15,7 +15,7 @@ export const MenuColumn = ({
   publicStoreDomain: string;
 }) => (
   <div className="space-y-4">
-    <h3 className="text-lg font-semibold">{title}</h3>
+    <h3 className="text-lg font-medium leading-5">{title}</h3>
     <ul className="space-y-2">
       {items
         .filter((item) => item.url !== null) // Filtra elementos con URL válidas

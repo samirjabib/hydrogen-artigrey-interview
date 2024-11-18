@@ -17,18 +17,17 @@ export function Footer({
         {(footer) => (
           <footer
             role="contentinfo"
-            className="bg-[#F6F6F5] py-12"
+            className="bg-[#F6F6F5] pt-20"
             aria-labelledby="footer-heading"
           >
-            <h2 id="footer-heading" className="sr-only">
-              footer page
-            </h2>
             <div className="wrapper px-4 md:px-10">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
-                <div className="md:col-span-4">
+              <h2 id="footer-heading" className="sr-only">
+                footer page
+              </h2>
+              <div>
+                <div className="flex flex-col lg:gap-[140px] lg:flex-row justify-between pb-[106px]">
                   <Newsletter />
-                </div>
-                <div className="md:col-span-5">
+
                   {footer?.menu && header.shop.primaryDomain?.url && (
                     <FooterMenu
                       menu={footer.menu}
@@ -36,14 +35,12 @@ export function Footer({
                       publicStoreDomain={publicStoreDomain}
                     />
                   )}
-                </div>
 
-                <div className="md:col-span-3">
                   <ContactInfo />
                 </div>
+                <FooterBottom shopName={header.shop.name} />
               </div>
             </div>
-            <FooterBottom shopName={header.shop.name} />
           </footer>
         )}
       </Await>

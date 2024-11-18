@@ -1,6 +1,4 @@
-import {processUrl} from '../utils';
 import type {FooterMenuProps, MenuItem} from '../types';
-
 import {MenuColumn} from './MenuColumn';
 
 export function FooterMenu({
@@ -9,7 +7,7 @@ export function FooterMenu({
   publicStoreDomain,
 }: FooterMenuProps) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-[60px] pb-16 lg:pb-0">
       {menu?.items.map((item) => {
         if (!item.items?.length) return null;
         return (

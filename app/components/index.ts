@@ -2,7 +2,7 @@
 export * from './home/banner/Banner';
 export * from './home/promises/Promises';
 export * from './home/brands/Brands';
-export * from './home/goals/Goals';
+export * from './home/Goals';
 export * from './home/clean-suplements/CleanSuplements';
 export * from './home/blogs-banner/Blogs-Banner';
 
