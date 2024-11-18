@@ -3,6 +3,7 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation} from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { Heading } from '~/components/ui/Heading';
 
 export const products = [
   {
@@ -83,12 +84,10 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({products}) => {
   return (
     <section className="py-10 bg-[#F6F6F5]">
       <div className="container mx-auto">
-        {/* Header */}
+        <Heading title='Trending Supplements'/>
+
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center gap-4">
-            <h2 className="text-xl font-semibold">
-              🐝 Trending <span className="text-gray-500">Supplements</span>
-            </h2>
             <div className="flex gap-2">
               <button
                 onClick={() => swiperRef.current?.slidePrev()}

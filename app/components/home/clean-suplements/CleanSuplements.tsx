@@ -1,26 +1,38 @@
 import {Image} from '@shopify/hydrogen';
 import type {CleanSuplementsQuery} from 'storefrontapi.generated';
+import {Heading} from '~/components/ui/Heading';
 
 export const CleanSuplements = ({
   cleanSupplements,
 }: {
   cleanSupplements: CleanSuplementsQuery['metaobjects']['edges'];
 }) => {
+  const subtitle = () => {
+    return (
+      <>
+        {' '}
+        Clean Supplements -
+        <br />
+        Made For You
+      </>
+    );
+  };
   return (
     <section
       className="wrapper bg-white py-20 px-4 md:px-10"
       aria-labelledby="clean-suplements-title"
     >
-      <div className="mb-12">
-        <h4 className="subtitle mb-2" id="clean-suplements-subtitle">
-          Why Health & Fitness
-        </h4>
-        <h2 className="title mb-4" id="clean-suplements-title">
-          Clean Supplements -
-          <br />
-          Made For You
-        </h2>
-      </div>
+      <Heading
+        title="Clean Supplements"
+        className="mb-12"
+        subtitle={
+          <>
+            Clean Supplements -
+            <br />
+            Made For You
+          </>
+        }
+      />
       <div
         className="grid grid-cols-2 md:flex md:flex-row flex-row gap-8 "
         aria-label="Clean Supplements"

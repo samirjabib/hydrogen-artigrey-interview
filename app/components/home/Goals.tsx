@@ -1,6 +1,7 @@
 import {Image} from '@shopify/hydrogen';
 import type {GoalsCardsQuery} from 'storefrontapi.generated';
 import {Icon} from '~/components/ui/Icon';
+import {Heading} from '../ui/Heading';
 
 interface GoalsProps {
   goals: GoalsCardsQuery['metaobjects']['edges'];
@@ -13,9 +14,12 @@ export function Goals({goals}: GoalsProps) {
       className="pt-20 pb-[61px] wrapper px-4 md:px-10"
     >
       <div className="text-center mb-10">
-        <h2 id="goals-title" className="title mb-4">
-          Start with your Goals
-        </h2>
+        <Heading
+          title="Start with your Goals"
+          className="mb-4"
+          subtitle="COMFORTABLY UNCOMFORTABLE"
+        />
+
         <p className="text">
           We cannot become what we want to be by
           <br />
