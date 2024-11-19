@@ -4,6 +4,7 @@ import {useLoaderData, type MetaFunction} from '@remix-run/react';
 import type {
   BrandsCardsQuery,
   CleanSuplementsQuery,
+  CollectionByHandleQuery,
   FeaturedCollectionQuery,
   GoalsCardsQuery,
 } from 'storefrontapi.generated';
@@ -20,10 +21,7 @@ import {CustomizedProtein} from '~/components/home/customized-protein/Customized
 import {mockImages} from '~/components/home/instagram-feed/constants';
 import {InstagramFeed} from '~/components/home/instagram-feed/InstagramFeed';
 import {SecondBanner} from '~/components/home/second-banner/SecondBanner';
-import {
-  products,
-  TrendingProducts,
-} from '~/components/home/trending-products/TrendingProducts';
+import {TrendingProducts} from '~/components/home/trending-products/TrendingProducts';
 import type {BlogsQuery} from '~/queries/blogs';
 import {getCriticalData, getDeferredData} from '~/services/home';
 
@@ -60,6 +58,7 @@ type LoaderData = {
   collections: FeaturedCollectionQuery;
   cleanSupplements: CleanSuplementsQuery['metaobjects']['edges'];
   blogs: BlogsQuery['blogs']['edges'][0]['node']['articles']['edges'];
+  trendingProducts: CollectionByHandleQuery['collectionByHandle'];
 };
 
 export async function loader(args: LoaderFunctionArgs) {
@@ -70,13 +69,14 @@ export async function loader(args: LoaderFunctionArgs) {
 
 export default function Homepage() {
   const data = useLoaderData<typeof loader>() as LoaderData;
+  console.log(data.trendingProducts?.products.edges);
   return (
     <div className="home">
       <Banner />
       <Promises />
       <Brands brands={data?.brands} />
       <Goals goals={data?.goals} />
-      <TrendingProducts products={products} />
+      <TrendingProducts trendingProducts={data.trendingProducts} />
       <CleanSuplements cleanSupplements={data?.cleanSupplements} />
       <CustomizedProtein />
       <SecondBanner />
@@ -85,65 +85,3 @@ export default function Homepage() {
     </div>
   );
 }
-
-// function FeaturedCollection({
-//   collection,
-// }: {
-//   collection: FeaturedCollectionFragment;
-// }) {
-//   if (!collection) return null;
-//   const image = collection?.image;
-//   return (
-//     <Link
-//       className="featured-collection"
-//       to={`/collections/${collection.handle}`}
-//     >
-//       {image && (
-//         <div className="featured-collection-image">
-//           <Image data={image} sizes="100vw" />
-//         </div>
-//       )}
-//       <h1>{collection.title}</h1>
-//     </Link>
-//   );
-// }
-
-// function RecommendedProducts({
-//   products,
-// }: {
-//   products: Promise<RecommendedProductsQuery | null>;
-// }) {
-//   return (
-//     <div className="recommended-products">
-//       <h2>Recommended Products</h2>
-//       <Suspense fallback={<div>Loading...</div>}>
-//         <Await resolve={products}>
-//           {(response) => (
-//             <div className="recommended-products-grid">
-//               {response
-//                 ? response.products.nodes.map((product) => (
-//                     <Link
-//                       key={product.id}
-//                       className="recommended-product"
-//                       to={`/products/${product.handle}`}
-//                     >
-//                       <Image
-//                         data={product.images.nodes[0]}
-//                         aspectRatio="1/1"
-//                         sizes="(min-width: 45em) 20vw, 50vw"
-//                       />
-//                       <h4>{product.title}</h4>
-//                       <small>
-//                         <Money data={product.priceRange.minVariantPrice} />
-//                       </small>
-//                     </Link>
-//                   ))
-//                 : null}
-//             </div>
-//           )}
-//         </Await>
-//       </Suspense>
-//       <br />
-//     </div>
-//   );
-// }

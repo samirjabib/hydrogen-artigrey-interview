@@ -20,26 +20,27 @@ export function Footer({
             className="bg-[#F6F6F5] pt-20"
             aria-labelledby="footer-heading"
           >
-            <div className="wrapper px-4 md:px-10">
+            <div className="px-4 md:px-10 wrapper">
               <h2 id="footer-heading" className="sr-only">
-                footer page
+                Footer Page
               </h2>
-              <div>
-                <div className="flex flex-col lg:gap-[140px] lg:flex-row justify-between pb-[106px]">
-                  <Newsletter />
 
-                  {footer?.menu && header.shop.primaryDomain?.url && (
+              <div className="grid grid-cols-1 gap-10 lg:flex lg:flex-row lg:justify-between pb-[106px] w-full lg:gap-[60px] 2xl:gap-[140px]">
+                <Newsletter />
+                {footer?.menu && header.shop.primaryDomain?.url && (
+                  <div className="flex-1">
                     <FooterMenu
                       menu={footer.menu}
                       primaryDomainUrl={header.shop.primaryDomain.url}
                       publicStoreDomain={publicStoreDomain}
                     />
-                  )}
-
-                  <ContactInfo />
-                </div>
-                <FooterBottom shopName={header.shop.name} />
+                  </div>
+                )}
+                <ContactInfo />
               </div>
+
+              {/* Footer inferior */}
+              <FooterBottom shopName={header.shop.name} />
             </div>
           </footer>
         )}

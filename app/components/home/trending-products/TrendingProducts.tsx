@@ -3,65 +3,7 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import {HeadingSwiper} from '~/components/ui/HeadingSwiper';
 import {ProductCard} from '../../ui/product-card/ProductCard';
 import {cn} from '~/utils/cn';
-
-export const products = [
-  {
-    id: '1',
-    image: 'https://via.placeholder.com/300x400',
-    title: 'Omega-3',
-    isSubscriptionProduct: true,
-    description: 'Supports heart & brain health',
-    price: '$49.95',
-    badge: 'Bestseller',
-    rating: 5,
-    tags: ['One-Time', 'Subscription'],
-  },
-  {
-    id: '2',
-    image: 'https://via.placeholder.com/300x400',
-    title: 'Magnesium L-Threonate',
-    description: 'Enhances the quality of sleep',
-    price: '$39.95',
-    rating: 4.5,
-    tags: ['GMO-Free', 'Gluten-Free'],
-  },
-  {
-    id: '3',
-    image: 'https://via.placeholder.com/300x400',
-    title: 'Magnesium L-Threonate',
-    description: 'Enhances the quality of sleep',
-    price: '$39.95',
-    rating: 4.5,
-    tags: ['GMO-Free', 'Gluten-Free'],
-  },
-  {
-    id: '4',
-    image: 'https://via.placeholder.com/300x400',
-    title: 'Magnesium L-Threonate',
-    description: 'Enhances the quality of sleep',
-    price: '$39.95',
-    rating: 4.5,
-    tags: ['GMO-Free', 'Gluten-Free'],
-  },
-  {
-    id: '5',
-    image: 'https://via.placeholder.com/300x400',
-    title: 'Magnesium L-Threonate',
-    description: 'Enhances the quality of sleep',
-    price: '$39.95',
-    rating: 4.5,
-    tags: ['GMO-Free', 'Gluten-Free'],
-  },
-  {
-    id: '6',
-    image: 'https://via.placeholder.com/300x400',
-    title: 'Magnesium L-Threonate',
-    description: 'Enhances the quality of sleep',
-    price: '$39.95',
-    rating: 4.5,
-    tags: ['GMO-Free', 'Gluten-Free'],
-  },
-];
+import {CollectionByHandleQuery} from 'storefrontapi.generated';
 
 type Product = {
   id: string;
@@ -76,10 +18,13 @@ type Product = {
 };
 
 type ProductSliderProps = {
-  products: Product[];
+  trendingProducts: CollectionByHandleQuery['collectionByHandle'];
 };
 
-export const TrendingProducts: React.FC<ProductSliderProps> = ({products}) => {
+export const TrendingProducts: React.FC<ProductSliderProps> = ({
+  trendingProducts,
+}) => {
+  const products = trendingProducts?.products.edges;
   const swiperRef = useRef<any>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
@@ -112,11 +57,19 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({products}) => {
           }}
           className="w-full"
         >
-          {products.map(({isSubscriptionProduct, id}) => (
-            <SwiperSlide key={id} className="h-auto">
-              <ProductCard isSubscriptionProduct={isSubscriptionProduct} />
-            </SwiperSlide>
-          ))}
+          {products?.map((item) => {
+            const id = item.node.id;
+            const product = item.node;
+
+            console.log(item);
+            // const description = item.node.description
+            const isSubscriptionProduct = false;
+            return (
+              <SwiperSlide key={id} className="h-auto">
+                <ProductCard isSubscriptionProduct={isSubscriptionProduct} />
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </div>
     </section>

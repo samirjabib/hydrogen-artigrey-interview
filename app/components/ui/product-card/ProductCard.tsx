@@ -2,6 +2,8 @@ import {Image} from '@shopify/hydrogen';
 import {ProductContent} from './ProductContent';
 import {ProductSubscriptionContent} from './ProductSubscriptionContent';
 import {cn} from '~/utils/cn';
+import {Product} from '@shopify/hydrogen/storefront-api-types';
+import {CollectionByHandleQuery} from 'storefrontapi.generated';
 
 export const ProductCard = ({
   isSubscriptionProduct = false,

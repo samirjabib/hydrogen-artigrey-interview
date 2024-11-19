@@ -1,6 +1,6 @@
 export const InstagramFollow = ({username}: {username: string}) => {
   return (
-    <header className="flex items-center justify-center w-full md:w-[500px] h-[245px] bg-[#F6F6F5] rounded-lg mb-[10px] md:mb-0">
+    <header className="flex items-center justify-center w-full h-full bg-[#F6F6F5] rounded-lg mb-[10px] md:mb-0 py-12 md:py-0">
       <div>
         <div className="flex flex-col md:flex-row items-center gap-4">
           <div className="w-14 h-14 border-2 border-white rounded-full flex items-center justify-center text-white bg-black drop-shadow text-[12px] leading-3 font-semibold">

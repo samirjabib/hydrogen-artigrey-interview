@@ -9,15 +9,23 @@ export const InstagramGridDesktop: React.FC<InstagramFeedProps> = ({
 }) => (
   <section
     aria-labelledby="instagram-feed-heading"
-    className="md:flex flex-row flex-wrap gap-[10px] pb-20 hidden"
+    className="hidden md:grid grid-cols-4 lg:grid-cols-6 gap-4 pb-20"
   >
-    <InstagramFollow username={username} />
+    <div className="col-span-2">
+      <InstagramFollow username={username} />
+    </div>
+
     {images.map(({id, src}) => (
-      <div key={id} className="w-[245px] h-[245px] rounded-lg">
+      <div
+        key={id}
+        className="col-span-1 aspect-square overflow-hidden rounded-lg bg-gray-200"
+      >
         <Image
           src={src}
           alt={`Instagram post ${id}`}
-          className="w-full h-full rounded-lg object-cover"
+          className="w-full h-full object-cover"
+          width={250}
+          height={250}
         />
       </div>
     ))}

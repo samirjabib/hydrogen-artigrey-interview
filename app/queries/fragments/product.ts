@@ -1,4 +1,3 @@
-
 export const SELLING_PLAN_FRAGMENT = `#graphql
   fragment SellingPlanMoney on MoneyV2 {
     amount
@@ -183,4 +182,3 @@ export const VARIANTS_QUERY = `#graphql
     }
   }
 ` as const;
-

@@ -5,6 +5,8 @@ export const COLLECTION_PRODUCT_FRAGMENT = `#graphql
     id
     title
     handle
+    description
+    tags
     priceRange {
       minVariantPrice {
         amount
