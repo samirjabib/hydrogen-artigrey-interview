@@ -41,18 +41,17 @@ export const SubscriptionRadio = ({
   const id = `${name}-${value}`;
 
   return (
-    <div className="flex justify-between items-center w-full">
-      <div className="flex items-center gap-4">
-        <div className="relative flex items-center justify-center">
-          <input
-            type="radio"
-            id={id}
-            name={name}
-            value={value}
-            checked={isSelected}
-            disabled={isDisabled}
-            onChange={(e) => onChange?.(e.target.value)}
-            className={`
+    <div className="flex items-center gap-4">
+      <div className="relative flex items-center justify-center">
+        <input
+          type="radio"
+          id={id}
+          name={name}
+          value={value}
+          checked={isSelected}
+          disabled={isDisabled}
+          onChange={(e) => onChange?.(e.target.value)}
+          className={`
                 ${radioStyles.input}
                 ${
                   isSelected
@@ -60,9 +59,8 @@ export const SubscriptionRadio = ({
                     : radioStyles.inputStates.default
                 }
               `}
-          />
-          {isSelected && <div className={radioStyles.dot} />}
-        </div>
+        />
+        {isSelected && <div className={radioStyles.dot} />}
       </div>
     </div>
   );
