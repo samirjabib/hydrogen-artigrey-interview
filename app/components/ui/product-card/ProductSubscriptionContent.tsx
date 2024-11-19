@@ -16,8 +16,8 @@ export const ProductSubscriptionContent: React.FC = () => {
       role="radiogroup"
       aria-label="Purchase options"
     >
-      <div className="flex md:flex-row gap-2 pb-[10px]">
-        <div className="flex flex-row gap-2 bg-[#F6F6F5] py-[10px] px-3 w-1/2 rounded-[4px] border border-[#1B1F23]">
+      <div className="flex md:flex-nowrap gap-2 pb-[10px]">
+        <div className="flex flex-row gap-2 bg-[#F6F6F5] py-[10px] px-3 w-full sm:w-1/2 md:w-1/2 lg:w-1/2 rounded-[4px] border border-[#1B1F23] max-h-[52px]">
           <SubscriptionRadio
             name="purchaseOption"
             value="oneTime"
@@ -34,7 +34,7 @@ export const ProductSubscriptionContent: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex flex-row gap-2 bg-[#F6F6F5] py-[10px] px-3 w-1/2 rounded-[4px] border border-[#1B1F23]">
+        <div className="flex flex-row gap-2 bg-[#F6F6F5] py-[10px] px-3 w-full sm:w-1/2 md:w-1/2 lg:w-1/2 rounded-[4px] border border-[#1B1F23] max-h-[52px]">
           <SubscriptionRadio
             name="purchaseOption"
             value="subscribe"
@@ -42,7 +42,7 @@ export const ProductSubscriptionContent: React.FC = () => {
             onChange={handleOptionChange}
           />
           <div>
-            <h3 className="text-[12px] font-normal leading-[14px] text-[#1B1F23]">
+            <h3 className="text-[12px] font-normal leading-[14px] text-[#1B1F23] whitespace-nowrap">
               Subscribe & Save
             </h3>
             <div className="flex flex-row gap-2 items-center">

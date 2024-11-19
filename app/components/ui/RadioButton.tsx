@@ -41,7 +41,7 @@ export const SubscriptionRadio = ({
   const id = `${name}-${value}`;
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4 ">
       <div className="relative flex items-center justify-center">
         <input
           type="radio"

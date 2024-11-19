@@ -103,7 +103,7 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({products}) => {
           }}
           breakpoints={{
             375: {spaceBetween: 10, slidesPerView: 1},
-            1024: {spaceBetween: 20, slidesPerView: 3},
+            800: {spaceBetween: 20, slidesPerView: 2},
             1280: {spaceBetween: 20, slidesPerView: 4},
           }}
           onSlideChange={(swiper) => {
