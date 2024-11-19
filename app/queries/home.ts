@@ -1,3 +1,4 @@
+
 export const GOALS_CARDS_QUERY = `#graphql
   query GoalsCards($country: CountryCode, $language: LanguageCode)
     @inContext(country: $country, language: $language) {
@@ -138,3 +139,4 @@ export const CLEAN_SUPPLEMENTS_QUERY = `#graphql
     }
   }
 ` as const;
+

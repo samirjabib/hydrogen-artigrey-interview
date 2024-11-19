@@ -5,9 +5,11 @@ import type {
   FeaturedCollectionQuery,
   RecommendedProductsQuery,
   CleanSuplementsQuery,
+  CollectionByHandleQuery,
 } from 'storefrontapi.generated';
 import type {BlogsQuery} from '~/queries/blogs';
 import {GET_BLOGS_QUERY} from '~/queries/blogs';
+import {COLLECTION_BY_HANDLE_QUERY} from '~/queries/fragments/collection';
 import {
   BRANDS_QUERY,
   GOALS_CARDS_QUERY,
@@ -22,6 +24,7 @@ type CriticalData = {
   brands: BrandsCardsQuery['metaobjects']['edges'];
   cleanSupplements: CleanSuplementsQuery['metaobjects']['edges'];
   blogs: BlogsQuery['blogs']['edges'][0]['node']['articles']['edges'];
+  trendingProducts: CollectionByHandleQuery;
 };
 
 type DeferredData = {
@@ -42,6 +45,7 @@ export async function getCriticalData({
     brandsData,
     cleanSupplementsData,
     blogsData,
+    trendingProductsData
   ] = await Promise.all([
     context.storefront.query<FeaturedCollectionQuery>(
       FEATURED_COLLECTION_QUERY,
@@ -50,7 +54,17 @@ export async function getCriticalData({
     context.storefront.query<BrandsCardsQuery>(BRANDS_QUERY),
     context.storefront.query<CleanSuplementsQuery>(CLEAN_SUPPLEMENTS_QUERY),
     context.storefront.query<BlogsQuery>(GET_BLOGS_QUERY),
+    context.storefront.query<CollectionByHandleQuery>(
+      COLLECTION_BY_HANDLE_QUERY,
+      {
+        variables: {
+          handle: 'trending-products',
+        },
+      },
+    ),
   ]);
+
+  console.log(trendingProductsData.collectionByHandle?.products.edges[0].node.sellingPlanGroups.nodes[0]);
 
   return {
     featuredCollection: collections.nodes[0],
@@ -58,6 +72,7 @@ export async function getCriticalData({
     brands: brandsData.metaobjects.edges,
     cleanSupplements: cleanSupplementsData.metaobjects.edges,
     blogs: blogsData.blogs.edges[0].node.articles.edges,
+    trendingProducts: trendingProductsData,
   };
 }
 

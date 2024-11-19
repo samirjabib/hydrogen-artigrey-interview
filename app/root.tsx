@@ -1,4 +1,10 @@
-import {useNonce, getShopAnalytics, Analytics} from '@shopify/hydrogen';
+import {
+  useNonce,
+  getShopAnalytics,
+  Analytics,
+  getSeoMeta,
+  type SeoConfig,
+} from '@shopify/hydrogen';
 import {defer, type LoaderFunctionArgs} from '@netlify/remix-runtime';
 import {
   Links,
@@ -11,7 +17,7 @@ import {
   isRouteErrorResponse,
   type ShouldRevalidateFunction,
 } from '@remix-run/react';
-import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
+import {FOOTER_QUERY, HEADER_QUERY} from '~/queries/fragments/fragments';
 import './styles/tailwind.css';
 
 import {RootProvider} from './components';
@@ -156,7 +162,11 @@ export function Layout({children}: {children?: React.ReactNode}) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <Layout>
+      <Outlet />
+    </Layout>
+  );
 }
 
 export function ErrorBoundary() {
