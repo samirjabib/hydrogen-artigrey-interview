@@ -4,8 +4,9 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import {cn} from '~/utils/cn';
 import {HeadingSwiper} from '~/components/ui/HeadingSwiper';
+import {Image} from '@shopify/hydrogen';
+import {Plus} from 'lucide-react';
 
-// Define the type for video slides
 interface VideoSlide {
   id: number;
   videoSrc: string;
@@ -59,6 +60,57 @@ const videoData: VideoSlide[] = [
   },
 ];
 
+const VideoSlideContent: React.FC<{video: VideoSlide; isActive: boolean}> = ({
+  video,
+  isActive,
+}) => (
+  <div
+    className={cn(
+      'relative w-full bg-black rounded-md overflow-hidden mb-4',
+      'transition-all duration-300 ease-in-out h-[420px]',
+    )}
+  >
+    <video
+      src={video.videoSrc}
+      autoPlay
+      muted
+      loop
+      playsInline
+      className="w-full h-auto object-cover"
+      aria-hidden={!isActive}
+    />
+  </div>
+);
+
+const VideoSlideInfo: React.FC<{video: VideoSlide}> = ({video}) => (
+  <div className="py-[5px] bg-white pl-[5px] flex flex-row items-center justify-between pr-4 rounded-lg">
+    <div className="flex flex-row items-center justify-start gap-[10px]">
+      <div className="rounded-md w-[70px] h-[70px] flex items-center justify-center bg-[#F6F6F5]">
+        <Image
+          src="https://cdn.shopify.com/s/files/1/0917/5161/2725/files/omega-3_31e57120-b358-4641-8494-2e98458b24d7.png?v=1732035059"
+          width={50}
+          height={50}
+        />
+      </div>
+      <div>
+        <h3 className="font-normal leading-4 text-[13px] text-[#1B1F23] mb-2">
+          {video.title}
+        </h3>
+        <p className="text-[#1B1F23] text-start text-[12px] leading-4 font-medium">
+          {video.price}
+        </p>
+      </div>
+    </div>
+    <div
+      className="w-8 h-8 bg-black rounded-full flex items-center justify-center cursor-pointer"
+      aria-label="Add to cart"
+      role="button"
+    >
+      <Plus className="text-white" />
+    </div>
+  </div>
+);
+
 export const VideoSwiper: React.FC = () => {
   const swiperRef = useRef<any>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -67,7 +119,7 @@ export const VideoSwiper: React.FC = () => {
   const middleIndex = Math.floor(videoData.length / 2);
 
   return (
-    <div className="w-full flex flex-col items-center py-20">
+    <div className="w-full flex flex-col items-center py-20 bg-[#F6F6F5]">
       <HeadingSwiper
         title="Real People. Real Results."
         subtitle="Trusted & Proven by Science"
@@ -92,41 +144,15 @@ export const VideoSwiper: React.FC = () => {
           <SwiperSlide
             key={video.id}
             className={cn(
-              '',
-              activeIndex === index
-                ? 'scale-105 opacity-100 '
-                : 'scale-90 opacity-60',
+              activeIndex === index ? 'scale-150 opacity-100' : 'opacity-60',
             )}
             role="group"
             aria-roledescription="slide"
             aria-label={`${video.title} - ${video.price}`}
-            style={{width: '300px'}} // Set slide width
+            style={{width: '300px', transition: 'transform 0.3s ease-in-out'}}
           >
-            <div
-              className={cn(
-                'relative w-full bg-black rounded-md overflow-hidden',
-              )}
-            >
-              <div
-                className={cn(
-                  'transition-all duration-300 ease-in-out h-[420px]',
-                )}
-              >
-                <video
-                  src={video.videoSrc}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-auto object-cover"
-                  aria-hidden={activeIndex !== index}
-                />
-              </div>
-            </div>
-            <div className="flex flex-col items-center mt-2 text-center">
-              <p className="text-lg font-semibold">{video.title}</p>
-              <p className="text-gray-600">{video.price}</p>
-            </div>
+            <VideoSlideContent video={video} isActive={activeIndex === index} />
+            <VideoSlideInfo video={video} />
           </SwiperSlide>
         ))}
       </Swiper>
