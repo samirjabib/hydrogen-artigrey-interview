@@ -7,7 +7,6 @@ export const SearchToggle = () => {
     <button
       onClick={() => {
         open('search');
-        console.log('open search');
       }}
       aria-label="Open search"
       className="cursor-pointer"

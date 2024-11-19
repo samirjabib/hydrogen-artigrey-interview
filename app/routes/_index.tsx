@@ -5,6 +5,7 @@ import type {
   BrandsCardsQuery,
   CleanSuplementsQuery,
   CollectionByHandleQuery,
+  CollectionFragment,
   FeaturedCollectionQuery,
   GoalsCardsQuery,
 } from 'storefrontapi.generated';
@@ -69,7 +70,6 @@ export async function loader(args: LoaderFunctionArgs) {
 
 export default function Homepage() {
   const data = useLoaderData<typeof loader>() as LoaderData;
-  console.log(data.trendingProducts?.products.edges);
   return (
     <div className="home">
       <Banner />

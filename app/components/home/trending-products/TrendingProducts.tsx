@@ -2,32 +2,27 @@ import React, {useRef, useState} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {HeadingSwiper} from '~/components/ui/HeadingSwiper';
 import {ProductCard} from '../../ui/product-card/ProductCard';
-import {cn} from '~/utils/cn';
-import {CollectionByHandleQuery} from 'storefrontapi.generated';
-
-type Product = {
-  id: string;
-  image: string;
-  title: string;
-  description: string;
-  price: string;
-  isSubscriptionProduct?: boolean;
-  badge?: string;
-  rating: number;
-  tags: string[];
-};
+import type {
+  CollectionByHandleQuery,
+  CollectionProductFragment,
+} from 'storefrontapi.generated';
 
 type ProductSliderProps = {
-  trendingProducts: CollectionByHandleQuery['collectionByHandle'];
+  trendingProducts: NonNullable<CollectionByHandleQuery['collectionByHandle']>;
 };
 
 export const TrendingProducts: React.FC<ProductSliderProps> = ({
   trendingProducts,
 }) => {
-  const products = trendingProducts?.products.edges;
   const swiperRef = useRef<any>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+
+  if (!trendingProducts?.products?.edges) {
+    return <div>No products available</div>;
+  }
+
+  const products = trendingProducts.products.edges;
 
   return (
     <section className="py-20 bg-[#F6F6F5] px-4 md:px-[10px]">
@@ -57,16 +52,12 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({
           }}
           className="w-full"
         >
-          {products?.map((item) => {
-            const id = item.node.id;
-            const product = item.node;
+          {products.map((item) => {
+            const product = item.node as unknown as CollectionProductFragment;
 
-            console.log(item);
-            // const description = item.node.description
-            const isSubscriptionProduct = false;
             return (
-              <SwiperSlide key={id} className="h-auto">
-                <ProductCard isSubscriptionProduct={isSubscriptionProduct} />
+              <SwiperSlide key={product.id} className="h-auto">
+                <ProductCard product={product} />
               </SwiperSlide>
             );
           })}

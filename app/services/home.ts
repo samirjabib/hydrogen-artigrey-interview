@@ -60,6 +60,8 @@ export async function getCriticalData({
         variables: {
           handle: 'trending-products',
         },
+        //NOTE: this is the hydrogen way to handle the requests
+        cache: context.storefront.CacheLong(),
       },
     ),
   ]);
