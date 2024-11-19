@@ -31,4 +31,5 @@ type VariantNode = Variants['nodes'][number];
 // Extraer un ajuste de precio dentro de un Selling Plan
 type SellingPlanGroups = ProductNode['sellingPlanGroups'];
 type SellingPlanNode = SellingPlanGroups['nodes'][number];
-type PriceAdjustment = SellingPlanNode['sellingPlans']['nodes'][number]['priceAdjustments'][number];
+type PriceAdjustment =
+  SellingPlanNode['sellingPlans']['nodes'][number]['priceAdjustments'][number];

@@ -1,8 +1,16 @@
-export type SubscriptionRadioProps = {
-  value: string;
+/**
+ * Props for the SubscriptionRadio component
+ * @prop {SelectOptions} value - value of the radio
+ * @prop {boolean} [isSelected=false] - whether the radio is selected
+ * @prop {boolean} [isDisabled=false] - whether the radio is disabled
+ * @prop {((value: SelectOptions) => void)} [onChange] - callback to call when the radio is changed
+ * @prop {string} name - name of the radio
+ */
+export type SubscriptionRadioProps<T = string> = {
+  value: T;
   isSelected?: boolean;
   isDisabled?: boolean;
-  onChange?: (value: string) => void;
+  onChange?: (value: T) => void;
   name: string;
 };
 
@@ -31,13 +39,13 @@ const radioStyles = {
   saveText: 'text-sm text-gray-600',
 };
 
-export const SubscriptionRadio = ({
+export const SubscriptionRadio = <T extends string>({
   value,
   isSelected = false,
   isDisabled = false,
   onChange,
   name,
-}: SubscriptionRadioProps) => {
+}: SubscriptionRadioProps<T>) => {
   const id = `${name}-${value}`;
 
   return (
@@ -47,10 +55,10 @@ export const SubscriptionRadio = ({
           type="radio"
           id={id}
           name={name}
-          value={value}
+          value={value as string}
           checked={isSelected}
           disabled={isDisabled}
-          onChange={(e) => onChange?.(e.target.value)}
+          onChange={(e) => onChange?.(e.target.value as T)}
           className={`
                 ${radioStyles.input}
                 ${

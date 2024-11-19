@@ -26,7 +26,7 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({
 
   return (
     <section className="py-20 bg-[#F6F6F5]">
-      <div className="wrapper  px-4 md:px-[10px]">
+      <div className="wrapper px-4 md:px-10">
         <HeadingSwiper
           isBeginning={isBeginning}
           isEnd={isEnd}

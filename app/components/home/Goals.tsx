@@ -43,6 +43,8 @@ export function Goals({goals}: GoalsProps) {
                     data={imageData}
                     className="object-cover w-full h-[392px]"
                     alt={imageData.altText || ''}
+                    width={288}
+                    height={392}
                   />
                 </div>
               )}

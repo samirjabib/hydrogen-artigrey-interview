@@ -19,6 +19,8 @@ export const InstagramGridMobile: React.FC<InstagramFeedProps> = ({
               src={image.src}
               alt={`Instagram post ${image.id}`}
               className="w-full h-full object-cover rounded-lg"
+              width={250}
+              height={250}
             />
           </div>
         ))}
