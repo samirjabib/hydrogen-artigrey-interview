@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {HeadingSwiper} from '~/components/ui/HeadingSwiper';
-import {ProductCard} from './ProductCard';
+import {ProductCard} from '../../ui/ProductCard';
 
 export const products = [
   {
@@ -80,9 +80,6 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({products}) => {
   const swiperRef = useRef<any>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
-
-  console.log('isBeginning', isBeginning);
-  console.log('isEnd', isEnd);
 
   return (
     <section className="py-20 bg-[#F6F6F5]">
