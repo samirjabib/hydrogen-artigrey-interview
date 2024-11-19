@@ -38,4 +38,6 @@
   input[type='radio'].custom-radio:checked {
     @apply bg-black;
   }
+  
 }
+

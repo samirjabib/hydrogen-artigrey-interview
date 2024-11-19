@@ -77,41 +77,43 @@ export const VideoSwiper: React.FC = () => {
         isBeginning={swiperRef.current?.isBeginning || false}
       />
 
-      <Swiper
-        initialSlide={middleIndex}
-        centeredSlides={true}
-        spaceBetween={10}
-        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-        onSwiper={(swiper) => (swiperRef.current = swiper)}
-        // breakpoints={{
-        //   375: {spaceBetween: 10, slidesPerView: 1.25},
-        //   800: {spaceBetween: 20, slidesPerView: 2},
-        //   1280: {spaceBetween: 20, slidesPerView: 5.25},
-        // }}
-        slidesPerView={'auto'}
-        className="w-full h-auto !absolute mt-96 md:mt-72"
-        role="region"
-        aria-label="Video Swiper"
-      >
-        {videoData.map((video, index) => (
-          <SwiperSlide
-            key={video.id}
-            className={`transition-transform duration-500 ease-in-out ${
-              activeIndex === index ? 'relative bottom-10 z-10' : 'relative z-0'
-            }`}
-            role="group"
-            aria-roledescription="slide"
-            aria-label={`${video.title} - ${video.price}`}
-            style={{
-              width: '300px',
-              transition: 'transform 0.3s ease-in-out',
-            }}
-          >
-            <VideoSlideContent video={video} isActive={activeIndex === index} />
-            <VideoSlideInfo video={video} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      <div className="">
+        <Swiper
+          initialSlide={middleIndex}
+          centeredSlides={true}
+          spaceBetween={10}
+          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          slidesPerView={'auto'}
+          className="w-full h-auto !pt-20"
+          role="region"
+          aria-label="Video Swiper"
+        >
+          {videoData.map((video, index) => (
+            <SwiperSlide
+              key={video.id}
+              className={`transition-transform duration-500 ease-in-out ${
+                activeIndex === index
+                  ? 'relative bottom-10 z-10'
+                  : 'relative z-0'
+              }`}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${video.title} - ${video.price}`}
+              style={{
+                width: '300px',
+                transition: 'transform 0.3s ease-in-out',
+              }}
+            >
+              <VideoSlideContent
+                video={video}
+                isActive={activeIndex === index}
+              />
+              <VideoSlideInfo video={video} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </div>
   );
 };
