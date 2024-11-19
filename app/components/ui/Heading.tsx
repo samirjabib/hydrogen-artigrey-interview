@@ -5,8 +5,7 @@ export type HeadingProps = {
   title: React.ReactNode | string;
   subtitle?: React.ReactNode | string;
   className?: string;
-}
-
+};
 
 export const Heading: React.FC<HeadingProps> = ({
   title,

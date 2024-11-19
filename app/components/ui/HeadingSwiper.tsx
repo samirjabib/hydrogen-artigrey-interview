@@ -27,7 +27,7 @@ export const HeadingSwiper: ForwardRefExoticComponent<
       role="region"
       aria-label="Trending products"
     >
-      <div className="flex items-center flex-row justify-center px-4 sm:gap-12 mb-6">
+      <div className="flex items-center flex-row justify-center px-4 sm:gap-12 mb-4 md:mb-6">
         <SwiperNavButton
           direction="prev"
           className="hidden sm:flex"
@@ -45,7 +45,7 @@ export const HeadingSwiper: ForwardRefExoticComponent<
         />
       </div>
       <div
-        className="flex sm:hidden flex-row gap-4 mb-12 items-center"
+        className="flex sm:hidden flex-row gap-4 mb-8 md:mb-12 items-center"
         role="navigation"
         aria-label="Previous and next product navigation"
       >

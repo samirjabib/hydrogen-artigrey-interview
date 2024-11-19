@@ -1,13 +1,15 @@
 import React, {useRef, useState} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {HeadingSwiper} from '~/components/ui/HeadingSwiper';
-import {ProductCard} from '../../ui/ProductCard';
+import {ProductCard} from '../../ui/product-card/ProductCard';
+import {cn} from '~/utils/cn';
 
 export const products = [
   {
     id: '1',
     image: 'https://via.placeholder.com/300x400',
     title: 'Omega-3',
+    isSubscriptionProduct: true,
     description: 'Supports heart & brain health',
     price: '$49.95',
     badge: 'Bestseller',
@@ -67,6 +69,7 @@ type Product = {
   title: string;
   description: string;
   price: string;
+  isSubscriptionProduct?: boolean;
   badge?: string;
   rating: number;
   tags: string[];
@@ -82,7 +85,7 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({products}) => {
   const [isEnd, setIsEnd] = useState(false);
 
   return (
-    <section className="py-20 bg-[#F6F6F5]">
+    <section className="py-20 bg-[#F6F6F5] px-4 md:px-[10px]">
       <div className="container mx-auto">
         <HeadingSwiper
           isBeginning={isBeginning}
@@ -94,15 +97,14 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({products}) => {
         />
 
         <Swiper
-          spaceBetween={20}
-          slidesPerView={1}
+          spaceBetween={10}
           onBeforeInit={(swiper) => {
             swiperRef.current = swiper;
           }}
           breakpoints={{
-            640: {slidesPerView: 1.5},
-            1024: {slidesPerView: 3},
-            1280: {slidesPerView: 4},
+            375: {spaceBetween: 10, slidesPerView: 1},
+            1024: {spaceBetween: 20, slidesPerView: 3},
+            1280: {spaceBetween: 20, slidesPerView: 4},
           }}
           onSlideChange={(swiper) => {
             setIsBeginning(swiper.isBeginning);
@@ -110,9 +112,9 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({products}) => {
           }}
           className="w-full"
         >
-          {products.map((product) => (
-            <SwiperSlide key={product.id} className="h-auto">
-              <ProductCard />
+          {products.map(({isSubscriptionProduct, id}) => (
+            <SwiperSlide key={id} className="h-auto">
+              <ProductCard isSubscriptionProduct={isSubscriptionProduct} />
             </SwiperSlide>
           ))}
         </Swiper>

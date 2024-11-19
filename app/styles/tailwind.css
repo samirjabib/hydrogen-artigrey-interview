@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -29,5 +28,14 @@
 
   .text {
     @apply text-[#1B1F23B2] font-normal text-base leading-5;
+  }
+
+  /* Custom Radio Button Styles */
+  input[type='radio'].custom-radio {
+    @apply w-5 h-5 rounded-full border-2 border-black bg-white appearance-none checked:bg-black;
+  }
+
+  input[type='radio'].custom-radio:checked {
+    @apply bg-black;
   }
 }
