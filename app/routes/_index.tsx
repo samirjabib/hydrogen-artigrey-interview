@@ -23,6 +23,7 @@ import {mockImages} from '~/components/home/instagram-feed/constants';
 import {InstagramFeed} from '~/components/home/instagram-feed/InstagramFeed';
 import {SecondBanner} from '~/components/home/second-banner/SecondBanner';
 import {TrendingProducts} from '~/components/home/trending-products/TrendingProducts';
+import { VideoSwiper } from '~/components/home/video-swiper/VideoSwiper';
 import type {BlogsQuery} from '~/queries/blogs';
 import {getCriticalData, getDeferredData} from '~/services/home';
 
@@ -78,6 +79,7 @@ export default function Homepage() {
       <Goals goals={data?.goals} />
       <TrendingProducts trendingProducts={data.trendingProducts} />
       <CleanSuplements cleanSupplements={data?.cleanSupplements} />
+      <VideoSwiper />
       <CustomizedProtein />
       <SecondBanner />
       <BlogsBanner blogs={data?.blogs} />

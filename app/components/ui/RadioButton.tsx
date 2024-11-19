@@ -1,11 +1,3 @@
-/**
- * Props for the SubscriptionRadio component
- * @prop {SelectOptions} value - value of the radio
- * @prop {boolean} [isSelected=false] - whether the radio is selected
- * @prop {boolean} [isDisabled=false] - whether the radio is disabled
- * @prop {((value: SelectOptions) => void)} [onChange] - callback to call when the radio is changed
- * @prop {string} name - name of the radio
- */
 export type SubscriptionRadioProps<T = string> = {
   value: T;
   isSelected?: boolean;

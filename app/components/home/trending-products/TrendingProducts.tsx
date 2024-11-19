@@ -8,7 +8,7 @@ import type {
 } from 'storefrontapi.generated';
 
 type ProductSliderProps = {
-  trendingProducts: NonNullable<CollectionByHandleQuery['collectionByHandle']>;
+  trendingProducts: CollectionByHandleQuery['collectionByHandle'];
 };
 
 export const TrendingProducts: React.FC<ProductSliderProps> = ({
