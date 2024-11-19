@@ -89,7 +89,7 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({products}) => {
           isEnd={isEnd}
           title="Trending Supplements"
           swiperRef={swiperRef}
-          subtitle="COMFORTABLY UNCOMFORTABLE"
+          subtitle="🌟 Trending"
           className="mb-12"
         />
 

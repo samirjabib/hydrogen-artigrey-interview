@@ -1,10 +1,20 @@
-export const StarsRating = ({reviews}: {reviews: string}) => (
+import {cn} from '~/utils/cn';
+
+export const StarsRating = ({
+  reviewsLabel,
+  isProductRating,
+}: {
+  reviewsLabel?: string;
+  isProductRating?: boolean;
+}) => (
   <div className="flex gap-2 flex-col-reverse md:flex-row items-center">
-    <div className="flex text-[#F5BD41]">
+    <div
+      className={cn('flex text-[#F5BD41]', isProductRating && 'text-[#101226]')}
+    >
       {[...Array(5)].map((_, i) => (
         <svg
           key={i}
-          className="w-5 h-5"
+          className={cn('w-5 h-5', isProductRating && 'w-3 h-3')}
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -12,6 +22,8 @@ export const StarsRating = ({reviews}: {reviews: string}) => (
         </svg>
       ))}
     </div>
-    <span className="text-base leading-4 font-normal">{reviews}</span>
+    {reviewsLabel ? (
+      <span className="text-base leading-4 font-normal">{reviewsLabel}</span>
+    ) : null}
   </div>
 );

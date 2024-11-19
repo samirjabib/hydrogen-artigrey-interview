@@ -1,4 +1,4 @@
-import {StarsRating} from './StarRatings';
+import {StarsRating} from '../../ui/StarRatings';
 import {HeaderText} from './HeaderText';
 import type {BrandsCardsQuery} from 'storefrontapi.generated';
 import {BrandList} from './BrandList';
@@ -25,7 +25,7 @@ export const Brands = ({
               aria-hidden="true"
             />
             <StarsRating
-              reviews="12,000+ 5-star Reviews"
+              reviewsLabel="12,000+ 5-star Reviews"
               aria-label="12,000+ 5-star Reviews"
             />
           </div>
