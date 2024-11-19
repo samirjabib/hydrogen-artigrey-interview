@@ -25,8 +25,8 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({
   const products = trendingProducts.products.edges;
 
   return (
-    <section className="py-20 bg-[#F6F6F5] px-4 md:px-[10px]">
-      <div className="container mx-auto">
+    <section className="py-20 bg-[#F6F6F5]">
+      <div className="wrapper  px-4 md:px-[10px]">
         <HeadingSwiper
           isBeginning={isBeginning}
           isEnd={isEnd}
