@@ -1,11 +1,11 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useMemo} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {HeadingSwiper} from '~/components/ui/HeadingSwiper';
 import type {VideosSwiperQuery} from 'storefrontapi.generated';
 import {VideoSlideInfo} from './VideoSlideInfo';
+import VideoSlideContent from './VideoSlideContent';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import VideoSlideContent from './VideoSlideContent';
 
 interface Video {
   url: string;
@@ -16,60 +16,48 @@ interface VideoSwiperProps {
   videoSwiper: VideosSwiperQuery['metaobjects'];
 }
 
-export const VideoSwiper = ({videoSwiper}: VideoSwiperProps) => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [videosUrl, setVideosUrl] = useState<Video[]>([]);
-  const [middleIndex, setMiddleIndex] = useState<number>(0);
-  const [isVisible, setIsVisible] = useState<boolean>(false);
+export const VideoSwiper: React.FC<VideoSwiperProps> = ({videoSwiper}) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Callback ref para inicializar el observer cuando el contenedor esté disponible
+  const {videosUrl, middleIndex, product} = useMemo(() => {
+    const videoEdges = videoSwiper.edges[0]?.node.fields[2]?.references?.edges;
+    const processedVideos: Video[] = videoEdges
+      ? videoEdges.map((video: any) => ({
+          url: video.node.sources[2].url,
+          id: video.node.id || Math.random().toString(36).substr(2, 9),
+        }))
+      : [];
+
+    const reference = videoSwiper.edges[0]?.node?.fields[0]?.reference as any;
+    const product = reference
+      ? {
+          title: reference.title,
+          price: reference.priceRange.minVariantPrice.amount,
+          image: reference.featuredImage.url,
+          id: reference.id,
+        }
+      : null;
+
+    return {
+      videosUrl: processedVideos,
+      middleIndex: Math.floor(processedVideos.length / 2),
+      product,
+    };
+  }, [videoSwiper]);
+
   const containerRefCallback = useCallback((node: HTMLDivElement | null) => {
-    if (node !== null) {
+    if (node) {
       const observer = new IntersectionObserver(
-        ([entry]) => {
-          setIsVisible(entry.isIntersecting);
-        },
-        {
-          threshold: 0.5,
-          rootMargin: '50px',
-        },
+        ([entry]) => setIsVisible(entry.isIntersecting),
+        {threshold: 0.5, rootMargin: '50px'},
       );
-
       observer.observe(node);
-
-      // Cleanup
       return () => observer.disconnect();
     }
   }, []);
 
-  React.useEffect(() => {
-    const videoEdges = videoSwiper.edges[0]?.node.fields[2]?.references?.edges;
-    if (videoEdges) {
-      const processedVideos: Video[] = videoEdges.map((video: any) => ({
-        url: video.node.sources[2].url,
-        id: video.node.id || Math.random().toString(36).substr(2, 9),
-      }));
-      setVideosUrl(processedVideos);
-      setMiddleIndex(Math.floor(videoEdges.length / 2));
-    }
-  }, [videoSwiper]);
-
-  if (!videosUrl.length) {
-    return null;
-  }
-
-  const reference = videoSwiper.edges[0]?.node?.fields[0]?.reference as any;
-
-  const product = {
-    title: reference.title,
-    price: reference.priceRange.minVariantPrice.amount,
-    image: reference.featuredImage.url,
-    id: reference.id,
-  };
-
-  const handleSlideChange = (swiper: {realIndex: number}) => {
-    setActiveIndex(swiper.realIndex);
-  };
+  if (!videosUrl.length || !product) return null;
 
   return (
     <div
@@ -88,7 +76,7 @@ export const VideoSwiper = ({videoSwiper}: VideoSwiperProps) => {
         initialSlide={middleIndex}
         centeredSlides={true}
         spaceBetween={10}
-        onSlideChange={handleSlideChange}
+        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
         slidesPerView="auto"
         className="w-full h-auto !pt-16"
         role="region"
