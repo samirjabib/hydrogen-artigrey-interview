@@ -77,43 +77,36 @@ export const VideoSwiper: React.FC = () => {
         isBeginning={swiperRef.current?.isBeginning || false}
       />
 
-      <div className="">
-        <Swiper
-          initialSlide={middleIndex}
-          centeredSlides={true}
-          spaceBetween={10}
-          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-          onSwiper={(swiper) => (swiperRef.current = swiper)}
-          slidesPerView={'auto'}
-          className="w-full h-auto !pt-20"
-          role="region"
-          aria-label="Video Swiper"
-        >
-          {videoData.map((video, index) => (
-            <SwiperSlide
-              key={video.id}
-              className={`transition-transform duration-500 ease-in-out ${
-                activeIndex === index
-                  ? 'relative bottom-10 z-10'
-                  : 'relative z-0'
-              }`}
-              role="group"
-              aria-roledescription="slide"
-              aria-label={`${video.title} - ${video.price}`}
-              style={{
-                width: '300px',
-                transition: 'transform 0.3s ease-in-out',
-              }}
-            >
-              <VideoSlideContent
-                video={video}
-                isActive={activeIndex === index}
-              />
-              <VideoSlideInfo video={video} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+      <Swiper
+        initialSlide={middleIndex}
+        centeredSlides={true}
+        spaceBetween={10}
+        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        slidesPerView={'auto'}
+        className="w-full h-auto !pt-16"
+        role="region"
+        aria-label="Video Swiper"
+      >
+        {videoData.map((video, index) => (
+          <SwiperSlide
+            key={video.id}
+            className={`transition-transform duration-500 ease-in-out ${
+              activeIndex === index ? 'relative bottom-10 z-10' : 'relative z-0'
+            }`}
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${video.title} - ${video.price}`}
+            style={{
+              width: '300px',
+              transition: 'transform 0.3s ease-in-out',
+            }}
+          >
+            <VideoSlideContent video={video} isActive={activeIndex === index} />
+            <VideoSlideInfo video={video} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };
