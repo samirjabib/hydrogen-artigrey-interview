@@ -1,9 +1,10 @@
 import type {CollectionProductFragment} from 'storefrontapi.generated';
-import {Button} from '../Button';
-import {StarsRating} from '../StarRatings';
-import {Tag} from '../Tag';
+
 import {cn} from '~/utils/cn';
 import {Image} from '@shopify/hydrogen';
+import {StarsRating} from '../../StarRatings';
+import {Button} from '../../Button';
+import {Tag} from '../../Tag';
 
 export const ProductContent = ({
   product: {

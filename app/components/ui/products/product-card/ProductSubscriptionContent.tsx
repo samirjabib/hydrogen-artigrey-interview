@@ -2,12 +2,11 @@ import {useState} from 'react';
 import {Image} from '@shopify/hydrogen';
 import type {CollectionProductFragment} from 'storefrontapi.generated';
 import {cn} from '~/utils/cn';
-import {SubscriptionRadio} from '../RadioButton';
-import {Button} from '../Button';
+
 import {useSubscription} from './hooks';
-import type {SelectOptions} from './types';
 import {NavLink} from '@remix-run/react';
 import {PurchaseOption} from './PurshaseOption';
+import {Button} from '../../Button';
 
 export const ProductSubscriptionContent = ({
   product: {

@@ -1,6 +1,6 @@
 import {cn} from '~/utils/cn';
-import {SubscriptionRadio} from '../RadioButton';
 import type {SelectOptions} from './types';
+import {SubscriptionRadio} from '../../RadioButton';
 
 export const PurchaseOption = ({
   label,

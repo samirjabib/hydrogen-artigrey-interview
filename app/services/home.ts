@@ -25,6 +25,7 @@ type CriticalData = {
   cleanSupplements: CleanSuplementsQuery['metaobjects']['edges'];
   blogs: BlogsQuery['blogs']['edges'][0]['node']['articles']['edges'];
   trendingProducts: CollectionByHandleQuery['collectionByHandle'];
+  bundleCollection: CollectionByHandleQuery['collectionByHandle'];
 };
 
 type DeferredData = {
@@ -46,6 +47,7 @@ export async function getCriticalData({
     cleanSupplementsData,
     blogsData,
     trendingProductsData,
+    bundleCollectionData,
   ] = await Promise.all([
     context.storefront.query<FeaturedCollectionQuery>(
       FEATURED_COLLECTION_QUERY,
@@ -64,6 +66,14 @@ export async function getCriticalData({
         cache: context.storefront.CacheLong(),
       },
     ),
+    context.storefront.query<CollectionByHandleQuery>(
+      COLLECTION_BY_HANDLE_QUERY,
+      {
+        variables: {
+          handle: 'sleep',
+        },
+      },
+    ),
   ]);
 
   return {
@@ -73,6 +83,7 @@ export async function getCriticalData({
     cleanSupplements: cleanSupplementsData.metaobjects.edges,
     blogs: blogsData.blogs.edges[0].node.articles.edges,
     trendingProducts: trendingProductsData.collectionByHandle,
+    bundleCollection: bundleCollectionData.collectionByHandle,
   };
 }
 

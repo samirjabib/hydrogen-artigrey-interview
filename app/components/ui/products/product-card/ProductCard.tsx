@@ -1,6 +1,6 @@
+import {ProductContent} from './ProductContent';
+import {ProductSubscriptionContent} from './ProductSubscriptionContent';
 import type {CollectionProductFragment} from 'storefrontapi.generated';
-import {ProductSubscriptionContent} from '../products/product-card/ProductSubscriptionContent';
-import {ProductContent} from '../products/product-card/ProductContent';
 
 export const ProductCard = ({
   product,

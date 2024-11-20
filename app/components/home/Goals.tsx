@@ -36,7 +36,7 @@ export function Goals({goals}: GoalsProps) {
           const imageData = imageField?.reference?.image;
 
           return (
-            <li key={node.id} className="relative group cursor-pointer">
+            <li key={node.id}>
               {imageData && (
                 <div className="relative overflow-hidden rounded-2xl">
                   <Image

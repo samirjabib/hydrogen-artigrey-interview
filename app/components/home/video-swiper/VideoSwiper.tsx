@@ -67,7 +67,7 @@ export const VideoSwiper: React.FC = () => {
   const middleIndex = Math.floor(videoData.length / 2);
 
   return (
-    <div className="w-full flex flex-col items-center h-[1050px] md:h-[923px] bg-[#F6F6F5] border-2">
+    <div className="w-full flex flex-col items-center h-[1050px] md:h-[923px] bg-[#F6F6F5]">
       <HeadingSwiper
         title="Real People. Real Results."
         subtitle="Trusted & Proven by Science"

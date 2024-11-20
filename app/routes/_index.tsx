@@ -8,21 +8,23 @@ import type {
   FeaturedCollectionQuery,
   GoalsCardsQuery,
 } from 'storefrontapi.generated';
-
 import {
   Banner,
-  BlogsBanner,
   Brands,
+  Bundles,
   CleanSuplements,
+  CustomizedProtein,
   Goals,
+  InstagramFeed,
   Promises,
+  SecondBanner,
+  TrendingProducts,
+  VideoSwiper,
 } from '~/components';
-import {CustomizedProtein} from '~/components/home/customized-protein/CustomizedProtein';
+import {BlogsBanner} from '~/components/home/blogs-banner/BlogsBanner';
+
 import {mockImages} from '~/components/home/instagram-feed/constants';
-import {InstagramFeed} from '~/components/home/instagram-feed/InstagramFeed';
-import {SecondBanner} from '~/components/home/second-banner/SecondBanner';
-import {TrendingProducts} from '~/components/home/trending-products/TrendingProducts';
-import {VideoSwiper} from '~/components/home/video-swiper/VideoSwiper';
+
 import type {BlogsQuery} from '~/queries/blogs';
 import {getCriticalData, getDeferredData} from '~/services/home';
 
@@ -60,25 +62,29 @@ type LoaderData = {
   cleanSupplements: CleanSuplementsQuery['metaobjects']['edges'];
   blogs: BlogsQuery['blogs']['edges'][0]['node']['articles']['edges'];
   trendingProducts: CollectionByHandleQuery['collectionByHandle'];
+  bundleCollection: CollectionByHandleQuery['collectionByHandle'];
 };
 
 export async function loader(args: LoaderFunctionArgs) {
   const deferredData = getDeferredData(args);
   const criticalData = await getCriticalData(args);
+
   return defer({...deferredData, ...criticalData});
 }
 
 export default function Homepage() {
   const data = useLoaderData<typeof loader>() as LoaderData;
+  console.log(data);
   return (
     <div className="home">
       <Banner />
       <Promises />
       <Brands brands={data?.brands} />
       <Goals goals={data?.goals} />
-      <TrendingProducts trendingProducts={data.trendingProducts} />
+      <TrendingProducts trendingProducts={data?.trendingProducts} />
       <CleanSuplements cleanSupplements={data?.cleanSupplements} />
       <VideoSwiper />
+      <Bundles initialBundle={data?.bundleCollection} />
       <CustomizedProtein />
       <SecondBanner />
       <BlogsBanner blogs={data?.blogs} />
