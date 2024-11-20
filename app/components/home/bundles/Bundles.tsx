@@ -88,7 +88,7 @@ export const Bundles = ({
 
   return (
     <section className="bg-white px-4 md:px-10 py-20 wrapper w-full">
-      <div className="flex flex-col md:flex-row items-center justify-between w-full">
+      <div className="flex flex-col md:pb-[50px] md:flex-row items-center justify-between w-full">
         <Heading subtitle="📦 Goals Specific" title="Bundles" />
         <nav>
           <ul className="flex flex-row flex-wrap justify-center py-12 md:py-0 items-center md:justify-start gap-10">
@@ -148,7 +148,7 @@ export const Bundles = ({
 
           return (
             <SwiperSlide key={product.id} className="h-auto">
-              <ProductCard product={product} />
+              <ProductCard product={product} variant="grey" />
             </SwiperSlide>
           );
         })}

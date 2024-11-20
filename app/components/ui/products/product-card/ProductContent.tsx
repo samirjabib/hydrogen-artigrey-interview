@@ -5,6 +5,7 @@ import {Image} from '@shopify/hydrogen';
 import {StarsRating} from '../../StarRatings';
 import {Button} from '../../Button';
 import {Tag} from '../../Tag';
+import {Variant} from '../../product-card/ProductCard';
 
 export const ProductContent = ({
   product: {
@@ -16,8 +17,10 @@ export const ProductContent = ({
     tags,
     images,
   },
+  variant = 'default',
 }: {
   product: CollectionProductFragment;
+  variant?: Variant;
 }) => {
   return (
     <div>
@@ -55,7 +58,7 @@ export const ProductContent = ({
         <div className="flex flex-row items-center justify-between pb-5">
           <StarsRating isProductRating />
           <Button className="font-medium text-[13px] py-[5px] px-4 inline-flex">
-            Add • ${price}
+            {variant === 'default' ? `Add • ${price}` : 'Add to Cart'}
           </Button>
         </div>
       </div>
