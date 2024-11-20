@@ -27,6 +27,7 @@ export const Brands = ({
             <StarsRating
               reviewsLabel="12,000+ 5-star Reviews"
               aria-label="12,000+ 5-star Reviews"
+              size={20}
             />
           </div>
           <BrandList brands={brands} aria-label="Our Brands" />

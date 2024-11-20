@@ -3,9 +3,11 @@ import {cn} from '~/utils/cn';
 export const StarsRating = ({
   reviewsLabel,
   isProductRating,
+  size = 5,
 }: {
   reviewsLabel?: string;
   isProductRating?: boolean;
+  size?: number;
 }) => (
   <div className="flex gap-2 flex-col-reverse md:flex-row items-center">
     <div
@@ -14,7 +16,10 @@ export const StarsRating = ({
       {[...Array(5)].map((_, i) => (
         <svg
           key={i}
-          className={cn('w-5 h-5', isProductRating && 'w-3 h-3')}
+          style={{
+            width: `${size}px`,
+            height: `${size}px`,
+          }}
           fill="currentColor"
           viewBox="0 0 20 20"
         >

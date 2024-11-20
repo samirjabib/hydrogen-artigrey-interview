@@ -11,6 +11,7 @@ import type {
 import type {BlogsQuery} from '~/queries/blogs';
 import {GET_BLOGS_QUERY} from '~/queries/blogs';
 import {COLLECTION_BY_HANDLE_QUERY} from '~/queries/fragments/collection';
+import {PRODUCT_QUERY, VARIANTS_QUERY} from '~/queries/fragments/product';
 import {
   BRANDS_QUERY,
   GOALS_CARDS_QUERY,
@@ -19,6 +20,8 @@ import {
   CLEAN_SUPPLEMENTS_QUERY,
   VIDEOS_SWIPER_QUERY,
 } from '~/queries/home';
+import {defer} from '@remix-run/node';
+import {getSelectedProductOptions} from '@shopify/hydrogen';
 
 type CriticalData = {
   featuredCollection: FeaturedCollectionQuery['collections']['nodes'][0];
@@ -31,9 +34,7 @@ type CriticalData = {
   videoSwiper: VideosSwiperQuery['metaobjects'];
 };
 
-type DeferredData = {
-  recommendedProducts: Promise<RecommendedProductsQuery | null>;
-};
+type DeferredData = {} | null;
 
 /**
  * Load data for rendering content below the fold. This data is deferred and will be
@@ -81,7 +82,6 @@ export async function getCriticalData({
     context.storefront.query<VideosSwiperQuery>(VIDEOS_SWIPER_QUERY),
   ]);
 
-
   return {
     featuredCollection: collections.nodes[0],
     goals: goalsData.metaobjects.edges,
@@ -97,18 +97,14 @@ export async function getCriticalData({
 /**
  * Load data necessary for rendering content above the fold. This is the critical data
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
- */
-export async function getDeferredData({
+ */ export async function getDeferredData({
   context,
+  request,
 }: LoaderFunctionArgs): Promise<DeferredData> {
-  const recommendedProducts = context.storefront
-    .query<RecommendedProductsQuery>(RECOMMENDED_PRODUCTS_QUERY)
-    .catch((error) => {
-      console.error(error);
-      return null;
-    });
+  const url = new URL(request.url);
 
-  return {
-    recommendedProducts,
-  };
+  const productHandle = url.searchParams.get('product');
+  if (!productHandle) return null;
+
+  return defer({});
 }

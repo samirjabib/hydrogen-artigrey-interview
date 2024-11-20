@@ -17,6 +17,7 @@ export const ProductContent = ({
       minVariantPrice: {amount: price},
     },
     tags,
+    handle,
     images,
   },
   variant = 'default',
@@ -25,12 +26,16 @@ export const ProductContent = ({
   variant?: Variant;
 }) => {
   const {open} = useAside();
+  const navigate = useNavigate();
   const openPdpAside = () => {
-    // const params = new URLSearchParams(window.location.search);
-    // params.set('productId', title); // Usa un identificador único, por ejemplo `id`
-    // navigate(`?${params.toString()}`, {replace: true}); // Cambia la URL sin recargar
+    const params = new URLSearchParams(window.location.search);
+    params.set('product', handle); // Usa el handle en lugar del título
 
-    // // Abrir el aside
+    navigate(`?${params.toString()}`, {
+      replace: true,
+      preventScrollReset: true,
+    });
+
     open('pdp');
   };
 
@@ -68,7 +73,7 @@ export const ProductContent = ({
           {description}
         </p>
         <div className="flex flex-row items-center justify-between pb-5">
-          <StarsRating isProductRating />
+          <StarsRating isProductRating  size={12}/>
           <Button
             className="font-medium text-[13px] py-[5px] px-4 inline-flex"
             onClick={openPdpAside}

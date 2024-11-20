@@ -1,3 +1,4 @@
+import {X} from 'lucide-react';
 import {
   createContext,
   type ReactNode,
@@ -5,6 +6,7 @@ import {
   useEffect,
   useState,
 } from 'react';
+import {cn} from '~/utils/cn';
 
 type AsideType =
   | 'search'
@@ -33,13 +35,15 @@ type AsideContextValue = {
 export function Aside({
   children,
   heading,
+  className,
   type,
   side = 'right',
 }: {
   children?: React.ReactNode;
   type: AsideType;
-  heading: React.ReactNode;
+  heading?: React.ReactNode;
   side?: AsideSide;
+  className?: string;
 }) {
   const {type: activeType, close} = useAside();
   const expanded = type === activeType;
@@ -77,24 +81,28 @@ export function Aside({
         aria-label="Close overlay"
       />
       <aside
-        className={`fixed top-0 h-full w-80 max-w-full bg-white shadow-lg transition-transform transform ${
-          side === 'right'
-            ? expanded
-              ? 'right-0 translate-x-0'
-              : 'right-0 translate-x-full'
-            : expanded
-            ? 'left-0 -translate-x-0'
-            : 'left-0 -translate-x-full'
-        }`}
+        className={cn(
+          `fixed top-0 h-full w-80 max-w-full bg-white shadow-lg transition-transform transform`,
+          {
+            'right-0 translate-x-0': expanded && side === 'right',
+            'right-0 translate-x-full': !expanded && side === 'right',
+            'left-0 -translate-x-0': expanded && side === 'left',
+            'left-0 -translate-x-full': !expanded && side === 'left',
+          },
+          className,
+        )}
       >
-        <header className="flex items-center justify-between p-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold">{heading}</h3>
-          <button
-            className="text-gray-500 hover:text-gray-700"
-            onClick={close}
-            aria-label="Close panel"
-          >
-            &times;
+        <header
+          className={cn(
+            'flex items-center p-4',
+            heading
+              ? 'justify-between border-b border-gray-200'
+              : 'justify-end',
+          )}
+        >
+          {heading && <h3 className="text-lg font-semibold">{heading}</h3>}
+          <button onClick={close} aria-label="Close panel">
+            <X size={15} color="black" />
           </button>
         </header>
         <main className="p-4">{children}</main>
