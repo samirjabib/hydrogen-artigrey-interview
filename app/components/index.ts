@@ -8,11 +8,8 @@ export * from './home/banner/Banner';
 export * from './home/customized-protein/CustomizedProtein';
 export * from './home/promises/Promises';
 export * from './home//Goals';
-export * from './home/blogs-banner/BlogsBanner';
 export * from './home/clean-suplements/CleanSuplements';
 export * from './home/video-swiper/VideoSwiper';
-
-
 
 //Layout components
 export * from './layout/header/Header';

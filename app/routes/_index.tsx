@@ -7,6 +7,7 @@ import type {
   CollectionByHandleQuery,
   FeaturedCollectionQuery,
   GoalsCardsQuery,
+  VideosSwiperQuery,
 } from 'storefrontapi.generated';
 import {
   Banner,
@@ -63,6 +64,7 @@ type LoaderData = {
   blogs: BlogsQuery['blogs']['edges'][0]['node']['articles']['edges'];
   trendingProducts: CollectionByHandleQuery['collectionByHandle'];
   bundleCollection: CollectionByHandleQuery['collectionByHandle'];
+  videoSwiper: VideosSwiperQuery['metaobjects'];
 };
 
 export async function loader(args: LoaderFunctionArgs) {
@@ -74,7 +76,6 @@ export async function loader(args: LoaderFunctionArgs) {
 
 export default function Homepage() {
   const data = useLoaderData<typeof loader>() as LoaderData;
-  console.log(data);
   return (
     <div className="home">
       <Banner />
@@ -83,7 +84,7 @@ export default function Homepage() {
       <Goals goals={data?.goals} />
       <TrendingProducts trendingProducts={data?.trendingProducts} />
       <CleanSuplements cleanSupplements={data?.cleanSupplements} />
-      <VideoSwiper />
+      <VideoSwiper videoSwiper={data.videoSwiper} />
       <Bundles initialBundle={data?.bundleCollection} />
       <CustomizedProtein />
       <SecondBanner />

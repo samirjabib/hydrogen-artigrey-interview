@@ -6,6 +6,7 @@ import type {
   RecommendedProductsQuery,
   CleanSuplementsQuery,
   CollectionByHandleQuery,
+  VideosSwiperQuery,
 } from 'storefrontapi.generated';
 import type {BlogsQuery} from '~/queries/blogs';
 import {GET_BLOGS_QUERY} from '~/queries/blogs';
@@ -16,6 +17,7 @@ import {
   FEATURED_COLLECTION_QUERY,
   RECOMMENDED_PRODUCTS_QUERY,
   CLEAN_SUPPLEMENTS_QUERY,
+  VIDEOS_SWIPER_QUERY,
 } from '~/queries/home';
 
 type CriticalData = {
@@ -26,6 +28,7 @@ type CriticalData = {
   blogs: BlogsQuery['blogs']['edges'][0]['node']['articles']['edges'];
   trendingProducts: CollectionByHandleQuery['collectionByHandle'];
   bundleCollection: CollectionByHandleQuery['collectionByHandle'];
+  videoSwiper: VideosSwiperQuery['metaobjects'];
 };
 
 type DeferredData = {
@@ -48,6 +51,7 @@ export async function getCriticalData({
     blogsData,
     trendingProductsData,
     bundleCollectionData,
+    videoSwiperData,
   ] = await Promise.all([
     context.storefront.query<FeaturedCollectionQuery>(
       FEATURED_COLLECTION_QUERY,
@@ -74,7 +78,9 @@ export async function getCriticalData({
         },
       },
     ),
+    context.storefront.query<VideosSwiperQuery>(VIDEOS_SWIPER_QUERY),
   ]);
+
 
   return {
     featuredCollection: collections.nodes[0],
@@ -84,6 +90,7 @@ export async function getCriticalData({
     blogs: blogsData.blogs.edges[0].node.articles.edges,
     trendingProducts: trendingProductsData.collectionByHandle,
     bundleCollection: bundleCollectionData.collectionByHandle,
+    videoSwiper: videoSwiperData.metaobjects,
   };
 }
 

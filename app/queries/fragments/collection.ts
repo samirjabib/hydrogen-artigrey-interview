@@ -1,7 +1,7 @@
 import {PRODUCT_VARIANT_FRAGMENT, SELLING_PLAN_GROUP_FRAGMENT} from './product';
 
 export const COLLECTION_PRODUCT_FRAGMENT = `#graphql
-  fragment CollectionProduct on Product {
+fragment CollectionProduct on Product {
     id
     title
     handle

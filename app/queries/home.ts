@@ -140,3 +140,50 @@ export const CLEAN_SUPPLEMENTS_QUERY = `#graphql
   }
 ` as const;
 
+
+export const VIDEOS_SWIPER_QUERY = `#graphql
+  query VideosSwiper($country: CountryCode, $language: LanguageCode)
+    @inContext(country: $country, language: $language) {
+    metaobjects(type: "videos_swiper", first: 10) {
+      edges {
+        node {
+          id
+          type
+          fields {
+            key
+            value
+            reference {
+              __typename
+              ... on Product {
+                id
+                description
+                title
+                featuredImage {
+                  url
+                }
+                priceRange {
+                  minVariantPrice {
+                    amount
+                    currencyCode
+                  }
+                }
+              }
+            }
+            references(first: 10) {
+              edges {
+                node {
+                  __typename
+                  ... on Video {
+                    sources {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+` as const;

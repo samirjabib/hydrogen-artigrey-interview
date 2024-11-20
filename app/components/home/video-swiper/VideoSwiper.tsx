@@ -1,73 +1,84 @@
-import 'swiper/css';
-import 'swiper/css/navigation';
-
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {HeadingSwiper} from '~/components/ui/HeadingSwiper';
+import type {VideosSwiperQuery} from 'storefrontapi.generated';
+import {VideoSlideInfo} from './VideoSlideInfo';
+import 'swiper/css';
+import 'swiper/css/navigation';
 import VideoSlideContent from './VideoSlideContent';
-import VideoSlideInfo from './VideoSlideInfo';
 
-interface VideoSlide {
-  id: number;
-  videoSrc: string;
-  title: string;
-  price: string;
-}
-
-// Sample video data
-const videoData: VideoSlide[] = [
-  {
-    id: 1,
-    videoSrc: '/videos/video1.mp4',
-    title: 'Magnesium L-Threonate 1',
-    price: '$49.95',
-  },
-  {
-    id: 2,
-    videoSrc: '/videos/video2.mp4',
-    title: 'Magnesium L-Threonate 2',
-    price: '$49.95',
-  },
-  {
-    id: 3,
-    videoSrc: '/videos/video3.mp4',
-    title: 'Magnesium L-Threonate 3',
-    price: '$49.95',
-  },
-  {
-    id: 4,
-    videoSrc: '/videos/video4.mp4',
-    title: 'Magnesium L-Threonate 4',
-    price: '$49.95',
-  },
-  {
-    id: 5,
-    videoSrc: '/videos/video5.mp4',
-    title: 'Magnesium L-Threonate 5',
-    price: '$49.95',
-  },
-  {
-    id: 6,
-    videoSrc: '/videos/video5.mp4',
-    title: 'Magnesium L-Threonate 5',
-    price: '$49.95',
-  },
-  {
-    id: 7,
-    videoSrc: '/videos/video5.mp4',
-    title: 'Magnesium L-Threonate 5',
-    price: '$49.95',
-  },
-];
-
-export const VideoSwiper: React.FC = () => {
+export const VideoSwiper = ({
+  videoSwiper,
+}: {
+  videoSwiper: VideosSwiperQuery['metaobjects'];
+}) => {
   const swiperRef = useRef<any>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [videosUrl, setVideosUrl] = useState<any[]>([]);
+  const [middleIndex, setMiddleIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isIntersecting, setIsIntersecting] = useState(false);
 
-  const middleIndex = Math.floor(videoData.length / 2);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        setIsIntersecting(entry.isIntersecting);
+        setIsVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.3,
+        rootMargin: '50px',
+      },
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const videos = videoSwiper.edges[0]?.node.fields[2]?.references?.edges;
+    if (videos) {
+      const processedVideos = videos.map((video: any) => ({
+        url: video.node.sources[2].url,
+        id: video.node.id || Math.random().toString(36).substr(2, 9),
+      }));
+      setVideosUrl(processedVideos);
+      setMiddleIndex(Math.floor(videos.length / 2));
+    }
+  }, [videoSwiper]);
+
+  if (!videosUrl.length) {
+    return null;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+  const reference = videoSwiper.edges[0]?.node?.fields[0]?.reference! as any;
+
+  const product = {
+    title: reference.title,
+    price: reference.priceRange.minVariantPrice.amount,
+    image: reference.featuredImage.url,
+    id: reference.id,
+  };
+
+  const handleSlideChange = (swiper: any) => {
+    setActiveIndex(swiper.realIndex);
+  };
 
   return (
-    <div className="w-full flex flex-col items-center h-[1050px] md:h-[923px] bg-[#F6F6F5]">
+    <div
+      ref={containerRef}
+      className="w-full flex flex-col items-center h-[1050px] md:h-[923px] bg-[#F6F6F5]"
+    >
       <HeadingSwiper
         title="Real People. Real Results."
         subtitle="Trusted & Proven by Science"
@@ -76,36 +87,51 @@ export const VideoSwiper: React.FC = () => {
         isEnd={swiperRef.current?.isEnd || false}
         isBeginning={swiperRef.current?.isBeginning || false}
       />
-
       <Swiper
         initialSlide={middleIndex}
         centeredSlides={true}
         spaceBetween={10}
-        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        onSlideChange={handleSlideChange}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+        }}
         slidesPerView={'auto'}
         className="w-full h-auto !pt-16"
         role="region"
         aria-label="Video Swiper"
       >
-        {videoData.map((video, index) => (
-          <SwiperSlide
-            key={video.id}
-            className={`transition-transform duration-500 ease-in-out ${
-              activeIndex === index ? 'relative bottom-10 z-10' : 'relative z-0'
-            }`}
-            role="group"
-            aria-roledescription="slide"
-            aria-label={`${video.title} - ${video.price}`}
-            style={{
-              width: '300px',
-              transition: 'transform 0.3s ease-in-out',
-            }}
-          >
-            <VideoSlideContent video={video} isActive={activeIndex === index} />
-            <VideoSlideInfo video={video} />
-          </SwiperSlide>
-        ))}
+        {videosUrl.map((video: any, index) => {
+          const isActive = activeIndex === index;
+          const shouldPlay = isVisible && isActive;
+
+
+          return (
+            <SwiperSlide
+              key={video.id}
+              className={`transition-transform duration-500 ease-in-out ${
+                isActive ? 'relative bottom-10 z-10' : 'relative z-0'
+              }`}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`Video ${index + 1}`}
+              style={{
+                width: '300px',
+                transition: 'transform 0.3s ease-in-out',
+              }}
+            >
+              <VideoSlideContent
+                videoUrl={video.url}
+                isActive={isActive}
+                shouldPlay={shouldPlay}
+              />
+              <VideoSlideInfo
+                imageSrc={product.image}
+                title={product.title}
+                price={product.price}
+              />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </div>
   );
