@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useState, useCallback} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {HeadingSwiper} from '~/components/ui/HeadingSwiper';
 import type {VideosSwiperQuery} from 'storefrontapi.generated';
@@ -7,52 +7,50 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import VideoSlideContent from './VideoSlideContent';
 
-export const VideoSwiper = ({
-  videoSwiper,
-}: {
+interface Video {
+  url: string;
+  id: string;
+}
+
+interface VideoSwiperProps {
   videoSwiper: VideosSwiperQuery['metaobjects'];
-}) => {
-  const swiperRef = useRef<any>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [videosUrl, setVideosUrl] = useState<any[]>([]);
-  const [middleIndex, setMiddleIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isIntersecting, setIsIntersecting] = useState(false);
+}
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
-        setIsIntersecting(entry.isIntersecting);
-        setIsVisible(entry.isIntersecting);
-      },
-      {
-        threshold: 0.3,
-        rootMargin: '50px',
-      },
-    );
+export const VideoSwiper = ({videoSwiper}: VideoSwiperProps) => {
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [videosUrl, setVideosUrl] = useState<Video[]>([]);
+  const [middleIndex, setMiddleIndex] = useState<number>(0);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
+  // Callback ref para inicializar el observer cuando el contenedor esté disponible
+  const containerRefCallback = useCallback((node: HTMLDivElement | null) => {
+    if (node !== null) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          setIsVisible(entry.isIntersecting);
+        },
+        {
+          threshold: 0.5,
+          rootMargin: '50px',
+        },
+      );
+
+      observer.observe(node);
+
+      // Cleanup
+      return () => observer.disconnect();
     }
-
-    return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current);
-      }
-    };
   }, []);
 
-  useEffect(() => {
-    const videos = videoSwiper.edges[0]?.node.fields[2]?.references?.edges;
-    if (videos) {
-      const processedVideos = videos.map((video: any) => ({
+  React.useEffect(() => {
+    const videoEdges = videoSwiper.edges[0]?.node.fields[2]?.references?.edges;
+    if (videoEdges) {
+      const processedVideos: Video[] = videoEdges.map((video: any) => ({
         url: video.node.sources[2].url,
         id: video.node.id || Math.random().toString(36).substr(2, 9),
       }));
       setVideosUrl(processedVideos);
-      setMiddleIndex(Math.floor(videos.length / 2));
+      setMiddleIndex(Math.floor(videoEdges.length / 2));
     }
   }, [videoSwiper]);
 
@@ -60,8 +58,7 @@ export const VideoSwiper = ({
     return null;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-  const reference = videoSwiper.edges[0]?.node?.fields[0]?.reference! as any;
+  const reference = videoSwiper.edges[0]?.node?.fields[0]?.reference as any;
 
   const product = {
     title: reference.title,
@@ -70,40 +67,36 @@ export const VideoSwiper = ({
     id: reference.id,
   };
 
-  const handleSlideChange = (swiper: any) => {
+  const handleSlideChange = (swiper: {realIndex: number}) => {
     setActiveIndex(swiper.realIndex);
   };
 
   return (
     <div
-      ref={containerRef}
+      ref={containerRefCallback}
       className="w-full flex flex-col items-center h-[1050px] md:h-[923px] bg-[#F6F6F5]"
     >
       <HeadingSwiper
         title="Real People. Real Results."
         subtitle="Trusted & Proven by Science"
         className="pt-14"
-        swiperRef={swiperRef}
-        isEnd={swiperRef.current?.isEnd || false}
-        isBeginning={swiperRef.current?.isBeginning || false}
+        swiperRef={null}
+        isEnd={false}
+        isBeginning={false}
       />
       <Swiper
         initialSlide={middleIndex}
         centeredSlides={true}
         spaceBetween={10}
         onSlideChange={handleSlideChange}
-        onSwiper={(swiper) => {
-          swiperRef.current = swiper;
-        }}
-        slidesPerView={'auto'}
+        slidesPerView="auto"
         className="w-full h-auto !pt-16"
         role="region"
         aria-label="Video Swiper"
       >
-        {videosUrl.map((video: any, index) => {
+        {videosUrl.map((video, index) => {
           const isActive = activeIndex === index;
           const shouldPlay = isVisible && isActive;
-
 
           return (
             <SwiperSlide
