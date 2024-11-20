@@ -6,7 +6,13 @@ import {
   useState,
 } from 'react';
 
-type AsideType = 'search' | 'cart' | 'mobile' | 'closed' | 'menu-mobile';
+type AsideType =
+  | 'search'
+  | 'cart'
+  | 'mobile'
+  | 'closed'
+  | 'menu-mobile'
+  | 'pdp';
 type AsideSide = 'left' | 'right'; // Nuevo tipo para determinar el lado
 type AsideContextValue = {
   type: AsideType;

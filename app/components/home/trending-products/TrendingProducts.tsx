@@ -3,11 +3,11 @@ import 'swiper/css';
 import React, {useRef, useState} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {HeadingSwiper} from '~/components/ui/HeadingSwiper';
-import {ProductCard} from '../../ui/product-card/ProductCard';
 import type {
   CollectionByHandleQuery,
   CollectionProductFragment,
 } from 'storefrontapi.generated';
+import {ProductCard} from '~/components/ui/products/product-card/ProductCard';
 
 type ProductSliderProps = {
   trendingProducts: CollectionByHandleQuery['collectionByHandle'];

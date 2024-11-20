@@ -7,8 +7,8 @@ import {Heading} from '~/components/ui/Heading';
 import {SwiperNavButton} from '~/components/ui/SwiperNavButton';
 import {COLLECTION_BY_HANDLE_QUERY} from '~/queries/fragments/collection';
 import {useRef, useState} from 'react';
-import {ProductCard} from '../../ui/product-card/ProductCard';
 import {SwiperSlide, Swiper} from 'swiper/react';
+import { ProductCard } from '~/components/ui/products/product-card/ProductCard';
 
 const navItems: {id: number; title: string; handle: string}[] = [
   {

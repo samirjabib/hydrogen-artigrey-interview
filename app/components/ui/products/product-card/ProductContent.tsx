@@ -5,7 +5,9 @@ import {Image} from '@shopify/hydrogen';
 import {StarsRating} from '../../StarRatings';
 import {Button} from '../../Button';
 import {Tag} from '../../Tag';
-import {Variant} from '../../product-card/ProductCard';
+import {useAside} from '../../../../providers/Aside';
+import type {Variant} from './ProductCard';
+import {useNavigate} from '@remix-run/react';
 
 export const ProductContent = ({
   product: {
@@ -22,6 +24,16 @@ export const ProductContent = ({
   product: CollectionProductFragment;
   variant?: Variant;
 }) => {
+  const {open} = useAside();
+  const openPdpAside = () => {
+    // const params = new URLSearchParams(window.location.search);
+    // params.set('productId', title); // Usa un identificador único, por ejemplo `id`
+    // navigate(`?${params.toString()}`, {replace: true}); // Cambia la URL sin recargar
+
+    // // Abrir el aside
+    open('pdp');
+  };
+
   return (
     <div>
       <div
@@ -57,7 +69,10 @@ export const ProductContent = ({
         </p>
         <div className="flex flex-row items-center justify-between pb-5">
           <StarsRating isProductRating />
-          <Button className="font-medium text-[13px] py-[5px] px-4 inline-flex">
+          <Button
+            className="font-medium text-[13px] py-[5px] px-4 inline-flex"
+            onClick={openPdpAside}
+          >
             {variant === 'default' ? `Add • ${price}` : 'Add to Cart'}
           </Button>
         </div>

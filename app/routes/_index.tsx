@@ -22,7 +22,7 @@ import {
   TrendingProducts,
   VideoSwiper,
 } from '~/components';
-import {BlogsBanner} from '~/components/home/blogs-banner/BlogsBanner';
+import {BlogsBanner} from '~/components/home/blogs-banner/Blogs-Banner';
 
 import {mockImages} from '~/components/home/instagram-feed/constants';
 

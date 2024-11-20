@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useMemo} from 'react';
+import React, {useState, useCallback, useMemo, useEffect, useRef} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {HeadingSwiper} from '~/components/ui/HeadingSwiper';
 import type {VideosSwiperQuery} from 'storefrontapi.generated';
@@ -46,14 +46,21 @@ export const VideoSwiper: React.FC<VideoSwiperProps> = ({videoSwiper}) => {
     };
   }, [videoSwiper]);
 
-  const containerRefCallback = useCallback((node: HTMLDivElement | null) => {
-    if (node) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const currentNode = containerRef.current;
+    if (currentNode) {
       const observer = new IntersectionObserver(
         ([entry]) => setIsVisible(entry.isIntersecting),
         {threshold: 0.5, rootMargin: '50px'},
       );
-      observer.observe(node);
-      return () => observer.disconnect();
+      observer.observe(currentNode);
+
+      return () => {
+        observer.unobserve(currentNode);
+        observer.disconnect();
+      };
     }
   }, []);
 
@@ -61,7 +68,7 @@ export const VideoSwiper: React.FC<VideoSwiperProps> = ({videoSwiper}) => {
 
   return (
     <div
-      ref={containerRefCallback}
+      ref={containerRef}
       className="w-full flex flex-col items-center h-[1050px] md:h-[923px] bg-[#F6F6F5]"
     >
       <HeadingSwiper
