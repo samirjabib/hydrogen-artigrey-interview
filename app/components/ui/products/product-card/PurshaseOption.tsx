@@ -1,6 +1,6 @@
 import {cn} from '~/utils/cn';
 import type {SelectOptions} from './types';
-import {SubscriptionRadio} from '../../RadioButton';
+import {RadioButton} from '../../RadioButton';
 
 export const PurchaseOption = ({
   label,
@@ -25,7 +25,7 @@ export const PurchaseOption = ({
         : 'border-transparent',
     )}
   >
-    <SubscriptionRadio
+    <RadioButton
       name="purchaseOption"
       value={optionValue}
       isSelected={selectedOption === optionValue}

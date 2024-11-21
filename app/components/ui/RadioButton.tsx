@@ -1,9 +1,9 @@
 export type SubscriptionRadioProps<T = string> = {
-  value: T;
+  value?: T;
   isSelected?: boolean;
   isDisabled?: boolean;
   onChange?: (value: T) => void;
-  name: string;
+  name?: string;
 };
 
 const radioStyles = {
@@ -31,7 +31,7 @@ const radioStyles = {
   saveText: 'text-sm text-gray-600',
 };
 
-export const SubscriptionRadio = <T extends string>({
+export const RadioButton = <T extends string>({
   value,
   isSelected = false,
   isDisabled = false,

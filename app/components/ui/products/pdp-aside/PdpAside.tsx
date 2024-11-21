@@ -13,6 +13,8 @@ import {Button} from '../../Button';
 import Cart from '../../../../routes/cart';
 import {TotalItems} from './TotalItems';
 import {SubtotalInformation} from './SubtotalInformation';
+import {RadioButton} from '../../RadioButton';
+import {PurchaseOption} from './PurshaseOption';
 
 export function PdpAside({cart}: {cart: RootLayoutProps['cart']}) {
   const data = useRouteLoaderData<RootLoader>('root');
@@ -42,7 +44,10 @@ export function PdpAside({cart}: {cart: RootLayoutProps['cart']}) {
   ];
 
   return (
-    <Aside type="pdp" className="w-full max-w-[580px] px-4 md:px-10">
+    <Aside
+      type="pdp"
+      className="w-full max-w-[580px] px-4 md:px-10 overflow-y-scroll"
+    >
       <Suspense fallback={<p>Loading pdp ...</p>}>
         <section className="w-full">
           <div className="flex justify-center pb-10">
@@ -77,7 +82,7 @@ export function PdpAside({cart}: {cart: RootLayoutProps['cart']}) {
               </tbody>
             </table>
             <div
-              className="flex flex-row items-center justify-between mt-6"
+              className="flex flex-row items-center justify-between mt-6 mb-10"
               aria-label="Cart Summary"
             >
               <Button
@@ -89,6 +94,20 @@ export function PdpAside({cart}: {cart: RootLayoutProps['cart']}) {
               </Button>
               <TotalItems totalItems={20} />
               <SubtotalInformation subtotal={249.95} />
+            </div>
+            <div className="bg-[#F6F6F5] p-4 rounded-md flex flex-row gap-[10px]">
+              <PurchaseOption
+                label="One-Time Purchase"
+                price={49.95}
+                frequency="Delivery Every 2 Months"
+                className="w-1/2"
+              />
+              <PurchaseOption
+                label="Subscribe & Save"
+                price={49.95}
+                frequency="Delivery Every 2 Months"
+                className="w-1/2"
+              />
             </div>
           </div>
         </section>
