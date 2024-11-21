@@ -1,69 +1,29 @@
-import React, {useState, useCallback, useMemo, useEffect, useRef} from 'react';
+import React, {useState, useRef, useCallback} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {HeadingSwiper} from '~/components/ui/HeadingSwiper';
 import type {VideosSwiperQuery} from 'storefrontapi.generated';
 import {VideoSlideInfo} from './VideoSlideInfo';
 import VideoSlideContent from './VideoSlideContent';
+import {useVideoProcessing} from './hooks/useVideoProcessing';
+import {useIntersectionVisibility} from './hooks/useIntersectionVisibility';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-interface Video {
-  url: string;
-  id: string;
-}
-
-interface VideoSwiperProps {
+export const VideoSwiper: React.FC<{
   videoSwiper: VideosSwiperQuery['metaobjects'];
-}
-
-export const VideoSwiper: React.FC<VideoSwiperProps> = ({videoSwiper}) => {
+}> = ({videoSwiper}) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
+  const swiperRef = useRef<any | null>(null);
+  const {containerRef, isVisible} = useIntersectionVisibility();
+  const {videosUrl, middleIndex, product} = useVideoProcessing(videoSwiper);
 
-  const {videosUrl, middleIndex, product} = useMemo(() => {
-    const videoEdges = videoSwiper.edges[0]?.node.fields[2]?.references?.edges;
-    const processedVideos: Video[] = videoEdges
-      ? videoEdges.map((video: any) => ({
-          url: video.node.sources[2].url,
-          id: video.node.id || Math.random().toString(36).substr(2, 9),
-        }))
-      : [];
-
-    const reference = videoSwiper.edges[0]?.node?.fields[0]?.reference as any;
-    const product = reference
-      ? {
-          title: reference.title,
-          price: reference.priceRange.minVariantPrice.amount,
-          image: reference.featuredImage.url,
-          id: reference.id,
-        }
-      : null;
-
-    return {
-      videosUrl: processedVideos,
-      middleIndex: Math.floor(processedVideos.length / 2),
-      product,
-    };
-  }, [videoSwiper]);
-
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const currentNode = containerRef.current;
-    if (currentNode) {
-      const observer = new IntersectionObserver(
-        ([entry]) => setIsVisible(entry.isIntersecting),
-        {threshold: 0.5, rootMargin: '50px'},
-      );
-      observer.observe(currentNode);
-
-      return () => {
-        observer.unobserve(currentNode);
-        observer.disconnect();
-      };
-    }
+  const handleSwiperInit = useCallback((swiper: any) => {
+    swiperRef.current = swiper;
   }, []);
 
+  const handleSlideChange = useCallback((swiper: any) => {
+    setActiveIndex(swiper.realIndex);
+  }, []);
   if (!videosUrl.length || !product) return null;
 
   return (
@@ -75,15 +35,16 @@ export const VideoSwiper: React.FC<VideoSwiperProps> = ({videoSwiper}) => {
         title="Real People. Real Results."
         subtitle="Trusted & Proven by Science"
         className="pt-14"
-        swiperRef={null}
-        isEnd={false}
-        isBeginning={false}
+        swiperRef={swiperRef}
+        isEnd={swiperRef.current ? swiperRef.current.isEnd : false}
+        isBeginning={swiperRef.current ? swiperRef.current.isBeginning : true}
       />
       <Swiper
+        onSwiper={handleSwiperInit}
+        onSlideChange={handleSlideChange}
         initialSlide={middleIndex}
         centeredSlides={true}
         spaceBetween={10}
-        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
         slidesPerView="auto"
         className="w-full h-auto !pt-16"
         role="region"
@@ -96,7 +57,7 @@ export const VideoSwiper: React.FC<VideoSwiperProps> = ({videoSwiper}) => {
           return (
             <SwiperSlide
               key={video.id}
-              className={`transition-transform duration-500 ease-in-out ${
+              className={`transition-[position] duration-200 ease-in-out ${
                 isActive ? 'relative bottom-10 z-10' : 'relative z-0'
               }`}
               role="group"
@@ -104,7 +65,6 @@ export const VideoSwiper: React.FC<VideoSwiperProps> = ({videoSwiper}) => {
               aria-label={`Video ${index + 1}`}
               style={{
                 width: '300px',
-                transition: 'transform 0.3s ease-in-out',
               }}
             >
               <VideoSlideContent

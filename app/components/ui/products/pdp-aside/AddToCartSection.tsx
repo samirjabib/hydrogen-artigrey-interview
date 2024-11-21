@@ -43,9 +43,16 @@ export function AddToCartSection({
           </button>
         </div>
         <div
+          aria-label="Add to Cart"
           role="button"
+          tabIndex={0}
           className="text-white text-base leading-[18px] font-medium cursor-pointer"
           onClick={onAddToCart}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              onAddToCart?.();
+            }
+          }}
         >
           Add to Cart - ${(price * quantity).toFixed(2)}
         </div>

@@ -31,7 +31,7 @@ const VideoSlideContent = ({
   return (
     <div
       className={cn(
-        'relative w-full rounded-md mb-4 transition-all h-[420px]',
+        'relative w-full rounded-md mb-4 transition-[height] duration-200 h-[420px]',
         isActive ? 'opacity-100 h-[500px]' : null,
       )}
       style={{transformOrigin: 'center'}}
