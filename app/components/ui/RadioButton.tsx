@@ -22,10 +22,10 @@ const radioStyles = {
     focus:outline-none
   `,
   inputStates: {
-    selected: 'border-black',
-    default: 'border-gray-300 hover:border-gray-400',
+    selected: 'border-[#1B1F23]',
+    default: 'border-[#1B1F23]',
   },
-  dot: 'absolute w-2.5 h-2.5 rounded-full bg-black',
+  dot: 'absolute w-2.5 h-2.5 rounded-full bg-[#1B1F23]',
   label: 'text-lg font-medium',
   price: 'text-lg font-medium',
   saveText: 'text-sm text-gray-600',

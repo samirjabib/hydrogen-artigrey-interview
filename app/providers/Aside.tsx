@@ -84,10 +84,10 @@ export function Aside({
       >
         <header
           className={cn(
-            'flex items-center p-4',
+            'flex items-center',
             heading
-              ? 'justify-between border-b border-gray-200'
-              : 'justify-end',
+              ? 'justify-between border-b border-gray-200 px-[30px]'
+              : 'justify-end relative !left-5',
           )}
         >
           {heading && <h3 className="text-lg font-semibold">{heading}</h3>}
@@ -95,7 +95,7 @@ export function Aside({
             <X size={15} color="black" />
           </button>
         </header>
-        <main>{children}</main>
+        <main className={cn('')}>{children}</main>
       </aside>
     </div>
   );

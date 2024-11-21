@@ -73,7 +73,7 @@ export const ProductContent = ({
           {description}
         </p>
         <div className="flex flex-row items-center justify-between pb-5">
-          <StarsRating isProductRating  size={12}/>
+          <StarsRating isProductRating size={12} />
           <Button
             className="font-medium text-[13px] py-[5px] px-4 inline-flex"
             onClick={openPdpAside}

@@ -39,20 +39,18 @@ export function PdpAside() {
   return (
     <Aside
       type="pdp"
-      className="w-full max-w-[580px] px-4 md:px-10 overflow-y-scroll"
+      className="w-full max-w-[580px] md:px-10 overflow-y-scroll pt-6"
     >
       <Suspense fallback={<p>Loading pdp ...</p>}>
         <section className="w-full">
           <ProductHeader
             title="Magnesium L-Threonate"
             subtitle="Enhances the quality of sleep."
-            rating={4.5}
             reviewCount={120}
             tags={['Gmo Free', 'Gluten Free']}
             imageSrc="https://cdn.shopify.com/s/files/1/0917/5161/2725/files/omega-3_31e57120-b358-4641-8494-2e98458b24d7.png?v=1732035059"
             imageAlt="Magnesium L-Threonate"
           />
-
           <div className="mt-10">
             <ProductVariantTable variants={variants} />
 

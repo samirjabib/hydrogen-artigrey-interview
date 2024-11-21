@@ -45,7 +45,8 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({
           }}
           breakpoints={{
             375: {spaceBetween: 10, slidesPerView: 1},
-            800: {spaceBetween: 20, slidesPerView: 2},
+            500: {spaceBetween: 10, slidesPerView: 2},
+            800: {spaceBetween: 20, slidesPerView: 3},
             1280: {spaceBetween: 20, slidesPerView: 4},
           }}
           onSlideChange={(swiper) => {
@@ -59,7 +60,7 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({
 
             return (
               <SwiperSlide key={product.id} className="h-auto">
-                <ProductCard product={product} />
+                <ProductCard product={product} variant='default' />
               </SwiperSlide>
             );
           })}

@@ -15,7 +15,6 @@ export const ProductCard = ({
     product.sellingPlanGroups.nodes?.length > 0 &&
     product.sellingPlanGroups.nodes[0].sellingPlans.nodes.length > 0;
 
-
   return (
     <div
       className={cn(
@@ -26,7 +25,7 @@ export const ProductCard = ({
       {hasSellingPlans ? (
         <ProductSubscriptionContent product={product} />
       ) : (
-        <ProductContent product={product} variant="grey" />
+        <ProductContent product={product} variant={variant} />
       )}
     </div>
   );
