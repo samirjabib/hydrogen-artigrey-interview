@@ -3,7 +3,7 @@ import {ProductContent} from './ProductContent';
 import {ProductSubscriptionContent} from './ProductSubscriptionContent';
 import type {CollectionProductFragment} from 'storefrontapi.generated';
 
-export type Variant = 'default' | 'grey';
+export type Variant = 'default' | 'gray';
 export const ProductCard = ({
   product,
   variant = 'default',
@@ -19,7 +19,7 @@ export const ProductCard = ({
     <div
       className={cn(
         'rounded-lg pt-8',
-        variant === 'grey' ? 'bg-[#F6F6F5]' : 'bg-white',
+        variant === 'gray' ? 'bg-[#F6F6F5]' : 'bg-white',
       )}
     >
       {hasSellingPlans ? (

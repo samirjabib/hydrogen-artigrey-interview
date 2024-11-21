@@ -60,7 +60,7 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({
 
             return (
               <SwiperSlide key={product.id} className="h-auto">
-                <ProductCard product={product} variant='default' />
+                <ProductCard product={product} variant="default" />
               </SwiperSlide>
             );
           })}

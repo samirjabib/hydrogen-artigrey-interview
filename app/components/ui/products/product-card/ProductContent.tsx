@@ -60,7 +60,11 @@ export const ProductContent = ({
         <div className="absolute bottom-0 left-0">
           <div className="px-4 flex flex-row items-center gap-1">
             {tags.map((tag) => (
-              <Tag key={tag} tag={tag} />
+              <Tag
+                key={tag}
+                tag={tag}
+                variant={variant === 'gray' ? 'white' : 'gray'}
+              />
             ))}
           </div>
         </div>
