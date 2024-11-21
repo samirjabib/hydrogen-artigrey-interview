@@ -22,16 +22,6 @@ type AsideContextValue = {
   close: () => void;
 };
 
-/**
- * A side bar component with Overlay
- * @example
- * ```jsx
- * <Aside type="search" heading="SEARCH" side="right">
- *  <input type="search" />
- *  ...
- * </Aside>
- * ```
- */
 export function Aside({
   children,
   heading,
@@ -105,7 +95,7 @@ export function Aside({
             <X size={15} color="black" />
           </button>
         </header>
-        <main className="p-4">{children}</main>
+        <main>{children}</main>
       </aside>
     </div>
   );

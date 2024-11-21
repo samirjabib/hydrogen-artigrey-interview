@@ -1,22 +1,15 @@
 import {useRouteLoaderData} from '@remix-run/react';
-import {Image} from '@shopify/hydrogen';
 import {Suspense} from 'react';
 import {Aside} from '~/providers/Aside';
 import type {RootLoader} from '~/root';
-import type {RootLayoutProps} from '~/types';
-import {Tag} from '../../Tag';
-import {StarsRating} from '../../StarRatings';
-import {TableHead} from './TableHead';
-import {TableRow} from './table-row/TableRow';
-import {tableHead} from './constants';
-import {Button} from '../../Button';
-import Cart from '../../../../routes/cart';
-import {TotalItems} from './TotalItems';
-import {SubtotalInformation} from './SubtotalInformation';
-import {RadioButton} from '../../RadioButton';
-import {PurchaseOption} from './PurshaseOption';
 
-export function PdpAside({cart}: {cart: RootLayoutProps['cart']}) {
+import {ProductHeader} from './ProductHeader';
+import {ProductVariantTable} from './product-variant-table/ProductVariantTable';
+import {CartSummary} from './CartSummary';
+import {PurchaseOption} from './PurshaseOption';
+import {AddToCartSection} from './AddToCartSection';
+
+export function PdpAside() {
   const data = useRouteLoaderData<RootLoader>('root');
 
   const variants = [
@@ -50,65 +43,44 @@ export function PdpAside({cart}: {cart: RootLayoutProps['cart']}) {
     >
       <Suspense fallback={<p>Loading pdp ...</p>}>
         <section className="w-full">
-          <div className="flex justify-center pb-10">
-            <Image
-              src="https://cdn.shopify.com/s/files/1/0917/5161/2725/files/omega-3_31e57120-b358-4641-8494-2e98458b24d7.png?v=1732035059"
-              alt="product"
-              width={300}
-              height={300}
-            />
-          </div>
-          <h3 className="font-medium text-[26px] leading-[31px] text-[#1B1F23] mb-2">
-            Magnesium L-Threonate
-          </h3>
-          <p className="text-[#1B1F23]/70 text-sm leading-4 font-normal mb-5">
-            Enhances the quality of sleep.
-          </p>
-          <div className="flex flex-row items-center justify-between  mb-5">
-            <div className="flex flex-row items-center gap-[6px]">
-              {['Gmo Free', 'Gluten Free'].map((tag) => (
-                <Tag tag={tag} key={tag} />
-              ))}
-            </div>
-            <StarsRating isProductRating size={16} />
-          </div>
+          <ProductHeader
+            title="Magnesium L-Threonate"
+            subtitle="Enhances the quality of sleep."
+            rating={4.5}
+            reviewCount={120}
+            tags={['Gmo Free', 'Gluten Free']}
+            imageSrc="https://cdn.shopify.com/s/files/1/0917/5161/2725/files/omega-3_31e57120-b358-4641-8494-2e98458b24d7.png?v=1732035059"
+            imageAlt="Magnesium L-Threonate"
+          />
+
           <div className="mt-10">
-            <table className="w-full">
-              <TableHead headers={tableHead} />
-              <tbody>
-                {variants.map((variant) => (
-                  <TableRow key={variant.name} variant={variant} />
-                ))}
-              </tbody>
-            </table>
-            <div
-              className="flex flex-row items-center justify-between mt-6 mb-10"
-              aria-label="Cart Summary"
-            >
-              <Button
-                variant="outline"
-                className="text-black py-2 px-3 text-[11px] leading-3"
-                aria-label="View Cart"
-              >
-                View Cart
-              </Button>
-              <TotalItems totalItems={20} />
-              <SubtotalInformation subtotal={249.95} />
-            </div>
-            <div className="bg-[#F6F6F5] p-4 rounded-md flex flex-row gap-[10px]">
+            <ProductVariantTable variants={variants} />
+
+            <CartSummary totalItems={20} subtotal={249.95} />
+
+            <div className="flex-col sm:flex-row bg-[#F6F6F5] p-4 rounded-md flex gap-[10px] mb-5">
               <PurchaseOption
                 label="One-Time Purchase"
                 price={49.95}
                 frequency="Delivery Every 2 Months"
-                className="w-1/2"
+                className="w-full sm:w-1/2"
               />
               <PurchaseOption
                 label="Subscribe & Save"
                 price={49.95}
                 frequency="Delivery Every 2 Months"
-                className="w-1/2"
+                className="w-full sm:w-1/2"
               />
             </div>
+
+            <AddToCartSection
+              initialQuantity={1}
+              price={39.96}
+              onQuantityChange={(qty) =>
+                console.log(`Quantity changed to: ${qty}`)
+              }
+              onAddToCart={() => console.log('Added to cart')}
+            />
           </div>
         </section>
       </Suspense>
