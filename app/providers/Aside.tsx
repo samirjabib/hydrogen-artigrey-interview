@@ -115,6 +115,16 @@ const AsideContext = createContext<AsideContextValue | null>(null);
 
 Aside.Provider = function AsideProvider({children}: {children: ReactNode}) {
   const [type, setType] = useState<AsideType>('closed');
+  useEffect(() => {
+    const originalStyle = window.getComputedStyle(document.body).overflow;
+    if (type !== 'closed') {
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.body.style.overflow = originalStyle;
+    };
+  }, [type]);
 
   return (
     <AsideContext.Provider
