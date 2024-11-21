@@ -14,8 +14,8 @@ const buttonVariants = cva(
         secondary:
           'bg-white text-[#1B1F23] hover:bg-gray-100 focus:ring-gray-300 active:bg-gray-200',
         terciary: 'bg-[#E4E4E4] text-[#1B1F23] ',
-        ghost: 'bg-transparent ',
-        outline: 'border-white border text-white',
+        ghost: 'bg-transparent',
+        outline: 'border border-[#AAAAAA] bg-white',
       },
     },
     defaultVariants: {

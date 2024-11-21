@@ -13,7 +13,7 @@ export const TableRow = ({
     size: string;
   };
 }) => (
-  <tr key={variant.name}>
+  <tr key={variant.name} className=''>
     <ImageCell name={variant.name} size={variant.size} />
     <QuantityCell />
     <TableCell className="text-center text-xs leading-[14px] text-[#30363C]">
