@@ -1,47 +1,62 @@
-import {useRouteLoaderData} from '@remix-run/react';
-import {Suspense} from 'react';
-import {Aside} from '~/providers/Aside';
-import type {RootLoader} from '~/root';
-
-import {ProductHeader} from './ProductHeader';
-import {ProductVariantTable} from './product-variant-table/ProductVariantTable';
-import {CartSummary} from './CartSummary';
-import {PurchaseOption} from './PurshaseOption';
+import {Button} from '../../Button';
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '../../sheet';
 import {AddToCartSection} from './AddToCartSection';
+import {CartSummary} from './CartSummary';
+import {ProductVariantTable} from './product-variant-table/ProductVariantTable';
+import {ProductHeader} from './ProductHeader';
+import {PurchaseOption} from './PurshaseOption';
+import type {Variant} from '../product-card/ProductCard';
 
-export function PdpAside() {
-  const data = useRouteLoaderData<RootLoader>('root');
+const variants = [
+  {
+    name: 'Small',
+    price: '$49.95a',
+    discount: '0%',
+    total: '$00.00',
+    size: '30 Capsulas',
+  },
+  {
+    name: 'Medium',
+    size: '60 Capsulas',
+    price: '$49.95',
+    discount: '5%',
+    total: '$249.95',
+  },
+  {
+    name: 'Large',
+    size: '90 Capsulas',
+    price: '$49.95',
+    discount: '5%',
+    total: '$249.95',
+  },
+];
 
-  const variants = [
-    {
-      name: 'Small',
-      price: '$49.95a',
-      discount: '0%',
-      total: '$00.00',
-      size: '30 Capsulas',
-    },
-    {
-      name: 'Medium',
-      size: '60 Capsulas',
-      price: '$49.95',
-      discount: '5%',
-      total: '$249.95',
-    },
-    {
-      name: 'Large',
-      size: '90 Capsulas',
-      price: '$49.95',
-      discount: '5%',
-      total: '$249.95',
-    },
-  ];
-
+export function ProductsQuickView({
+  variant,
+  handle,
+  price,
+}: {
+  price: any;
+  handle: string;
+  variant?: Variant;
+}) {
   return (
-    <Aside
-      type="pdp"
-      className="w-full max-w-[580px] md:px-10 overflow-y-scroll pt-6"
-    >
-      <Suspense fallback={<p>Loading pdp ...</p>}>
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button className="font-medium text-[13px] py-[5px] px-4 inline-flex">
+          {variant === 'default' ? `Add • ${price}` : 'Add to Cart'}
+        </Button>
+      </SheetTrigger>
+      <SheetContent className="overflow-y-scroll">
         <section className="w-full">
           <ProductHeader
             title="Magnesium L-Threonate"
@@ -81,7 +96,7 @@ export function PdpAside() {
             />
           </div>
         </section>
-      </Suspense>
-    </Aside>
+      </SheetContent>
+    </Sheet>
   );
 }

@@ -4,6 +4,7 @@ import {
   Analytics,
   getSeoMeta,
   type SeoConfig,
+  getSelectedProductOptions,
 } from '@shopify/hydrogen';
 import {defer, type LoaderFunctionArgs} from '@netlify/remix-runtime';
 import {
@@ -21,6 +22,7 @@ import {FOOTER_QUERY, HEADER_QUERY} from '~/queries/fragments/fragments';
 import './styles/tailwind.css';
 
 import {RootProvider} from './components';
+import {PRODUCT_QUERY} from './queries/fragments/product';
 
 export type RootLoader = typeof loader;
 
@@ -107,8 +109,21 @@ async function loadCriticalData({context}: LoaderFunctionArgs) {
  * fetched after the initial page load. If it's unavailable, the page should still 200.
  * Make sure to not throw any errors here, as it will cause the page to 500.
  */
-function loadDeferredData({context}: LoaderFunctionArgs) {
+function loadDeferredData({context, request}: LoaderFunctionArgs) {
   const {storefront, customerAccount, cart} = context;
+
+  //get product data by handle
+  // const url = new URL(request.url);
+  // const productHandle = url.searchParams.get('productHandle');
+
+  // const product = storefront.query(PRODUCT_QUERY, {
+  //   variables: {
+  //     handle: productHandle,
+  //     selectedOptions: productHandle ? getSelectedProductOptions(request) : [],
+  //   },
+  // });
+
+  // console.log(product)
 
   // defer the footer query (below the fold)
   const footer = storefront

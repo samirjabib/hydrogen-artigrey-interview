@@ -4,6 +4,7 @@ import type {CartApiQueryFragment} from 'storefrontapi.generated';
 import {CartLineItem} from '~/components/cart/CartLineItem';
 import {CartSummary} from './CartSummary';
 import {useAside} from '~/providers/Aside';
+import {CartEmpty} from './CartEmpty';
 
 export type CartLayout = 'page' | 'aside';
 
@@ -31,7 +32,7 @@ export function CartMain({layout, cart: originalCart}: CartMainProps) {
   return (
     <div className={className}>
       <CartEmpty hidden={linesCount} layout={layout} />
-      <div className="cart-details">
+      <div>
         <div aria-labelledby="cart-lines">
           <ul>
             {(cart?.lines?.nodes ?? []).map((line) => (
@@ -41,28 +42,6 @@ export function CartMain({layout, cart: originalCart}: CartMainProps) {
         </div>
         {cartHasItems && <CartSummary cart={cart} layout={layout} />}
       </div>
-    </div>
-  );
-}
-
-function CartEmpty({
-  hidden = false,
-}: {
-  hidden: boolean;
-  layout?: CartMainProps['layout'];
-}) {
-  const {close} = useAside();
-  return (
-    <div hidden={hidden}>
-      <br />
-      <p>
-        Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
-        started!
-      </p>
-      <br />
-      <Link to="/collections" onClick={close} prefetch="viewport">
-        Continue shopping →
-      </Link>
     </div>
   );
 }

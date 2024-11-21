@@ -3,7 +3,6 @@
     "./**/*.d.ts",
     "./**/*.ts",
     "./**/*.tsx",
-    "app/components/home/promises/Promises.tsx"
   ],
   "compilerOptions": {
     "lib": [
@@ -25,7 +24,8 @@
     "baseUrl": ".",
     "paths": {
       "~/*": [
-        "app/*"
+        "./app/*"
+        
       ]
     },
     "noEmit": true

@@ -1,6 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import {useState, useEffect, useRef} from 'react';
 
-export function useIntersectionVisibility(options = { threshold: 0.5, rootMargin: '50px' }) {
+export function useIntersectionVisibility(
+  options = {threshold: 0.5, rootMargin: '50px'},
+) {
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -20,5 +22,5 @@ export function useIntersectionVisibility(options = { threshold: 0.5, rootMargin
     }
   }, [options]);
 
-  return { containerRef, isVisible };
+  return {containerRef, isVisible};
 }

@@ -22,7 +22,7 @@ export function ProductForm({
       <VariantSelector
         handle={product.handle}
         options={product.options.filter(
-          (option) => option.optionValues.length > 1,
+          (option) => option?.optionValues?.length > 1,
         )}
         variants={variants}
       >

@@ -7,7 +7,8 @@ import {Button} from '../../Button';
 import {Tag} from '../../Tag';
 import {useAside} from '../../../../providers/Aside';
 import type {Variant} from './ProductCard';
-import {useNavigate} from '@remix-run/react';
+import {useFetcher, useNavigate} from '@remix-run/react';
+import {ProductsQuickView} from '../pdp-aside/ProductsQuickView';
 
 export const ProductContent = ({
   product: {
@@ -16,9 +17,11 @@ export const ProductContent = ({
     priceRange: {
       minVariantPrice: {amount: price},
     },
+    variants,
     tags,
     handle,
     images,
+    sellingPlanGroups,
   },
   variant = 'default',
 }: {
@@ -26,18 +29,9 @@ export const ProductContent = ({
   variant?: Variant;
 }) => {
   const {open} = useAside();
-  const navigate = useNavigate();
-  const openPdpAside = () => {
-    const params = new URLSearchParams(window.location.search);
-    params.set('product', handle); // Usa el handle en lugar del título
 
-    navigate(`?${params.toString()}`, {
-      replace: true,
-      preventScrollReset: true,
-    });
-
-    open('pdp');
-  };
+  console.log(variants);
+  console.log(sellingPlanGroups);
 
   return (
     <div>
@@ -78,12 +72,7 @@ export const ProductContent = ({
         </p>
         <div className="flex flex-row items-center justify-between pb-5">
           <StarsRating isProductRating size={12} />
-          <Button
-            className="font-medium text-[13px] py-[5px] px-4 inline-flex"
-            onClick={openPdpAside}
-          >
-            {variant === 'default' ? `Add • ${price}` : 'Add to Cart'}
-          </Button>
+          <ProductsQuickView handle={handle} variant={variant} price={price} />
         </div>
       </div>
     </div>
