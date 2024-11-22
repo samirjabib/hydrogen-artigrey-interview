@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import {Image} from '@shopify/hydrogen';
 import type {CollectionProductFragment} from 'storefrontapi.generated';
 import {cn} from '~/utils/cn';
@@ -6,8 +5,6 @@ import {cn} from '~/utils/cn';
 import {useSubscription} from './hooks';
 import {NavLink} from '@remix-run/react';
 import {PurchaseOption} from './PurshaseOption';
-import {Button} from '../../Button';
-import {useAside} from '~/providers/Aside';
 import { ProductsQuickView } from '../pdp-aside/ProductsQuickView';
 import { Variant } from './ProductCard';
 
@@ -30,16 +27,6 @@ export const ProductSubscriptionContent = ({
     discountedPrice,
     adjustmentPercentage,
   } = useSubscription(price, sellingPlanGroups);
-
-  const {open} = useAside();
-  const openPdpAside = () => {
-    // const params = new URLSearchParams(window.location.search);
-    // params.set('productId', title); // Usa un identificador único, por ejemplo `id`
-    // navigate(`?${params.toString()}`, {replace: true}); // Cambia la URL sin recargar
-
-    // // Abrir el aside
-    open('pdp');
-  };
 
   return (
     <div>
@@ -79,12 +66,6 @@ export const ProductSubscriptionContent = ({
         role="radiogroup"
         aria-label="Purchase options"
       >
-        {/* <Button variant="primary" className="text-sm" onClick={openPdpAside}>
-          Add to Cart - $
-          {selectedOption === 'subscribe'
-            ? discountedPrice.toFixed(2)
-            : parsedPrice.toFixed(2)}
-        </Button> */}
         <ProductsQuickView product={product} variant={variant} />  
 
         <NavLink

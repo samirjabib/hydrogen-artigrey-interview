@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
-const priceUtils = {
+export const priceUtils = {
   parsePrice: (amount: string | undefined | null): number => {
     return amount ? parseFloat(amount) : 0;
   },
