@@ -68,6 +68,12 @@ export const SELLING_PLAN_GROUP_FRAGMENT = `#graphql
 export const PRODUCT_VARIANT_FRAGMENT = `#graphql
   fragment ProductVariant on ProductVariant {
     availableForSale
+    metafield(key:"description",namespace:"custom"){
+      description
+      value
+      id
+      key
+    }
     compareAtPrice {
       amount
       currencyCode
