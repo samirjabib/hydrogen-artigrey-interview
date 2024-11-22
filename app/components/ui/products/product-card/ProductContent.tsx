@@ -11,25 +11,15 @@ import {useFetcher, useNavigate} from '@remix-run/react';
 import {ProductsQuickView} from '../pdp-aside/ProductsQuickView';
 
 export const ProductContent = ({
-  product: {
-    title,
-    description,
-    priceRange: {
-      minVariantPrice: {amount: price},
-    },
-    variants,
-    tags,
-    handle,
-    images,
-    sellingPlanGroups,
-  },
+  product,
   variant = 'default',
 }: {
   product: CollectionProductFragment;
   variant?: Variant;
 }) => {
   const {open} = useAside();
-
+  console.log(product)
+const { handle, title, description, images, tags, variants, sellingPlanGroups} = product
   console.log(variants);
   console.log(sellingPlanGroups);
 
