@@ -8,18 +8,21 @@ import {NavLink} from '@remix-run/react';
 import {PurchaseOption} from './PurshaseOption';
 import {Button} from '../../Button';
 import {useAside} from '~/providers/Aside';
+import { ProductsQuickView } from '../pdp-aside/ProductsQuickView';
+import { Variant } from './ProductCard';
 
 export const ProductSubscriptionContent = ({
-  product: {
-    images,
-    sellingPlanGroups,
-    priceRange: {
-      minVariantPrice: {amount: price},
-    },
-  },
+  product,
+  variant
 }: {
   product: CollectionProductFragment;
+  variant?: Variant;
 }) => {
+
+
+  const {title, priceRange: {minVariantPrice: {amount: price}}, images, sellingPlanGroups} = product;
+
+
   const {
     selectedOption,
     handleOptionChange,
@@ -76,12 +79,13 @@ export const ProductSubscriptionContent = ({
         role="radiogroup"
         aria-label="Purchase options"
       >
-        <Button variant="primary" className="text-sm" onClick={openPdpAside}>
+        {/* <Button variant="primary" className="text-sm" onClick={openPdpAside}>
           Add to Cart - $
           {selectedOption === 'subscribe'
             ? discountedPrice.toFixed(2)
             : parsedPrice.toFixed(2)}
-        </Button>
+        </Button> */}
+        <ProductsQuickView product={product} variant={variant} />  
 
         <NavLink
           to="/"

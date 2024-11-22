@@ -11,27 +11,15 @@ import {useFetcher, useNavigate} from '@remix-run/react';
 import {ProductsQuickView} from '../pdp-aside/ProductsQuickView';
 
 export const ProductContent = ({
-  product: {
-    title,
-    description,
-    priceRange: {
-      minVariantPrice: {amount: price},
-    },
-    variants,
-    tags,
-    handle,
-    images,
-    sellingPlanGroups,
-  },
+  product,
   variant = 'default',
 }: {
   product: CollectionProductFragment;
   variant?: Variant;
 }) => {
-  const {open} = useAside();
 
-  console.log(variants);
-  console.log(sellingPlanGroups);
+  const {images, title, description, tags} = product;
+
 
   return (
     <div>
@@ -72,7 +60,7 @@ export const ProductContent = ({
         </p>
         <div className="flex flex-row items-center justify-between pb-5">
           <StarsRating isProductRating size={12} />
-          <ProductsQuickView handle={handle} variant={variant} price={price} />
+          <ProductsQuickView product={product} variant={variant} />
         </div>
       </div>
     </div>

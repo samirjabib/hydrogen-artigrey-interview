@@ -72,6 +72,12 @@ export const PRODUCT_VARIANT_FRAGMENT = `#graphql
       amount
       currencyCode
     }
+    metafield(key:"description",namespace:"custom"){
+      description
+      value
+      id
+      key
+    }
     id
     image {
       __typename

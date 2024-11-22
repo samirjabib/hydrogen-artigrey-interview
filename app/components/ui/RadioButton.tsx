@@ -18,7 +18,7 @@ const radioStyles = {
     hover: 'hover:border-gray-400',
   },
   input: `
-    w-5 h-5 appearance-none border-2 rounded-full transition-all
+    w-3 h-3 lg:w-5 lg:h-5 appearance-none border-2 rounded-full transition-all
     focus:outline-none
   `,
   inputStates: {

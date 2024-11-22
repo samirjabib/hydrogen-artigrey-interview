@@ -15,6 +15,8 @@ import {ProductVariantTable} from './product-variant-table/ProductVariantTable';
 import {ProductHeader} from './ProductHeader';
 import {PurchaseOption} from './PurshaseOption';
 import type {Variant} from '../product-card/ProductCard';
+import { CollectionProductFragment } from 'storefrontapi.generated';
+import { cn } from '~/utils/cn';
 
 const variants = [
   {
@@ -42,33 +44,32 @@ const variants = [
 
 export function ProductsQuickView({
   variant,
-  handle,
-  price,
+  product,
 }: {
-  price: any;
-  handle: string;
+  product: CollectionProductFragment;
   variant?: Variant;
 }) {
+
+
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button className="font-medium text-[13px] py-[5px] px-4 inline-flex">
-          {variant === 'default' ? `Add • ${price}` : 'Add to Cart'}
+        <Button className={cn("",  product.sellingPlanGroups.nodes.length > 0 ? 'text-sm' : 'font-medium text-[13px] py-[5px] px-4 inline-flex')}>
+          {variant === 'default' ? `Add • $${parseFloat(product.priceRange.minVariantPrice.amount).toFixed(2)}` : 'Add to Cart'}
         </Button>
       </SheetTrigger>
       <SheetContent className="overflow-y-scroll">
         <section className="w-full">
           <ProductHeader
-            title="Magnesium L-Threonate"
-            subtitle="Enhances the quality of sleep."
+            title={product.title}
+            subtitle={product.description}
             reviewCount={120}
-            tags={['Gmo Free', 'Gluten Free']}
-            imageSrc="https://cdn.shopify.com/s/files/1/0917/5161/2725/files/omega-3_31e57120-b358-4641-8494-2e98458b24d7.png?v=1732035059"
-            imageAlt="Magnesium L-Threonate"
+            tags={product.tags}
+            imageSrc={product.images.nodes[0].url}
+            imageAlt={product.title}
           />
           <div className="mt-10">
-            <ProductVariantTable variants={variants} />
-
+            <ProductVariantTable variants={product.variants.nodes} />
             <CartSummary totalItems={20} subtotal={249.95} />
 
             <div className="flex-col sm:flex-row bg-[#F6F6F5] p-4 rounded-md flex gap-[10px] mb-5">

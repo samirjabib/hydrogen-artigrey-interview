@@ -23,7 +23,7 @@ export const ProductCard = ({
       )}
     >
       {hasSellingPlans ? (
-        <ProductSubscriptionContent product={product} />
+        <ProductSubscriptionContent product={product}  variant={variant}/>
       ) : (
         <ProductContent product={product} variant={variant} />
       )}
