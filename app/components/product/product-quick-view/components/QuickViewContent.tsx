@@ -26,7 +26,7 @@ export function QuickViewContent({ product }: QuickViewContentProps) {
         imageSrc={imageSrc}
         imageAlt={imageAlt || title}
       />
-      <div className="mt-10">
+      <div className="mt-10 relative">
         <ProductVariantTable variants={variants.nodes} />
         <CartSummary totalItems={20} subtotal={249.95} />
         {isProductWithVariants && <SubscriptionPlanOptions />}

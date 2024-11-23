@@ -1,4 +1,4 @@
-import {X} from 'lucide-react';
+import { X } from 'lucide-react';
 import {
   createContext,
   type ReactNode,
@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import {cn} from '~/utils/cn';
+import { cn } from '~/utils/cn';
 
 type AsideType =
   | 'search'
@@ -35,7 +35,7 @@ export function Aside({
   side?: AsideSide;
   className?: string;
 }) {
-  const {type: activeType, close} = useAside();
+  const { type: activeType, close } = useAside();
   const expanded = type === activeType;
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export function Aside({
             close();
           }
         },
-        {signal: abortController.signal},
+        { signal: abortController.signal },
       );
     }
     return () => abortController.abort();
@@ -58,11 +58,10 @@ export function Aside({
   return (
     <div
       aria-modal
-      className={`fixed inset-0 z-40 transition-opacity ${
-        expanded
+      className={`fixed inset-0 z-40 transition-opacity ${expanded
           ? 'opacity-100 pointer-events-auto'
           : 'opacity-0 pointer-events-none'
-      }`}
+        }`}
       role="dialog"
     >
       <button
@@ -103,7 +102,7 @@ export function Aside({
 
 const AsideContext = createContext<AsideContextValue | null>(null);
 
-Aside.Provider = function AsideProvider({children}: {children: ReactNode}) {
+Aside.Provider = function AsideProvider({ children }: { children: ReactNode }) {
   const [type, setType] = useState<AsideType>('closed');
   useEffect(() => {
     const originalStyle = window.getComputedStyle(document.body).overflow;

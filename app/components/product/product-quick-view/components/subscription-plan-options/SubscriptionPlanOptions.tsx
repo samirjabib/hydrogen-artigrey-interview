@@ -1,4 +1,4 @@
-import { PurchaseOption } from "./PurshaseOption";
+import { PurchaseOption } from "../PurshaseOption";
 
 export function SubscriptionPlanOptions() {
     return (

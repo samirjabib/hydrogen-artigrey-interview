@@ -3,12 +3,10 @@ import { ProductVariantTableProps, VariantWithMetaField } from '../../types';
 import { TableRow } from './table-row/TableRow';
 import { TableHead } from './TableHead';
 
-
-
 export function ProductVariantTable({ variants }: ProductVariantTableProps) {
   return (
-    <div className="relative overflow-x-scroll">
-      <table className="w-full">
+    <div className="relative overflow-x-scroll md:overflow-x-hidden">
+      <table >
         <TableHead headers={tableHead} />
         <tbody>
           {variants.map((variant) => (
