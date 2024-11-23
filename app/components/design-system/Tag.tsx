@@ -1,6 +1,6 @@
-import {cn} from '~/utils/cn';
+import { cn } from '~/utils/cn';
 
-type TagsVariants = 'gray' | 'white';
+export type TagsVariants = 'gray' | 'white';
 export const Tag = ({
   tag,
   variant = 'gray',

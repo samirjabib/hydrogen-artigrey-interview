@@ -3,8 +3,8 @@ import type {
   SellingPlanGroupFragment,
   SellingPlanFragment,
 } from 'storefrontapi.generated';
-import {useMemo} from 'react';
-import {useLocation} from '@remix-run/react';
+import { useMemo } from 'react';
+import { useLocation } from '@remix-run/react';
 
 /* Enriched sellingPlan type including isSelected and url */
 export type SellingPlan = SellingPlanFragment & {
@@ -48,7 +48,7 @@ export function SellingPlanSelector({
     selectedSellingPlan: SellingPlanFragment | null;
   }) => React.ReactNode;
 }) {
-  const {search, pathname} = useLocation();
+  const { search, pathname } = useLocation();
   const params = new URLSearchParams(search);
 
   return useMemo(
@@ -73,7 +73,7 @@ export function SellingPlanSelector({
           })
           .filter(Boolean) as SellingPlan[];
         sellingPlanGroup.sellingPlans.nodes = sellingPlans;
-        return children({sellingPlanGroup, selectedSellingPlan});
+        return children({ sellingPlanGroup, selectedSellingPlan });
       }),
     [sellingPlanGroups],
   );
