@@ -1,5 +1,5 @@
-import {Button} from '~/components/ui/Button';
-import {BackgroundImage} from './BackgroundImage';
+import { Button } from '~/components/ui/Button';
+import { BackgroundImage } from './BackgroundImage';
 
 export const SecondBanner: React.FC = () => {
   return (

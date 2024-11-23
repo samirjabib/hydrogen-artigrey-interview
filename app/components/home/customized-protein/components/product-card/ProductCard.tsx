@@ -5,6 +5,7 @@ import { ActiveIngredients } from './ActiveIngredients';
 import { ProductFeatures } from './ProductFeatures';
 
 export const ProductCardProtein: React.FC<ProductCardProteinProps> = ({ product }) => {
+  console.log(product.image, 'customized protein');
   return (
     <div
       className="flex flex-col md:flex-row h-auto px-4 md:px-[120px]"

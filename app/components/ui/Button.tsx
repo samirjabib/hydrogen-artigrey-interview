@@ -15,7 +15,7 @@ const buttonVariants = cva(
           'bg-white text-[#1B1F23] hover:bg-gray-100 focus:ring-gray-300 active:bg-gray-200',
         terciary: 'bg-[#E4E4E4] text-[#1B1F23] ',
         ghost: 'bg-transparent',
-        outline: 'border border-[#AAAAAA] bg-white',
+        outline: 'border border-[#AAAAAA] bg-transparent text-white',
       },
     },
     defaultVariants: {
@@ -27,9 +27,6 @@ const buttonVariants = cva(
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants>;
 
-/**
- * Botón reutilizable con variantes y estilos abiertos.
- */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ variant, className, children, ...props }, ref) => {
     return (
