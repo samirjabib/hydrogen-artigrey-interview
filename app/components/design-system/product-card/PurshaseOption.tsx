@@ -40,7 +40,7 @@ export const PurchaseOption = ({
           ${price.toFixed(2)}
         </p>
         {adjustmentPercentage && (
-          <span className="text-[#802608] text-[10px] font-medium leading-3 whitespace-çççç">
+          <span className="text-[#802608] text-[10px] font-medium leading-3 whitespace-nowrap">
             Save {adjustmentPercentage}%
           </span>
         )}

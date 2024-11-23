@@ -25,7 +25,6 @@ export const BackgroundImage: React.FC<BackgroundImageProps> = ({
         className="absolute top-0 left-0 w-full h-full -z-10 object-cover object-right md:object-center rounded-lg"
       />
 
-      {/* Optional overlay */}
       <div
         className="absolute inset-0 rounded-lg"
         style={{

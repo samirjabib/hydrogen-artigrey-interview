@@ -10,7 +10,6 @@ export const MainBlogCard: React.FC<MainBlogCardProps> = ({
   publishedAt,
   author,
 }) => {
-  console.log(imageSrc, title, tag, publishedAt, author);
   return (
     <article
       className="relative w-full lg:w-1/2 h-[450px] group mb-8 md:mb-0"
