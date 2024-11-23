@@ -72,8 +72,9 @@ export const Bundles = ({
         }}
         breakpoints={{
           375: { spaceBetween: 10, slidesPerView: 1 },
-          800: { spaceBetween: 20, slidesPerView: 2 },
-          1280: { spaceBetween: 20, slidesPerView: 4 },
+          500: { spaceBetween: 10, slidesPerView: 2 },
+          800: { spaceBetween: 20, slidesPerView: 3 },
+          1400: { spaceBetween: 20, slidesPerView: 5 },
         }}
         onSlideChange={(swiper) => {
           setIsBeginning(swiper.isBeginning);
