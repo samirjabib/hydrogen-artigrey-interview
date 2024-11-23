@@ -2,10 +2,10 @@ import type { CollectionProductFragment } from 'storefrontapi.generated';
 
 import { cn } from '~/utils/cn';
 import { Image } from '@shopify/hydrogen';
-import { StarsRating } from '../../design-system/StarRatings';
-import { Tag } from '../../design-system/Tag';
+import { StarsRating } from '../StarRatings';
+import { Tag } from '../Tag';
 import type { Variant } from './ProductCard';
-import { ProductsQuickView } from '../product-quick-view/ProductsQuickView';
+import { ProductsQuickView } from '../../product/product-quick-view/ProductsQuickView';
 
 export const ProductContent = ({
   product,

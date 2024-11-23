@@ -14,16 +14,14 @@ export function ProductsQuickView({
   variant,
   product,
 }: ProductsQuickViewProps) {
-  const fetcher = useFetcher();
-  console.log(fetcher);
   console.log(product);
 
   const isProductWithVariants = product.variants.nodes.length > 0;
-
-
-
   /* 
   other way to fetch data reusing logic by produc handle route */
+
+  // const fetcher = useFetcher();
+
   /*  useEffect(() => {
      fetcher.load(`/products/${product.handle}`);
    }, [product.handle]);

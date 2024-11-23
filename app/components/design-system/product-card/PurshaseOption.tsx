@@ -1,6 +1,6 @@
 import { cn } from '~/utils/cn';
 import type { SelectOptions } from './types';
-import { RadioButton } from '../../design-system/RadioButton';
+import { RadioButton } from '../RadioButton';
 
 export const PurchaseOption = ({
   label,

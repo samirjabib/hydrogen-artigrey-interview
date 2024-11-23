@@ -4,7 +4,6 @@ import { Tag } from '~/components/design-system/Tag';
 import { ProductHeaderProps } from '../../types';
 
 
-
 export function ProductHeader({
   title,
   subtitle,
@@ -13,6 +12,7 @@ export function ProductHeader({
   imageSrc,
   imageAlt,
 }: ProductHeaderProps) {
+  const isTagsAvailable = tags.length > 0;
   return (
     <div className="flex flex-col gap-4">
       {imageSrc && (
@@ -35,7 +35,7 @@ export function ProductHeader({
             </span>
           )}
         </div>
-        {tags.length > 0 && (
+        {isTagsAvailable && (
           <div className="flex flex-wrap gap-2">
             {tags.map((tag, index) => (
               <Tag key={index} tag={tag} />

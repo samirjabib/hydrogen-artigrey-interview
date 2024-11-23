@@ -6,7 +6,7 @@ import { Heading } from '~/components/design-system/Heading';
 import { SwiperNavButton } from '~/components/design-system/SwiperNavButton';
 import { useRef, useState } from 'react';
 import { SwiperSlide, Swiper } from 'swiper/react';
-import { ProductCard } from '~/components/product/product-card/ProductCard';
+import { ProductCard } from '~/components/design-system/product-card/ProductCard';
 import { navItems } from './constants';
 import { BundlesProps } from './types';
 

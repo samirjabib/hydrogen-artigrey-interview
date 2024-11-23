@@ -1,9 +1,9 @@
-import {cn} from '~/utils/cn';
+import { cn } from '~/utils/cn';
 
 export const TableHead = ({
   headers,
 }: {
-  headers: {id: number; name: string}[];
+  headers: { id: number; name: string }[];
 }) => (
   <thead>
     <tr className="border-b border-gray-200">

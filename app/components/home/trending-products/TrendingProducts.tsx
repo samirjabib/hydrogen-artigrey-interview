@@ -7,7 +7,7 @@ import type {
   CollectionByHandleQuery,
   CollectionProductFragment,
 } from 'storefrontapi.generated';
-import { ProductCard } from '~/components/product/product-card/ProductCard';
+import { ProductCard } from '~/components/design-system/product-card/ProductCard';
 
 export type ProductSliderProps = {
   trendingProducts: CollectionByHandleQuery['collectionByHandle'];

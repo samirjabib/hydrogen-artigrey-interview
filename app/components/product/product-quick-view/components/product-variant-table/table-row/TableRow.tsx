@@ -1,13 +1,15 @@
-import { ImageCell } from './ImageCell';
-import { QuantityCell } from './QualityCell';
+
 import { TableCell } from './TableCell';
 import { TableRowProps } from '../../../types';
 import { useProductPrice } from '~/hooks/useProductPrice';
 import { useQuantityControl } from '~/hooks/useQuantityControl';
-import { formatSize } from '../../../utils';
+import { QuantityCell } from './QualityCell';
+import { ImageCell } from './ImageCell';
 
 
-
+const formatSize = (size: string): string => {
+  return size.replace(/[\[\]"]/g, '').trim();
+};
 
 export const TableRow = ({ variant }: TableRowProps) => {
   const {
