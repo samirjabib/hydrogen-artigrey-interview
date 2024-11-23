@@ -84,13 +84,13 @@ export default function Homepage() {
       <Brands brands={data?.brands} />
       <Goals goals={data?.goals} />
       <TrendingProducts trendingProducts={data?.trendingProducts} />
-      {/*    <CleanSuplements cleanSupplements={data?.cleanSupplements} />
+      <CleanSuplements cleanSupplements={data?.cleanSupplements} />
       <VideoSwiper videoSwiper={data.videoSwiper} />
       <Bundles initialBundle={data?.bundleCollection} />
       <CustomizedProtein />
       <SecondBanner />
       <BlogsBanner blogs={data?.blogs} />
-      <InstagramFeed images={mockImages} username="uncmfrt.com" /> */}
+      <InstagramFeed images={mockImages} username="uncmfrt.com" />
     </div>
   );
 }
