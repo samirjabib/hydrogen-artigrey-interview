@@ -18,14 +18,40 @@ export const meta: MetaFunction<typeof loader> = ({data}) => {
 };
 
 export async function loader(args: LoaderFunctionArgs) {
-  // Start fetching non-critical data without blocking time to first byte
-  const deferredData = loadDeferredData(args);
+  const { handle } = args.params;
+  const { storefront } = args.context;
 
-  // Await the critical data required to render initial state of the page
-  const criticalData = await loadCriticalData(args);
+  if (!handle) {
+    throw new Error('Expected product handle to be defined');
+  }
 
-  return defer({...deferredData, ...criticalData});
+  // Obtener opciones seleccionadas del request (si aplica)
+  const selectedOptions = getSelectedProductOptions(args.request);
+
+  // Consultar producto y variantes desde Shopify Storefront API
+  const { product } = await storefront.query(PRODUCT_QUERY, {
+    variables: { handle, selectedOptions },
+  });
+
+  if (!product?.id) {
+    throw new Response('Product not found', { status: 404 });
+  }
+
+  // Seleccionar el primer variant si no hay uno seleccionado explícitamente
+  const firstVariant = product.variants.nodes[0];
+  const firstVariantIsDefault = firstVariant?.selectedOptions.some(
+    (option: SelectedOption) =>
+      option.name === 'Title' && option.value === 'Default Title'
+  );
+
+  // Añadir una propiedad "selectedVariant" al producto para manejarlo fácilmente
+  if (firstVariantIsDefault || !product.selectedVariant) {
+    product.selectedVariant = firstVariant;
+  }
+
+  return defer({ product });
 }
+
 
 /**
  * Load data necessary for rendering content above the fold. This is the critical data

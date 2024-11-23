@@ -1,21 +1,24 @@
-import React, {useState, useRef, useCallback} from 'react';
-import {Swiper, SwiperSlide} from 'swiper/react';
-import {HeadingSwiper} from '~/components/ui/HeadingSwiper';
-import type {VideosSwiperQuery} from 'storefrontapi.generated';
-import {VideoSlideInfo} from './VideoSlideInfo';
-import VideoSlideContent from './VideoSlideContent';
-import {useVideoProcessing} from './hooks/useVideoProcessing';
-import {useIntersectionVisibility} from './hooks/useIntersectionVisibility';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import React, { useState, useRef, useCallback } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { SwiperOptions } from 'swiper/types';
 
-export const VideoSwiper: React.FC<{
-  videoSwiper: VideosSwiperQuery['metaobjects'];
-}> = ({videoSwiper}) => {
+
+
+import { HeadingSwiper } from '~/components/design-system/HeadingSwiper';
+import { VideoSliceProductCard } from './components/VideoSlideInfo';
+import VideoSlideContent from './components/VideoSlideContent';
+import { useVideoProcessing } from './hooks/useVideoProcessing';
+import { useIntersectionVisibility } from './hooks/useIntersectionVisibility';
+import { VideoSwiperProps } from './types';
+
+
+export const VideoSwiper: React.FC<VideoSwiperProps> = ({ videoSwiper }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<any | null>(null);
-  const {containerRef, isVisible} = useIntersectionVisibility();
-  const {videosUrl, middleIndex, product} = useVideoProcessing(videoSwiper);
+  const { containerRef, isVisible } = useIntersectionVisibility();
+  const { videosUrl, middleIndex, product } = useVideoProcessing(videoSwiper);
 
   const handleSwiperInit = useCallback((swiper: any) => {
     swiperRef.current = swiper;
@@ -25,6 +28,16 @@ export const VideoSwiper: React.FC<{
     setActiveIndex(swiper.realIndex);
   }, []);
   if (!videosUrl.length || !product) return null;
+
+  const swiperConfig: SwiperOptions = {
+    initialSlide: middleIndex,
+    centeredSlides: true,
+    spaceBetween: 10,
+    slidesPerView: 'auto',
+  };
+
+  const isEnd = swiperRef.current ? swiperRef.current.isEnd : false;
+  const isBeginning = swiperRef.current ? swiperRef.current.isBeginning : true;
 
   return (
     <div
@@ -36,16 +49,13 @@ export const VideoSwiper: React.FC<{
         subtitle="Trusted & Proven by Science"
         className="pt-14"
         swiperRef={swiperRef}
-        isEnd={swiperRef.current ? swiperRef.current.isEnd : false}
-        isBeginning={swiperRef.current ? swiperRef.current.isBeginning : true}
+        isEnd={isEnd}
+        isBeginning={isBeginning}
       />
       <Swiper
+        {...swiperConfig}
         onSwiper={handleSwiperInit}
         onSlideChange={handleSlideChange}
-        initialSlide={middleIndex}
-        centeredSlides={true}
-        spaceBetween={10}
-        slidesPerView="auto"
         className="w-full h-auto !pt-16"
         role="region"
         aria-label="Video Swiper"
@@ -57,22 +67,18 @@ export const VideoSwiper: React.FC<{
           return (
             <SwiperSlide
               key={video.id}
-              className={`transition-[position] duration-200 ease-in-out ${
-                isActive ? 'relative bottom-10 z-10' : 'relative z-0'
-              }`}
+              className={`transition-[position] w-[300px] duration-200 ease-in-out ${isActive ? 'relative bottom-10 z-10' : 'relative z-0'
+                }`}
               role="group"
               aria-roledescription="slide"
               aria-label={`Video ${index + 1}`}
-              style={{
-                width: '300px',
-              }}
             >
               <VideoSlideContent
                 videoUrl={video.url}
                 isActive={isActive}
                 shouldPlay={shouldPlay}
               />
-              <VideoSlideInfo
+              <VideoSliceProductCard
                 imageSrc={product.image}
                 title={product.title}
                 price={product.price}

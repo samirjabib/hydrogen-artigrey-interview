@@ -2,7 +2,7 @@ import {defer, type LoaderFunctionArgs} from '@netlify/remix-runtime';
 import {Link, useLoaderData, type MetaFunction} from '@remix-run/react';
 import {Image, getPaginationVariables} from '@shopify/hydrogen';
 import type {ArticleItemFragment} from 'storefrontapi.generated';
-import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+import {PaginatedResourceSection} from '~/components/search/PaginatedResourceSection';
 
 export const meta: MetaFunction<typeof loader> = ({data}) => {
   return [{title: `Hydrogen | ${data?.blog.title ?? ''} blog`}];

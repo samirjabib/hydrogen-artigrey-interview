@@ -1,48 +1,20 @@
-import {NavLink} from '@remix-run/react';
+import { NavLink } from '@remix-run/react';
 import type {
-  CollectionByHandleQuery,
   CollectionProductFragment,
 } from 'storefrontapi.generated';
-import {Heading} from '~/components/ui/Heading';
-import {SwiperNavButton} from '~/components/ui/SwiperNavButton';
-import {COLLECTION_BY_HANDLE_QUERY} from '~/queries/fragments/collection';
-import {useRef, useState} from 'react';
-import {SwiperSlide, Swiper} from 'swiper/react';
-import {ProductCard} from '~/components/ui/products/product-card/ProductCard';
+import { Heading } from '~/components/design-system/Heading';
+import { SwiperNavButton } from '~/components/design-system/SwiperNavButton';
+import { useRef, useState } from 'react';
+import { SwiperSlide, Swiper } from 'swiper/react';
+import { ProductCard } from '~/components/product/product-card/ProductCard';
+import { navItems } from './constants';
+import { BundlesProps } from './types';
 
-const navItems: {id: number; title: string; handle: string}[] = [
-  {
-    id: 1,
-    title: 'Sleep',
-    handle: 'sleep',
-  },
-  {
-    id: 2,
-    title: 'Cognitive Function',
-    handle: 'cognitive-function',
-  },
-  {
-    id: 3,
-    title: 'Foundational Health',
-    handle: 'foundational-health',
-  },
-  {
-    id: 4,
-    title: 'Athletic Health',
-    handle: 'athletic-health',
-  },
-  {
-    id: 5,
-    title: 'Hormone Support',
-    handle: 'hormone-support',
-  },
-];
+
 
 export const Bundles = ({
   initialBundle,
-}: {
-  initialBundle: CollectionByHandleQuery['collectionByHandle'];
-}) => {
+}: BundlesProps) => {
   const swiperRef = useRef<any>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
@@ -51,40 +23,6 @@ export const Bundles = ({
   const [collection, setCollection] = useState(
     initialBundle?.products.edges || [],
   );
-
-  // useEffect(() => {
-  //   const fetchCollection = async () => {
-  //     try {
-  //       const context = {
-  //         storefront: {
-  //           query: async (query, variables) => {
-  //             const response = await fetch('/api/graphql', {
-  //               method: 'POST',
-  //               headers: {'Content-Type': 'application/json'},
-  //               body: JSON.stringify({query, variables}),
-  //             });
-  //             return await response.json();
-  //           },
-  //         },
-  //       };
-  //       const response = await context.storefront.query(
-  //         COLLECTION_BY_HANDLE_QUERY,
-  //         {
-  //           variables: {handle: selectedItem},
-  //         },
-  //       );
-  //       setCollection(response.collectionByHandle?.products || []);
-  //     } catch (error) {
-  //       console.error('Error fetching collection:', error);
-  //     }
-  //   };
-
-  //   fetchCollection();
-  // }, [selectedItem]);
-
-  // const handleMenuClick = (item: string) => {
-  //   setSelectedItem(item);
-  // };
 
   return (
     <section className="bg-white px-4 md:px-10 py-20 wrapper w-full">
@@ -133,9 +71,9 @@ export const Bundles = ({
           swiperRef.current = swiper;
         }}
         breakpoints={{
-          375: {spaceBetween: 10, slidesPerView: 1},
-          800: {spaceBetween: 20, slidesPerView: 2},
-          1280: {spaceBetween: 20, slidesPerView: 4},
+          375: { spaceBetween: 10, slidesPerView: 1 },
+          800: { spaceBetween: 20, slidesPerView: 2 },
+          1280: { spaceBetween: 20, slidesPerView: 4 },
         }}
         onSlideChange={(swiper) => {
           setIsBeginning(swiper.isBeginning);

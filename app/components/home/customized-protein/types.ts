@@ -8,3 +8,8 @@ export type NavButtonsProps = {
   isEnd: boolean;
   swiperRef: any;
 };
+
+
+export type ProductCardProteinProps = {
+  product: ProductProps
+};

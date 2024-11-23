@@ -6,7 +6,7 @@ import {
   type SeoConfig,
   getSelectedProductOptions,
 } from '@shopify/hydrogen';
-import {defer, type LoaderFunctionArgs} from '@netlify/remix-runtime';
+import { defer, type LoaderFunctionArgs } from '@netlify/remix-runtime';
 import {
   Links,
   Meta,
@@ -18,11 +18,10 @@ import {
   isRouteErrorResponse,
   type ShouldRevalidateFunction,
 } from '@remix-run/react';
-import {FOOTER_QUERY, HEADER_QUERY} from '~/queries/fragments/fragments';
+import { FOOTER_QUERY, HEADER_QUERY } from '~/queries/fragments/fragments';
 import './styles/tailwind.css';
 
-import {RootProvider} from './components';
-import {PRODUCT_QUERY} from './queries/fragments/product';
+import { RootProvider } from './components';
 
 export type RootLoader = typeof loader;
 
@@ -46,7 +45,7 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
 
 export function links() {
   return [
-    {rel: 'stylesheet', href: '/styles/tailwind.css'},
+    { rel: 'stylesheet', href: '/styles/tailwind.css' },
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',
@@ -65,7 +64,7 @@ export async function loader(args: LoaderFunctionArgs) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  const {storefront, env} = args.context;
+  const { storefront, env } = args.context;
 
   return defer({
     ...deferredData,
@@ -86,8 +85,8 @@ export async function loader(args: LoaderFunctionArgs) {
  * Load data necessary for rendering content above the fold. This is the critical data
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  */
-async function loadCriticalData({context}: LoaderFunctionArgs) {
-  const {storefront} = context;
+async function loadCriticalData({ context }: LoaderFunctionArgs) {
+  const { storefront } = context;
 
   const [header] = await Promise.all([
     storefront.query(HEADER_QUERY, {
@@ -109,23 +108,9 @@ async function loadCriticalData({context}: LoaderFunctionArgs) {
  * fetched after the initial page load. If it's unavailable, the page should still 200.
  * Make sure to not throw any errors here, as it will cause the page to 500.
  */
-function loadDeferredData({context, request}: LoaderFunctionArgs) {
-  const {storefront, customerAccount, cart} = context;
+function loadDeferredData({ context, request }: LoaderFunctionArgs) {
+  const { storefront, customerAccount, cart } = context;
 
-  //get product data by handle
-  // const url = new URL(request.url);
-  // const productHandle = url.searchParams.get('productHandle');
-
-  // const product = storefront.query(PRODUCT_QUERY, {
-  //   variables: {
-  //     handle: productHandle,
-  //     selectedOptions: productHandle ? getSelectedProductOptions(request) : [],
-  //   },
-  // });
-
-  // console.log(product)
-
-  // defer the footer query (below the fold)
   const footer = storefront
     .query(FOOTER_QUERY, {
       cache: storefront.CacheLong(),
@@ -145,7 +130,7 @@ function loadDeferredData({context, request}: LoaderFunctionArgs) {
   };
 }
 
-export function Layout({children}: {children?: React.ReactNode}) {
+export function Layout({ children }: { children?: React.ReactNode }) {
   const nonce = useNonce();
   const data = useRouteLoaderData<RootLoader>('root');
 

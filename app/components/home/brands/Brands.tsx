@@ -1,13 +1,11 @@
-import {StarsRating} from '../../ui/StarRatings';
-import {HeaderText} from './HeaderText';
-import type {BrandsCardsQuery} from 'storefrontapi.generated';
-import {BrandList} from './BrandList';
+import { StarsRating } from '../../design-system/StarRatings';
+import { HeaderText } from './components/HeaderText';
+import { BrandList } from './components/BrandList';
+import { BrandProps } from './types';
 
 export const Brands = ({
   brands,
-}: {
-  brands: BrandsCardsQuery['metaobjects']['edges'];
-}) => {
+}: BrandProps) => {
   return (
     <section
       className="bg-[#F6F6F5] py-10 md:py-6"

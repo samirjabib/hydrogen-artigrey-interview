@@ -1,20 +1,26 @@
 import 'swiper/css';
 
-import React, {useRef, useState} from 'react';
-import {Swiper, SwiperSlide} from 'swiper/react';
+import React, { useRef, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-import {ProductCard} from './product-card/ProductCard';
-import {NavButtonsDesktop} from './NavButtonsDesktop';
-import {NavButtonsMobile} from './NavButtonsMobile';
-import {Heading} from '~/components/ui/Heading';
-import {products} from './constants';
+import { ProductCardProtein } from './components/product-card/ProductCard';
+import { NavButtonsDesktop } from './components/NavButtonsDesktop';
+import { NavButtonsMobile } from './components/NavButtonsMobile';
+import { Heading } from '~/components/design-system/Heading';
+import { products } from './constants';
+import { SwiperType } from '~/types';
+import { SwiperOptions } from 'swiper/types';
 
-export type SwiperType = any | null;
 
 export const CustomizedProtein: React.FC = () => {
   const swiperRef = useRef<SwiperType>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+
+  const swiperConfig: SwiperOptions = {
+    spaceBetween: 0,
+    slidesPerView: 1,
+  };
 
   return (
     <section className="py-20 bg-[#F6F6F5]">
@@ -32,8 +38,7 @@ export const CustomizedProtein: React.FC = () => {
         />
 
         <Swiper
-          spaceBetween={0}
-          slidesPerView={1}
+          {...swiperConfig}
           onBeforeInit={(swiper) => {
             swiperRef.current = swiper;
           }}
@@ -45,7 +50,7 @@ export const CustomizedProtein: React.FC = () => {
         >
           {products.map((product) => (
             <SwiperSlide key={product.id}>
-              <ProductCard product={product} />
+              <ProductCardProtein product={product} />
             </SwiperSlide>
           ))}
 

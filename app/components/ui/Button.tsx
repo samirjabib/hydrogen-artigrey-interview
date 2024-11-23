@@ -1,8 +1,8 @@
-import type {VariantProps} from 'class-variance-authority';
-import {cva} from 'class-variance-authority';
-import type {ButtonHTMLAttributes} from 'react';
-import {forwardRef} from 'react';
-import {cn} from '~/utils/cn';
+import type { VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
+import type { ButtonHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
+import { cn } from '~/utils/cn';
 
 // Define las clases usando cva
 const buttonVariants = cva(
@@ -31,11 +31,11 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
  * Botón reutilizable con variantes y estilos abiertos.
  */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({variant, className, children, ...props}, ref) => {
+  ({ variant, className, children, ...props }, ref) => {
     return (
       <button
         ref={ref}
-        className={cn(buttonVariants({variant, className}))}
+        className={cn(buttonVariants({ variant, className }))}
         {...props}
       >
         {children}

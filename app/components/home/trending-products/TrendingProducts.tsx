@@ -1,15 +1,15 @@
 import 'swiper/css';
 
-import React, {useRef, useState} from 'react';
-import {Swiper, SwiperSlide} from 'swiper/react';
-import {HeadingSwiper} from '~/components/ui/HeadingSwiper';
+import React, { useRef, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { HeadingSwiper } from '~/components/design-system/HeadingSwiper';
 import type {
   CollectionByHandleQuery,
   CollectionProductFragment,
 } from 'storefrontapi.generated';
-import {ProductCard} from '~/components/ui/products/product-card/ProductCard';
+import { ProductCard } from '~/components/product/product-card/ProductCard';
 
-type ProductSliderProps = {
+export type ProductSliderProps = {
   trendingProducts: CollectionByHandleQuery['collectionByHandle'];
 };
 
@@ -44,10 +44,10 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({
             swiperRef.current = swiper;
           }}
           breakpoints={{
-            375: {spaceBetween: 10, slidesPerView: 1},
-            500: {spaceBetween: 10, slidesPerView: 2},
-            800: {spaceBetween: 20, slidesPerView: 3},
-            1280: {spaceBetween: 20, slidesPerView: 4},
+            375: { spaceBetween: 10, slidesPerView: 1 },
+            500: { spaceBetween: 10, slidesPerView: 2 },
+            800: { spaceBetween: 20, slidesPerView: 3 },
+            1280: { spaceBetween: 20, slidesPerView: 4 },
           }}
           onSlideChange={(swiper) => {
             setIsBeginning(swiper.isBeginning);

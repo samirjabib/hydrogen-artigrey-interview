@@ -1,13 +1,13 @@
-import {Image} from '@shopify/hydrogen';
-import type {GoalsCardsQuery} from 'storefrontapi.generated';
-import {Icon} from '~/components/ui/Icon';
-import {Heading} from '../ui/Heading';
+import { Image } from '@shopify/hydrogen';
+import type { GoalsCardsQuery } from 'storefrontapi.generated';
+import { Icon } from '~/components/ui/Icon';
+import { Heading } from '../design-system/Heading';
 
 interface GoalsProps {
   goals: GoalsCardsQuery['metaobjects']['edges'];
 }
 
-export function Goals({goals}: GoalsProps) {
+export function Goals({ goals }: GoalsProps) {
   return (
     <section
       aria-labelledby="goals-title"
@@ -28,7 +28,7 @@ export function Goals({goals}: GoalsProps) {
       </div>
 
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-9 md:gap-5">
-        {goals.map(({node}) => {
+        {goals.map(({ node }) => {
           const title = node.fields.find((f) => f.key === 'title')?.value || '';
           const description =
             node.fields.find((f) => f.key === 'description')?.value || '';

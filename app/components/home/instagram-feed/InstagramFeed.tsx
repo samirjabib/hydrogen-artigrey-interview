@@ -1,9 +1,9 @@
 import React from 'react';
-import {InstagramFollow} from './InstagramFollow';
-import {Image} from '@shopify/hydrogen';
-import type {InstagramFeedProps} from './types';
-import {InstagramGridDesktop} from './GridDesktop';
-import {InstagramGridMobile} from './GridMobile';
+import { InstagramFollow } from './components/InstagramFollow';
+import { Image } from '@shopify/hydrogen';
+import type { InstagramFeedProps } from './types';
+import { InstagramGridDesktop } from './components/GridDesktop';
+import { InstagramGridMobile } from './components/GridMobile';
 
 export const InstagramFeed: React.FC<InstagramFeedProps> = ({
   username,

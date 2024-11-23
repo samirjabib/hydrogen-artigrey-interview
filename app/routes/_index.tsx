@@ -1,5 +1,5 @@
-import {defer, type LoaderFunctionArgs} from '@netlify/remix-runtime';
-import {useLoaderData, type MetaFunction} from '@remix-run/react';
+import { defer, type LoaderFunctionArgs } from '@netlify/remix-runtime';
+import { useLoaderData, type MetaFunction } from '@remix-run/react';
 
 import type {
   BrandsCardsQuery,
@@ -22,16 +22,16 @@ import {
   TrendingProducts,
   VideoSwiper,
 } from '~/components';
-import {BlogsBanner} from '~/components/home/blogs-banner/Blogs-Banner';
+import { BlogsBanner } from '~/components/home/blogs-banner/components/Blogs-Banner';
 
-import {mockImages} from '~/components/home/instagram-feed/constants';
+import { mockImages } from '~/components/home/instagram-feed/constants';
 
-import type {BlogsQuery} from '~/queries/blogs';
-import {getCriticalData, getDeferredData} from '~/services/home';
+import type { BlogsQuery } from '~/queries/blogs';
+import { getCriticalData, getDeferredData } from '~/services/home';
 
 export const meta: MetaFunction = () => {
   return [
-    {title: 'Uncomfort | Premium Supplements & Wellness Products'},
+    { title: 'Uncomfort | Premium Supplements & Wellness Products' },
     {
       name: 'description',
       content:
@@ -51,8 +51,8 @@ export const meta: MetaFunction = () => {
       content:
         'Premium supplements and wellness products with clean ingredients',
     },
-    {property: 'og:type', content: 'website'},
-    {name: 'twitter:card', content: 'summary_large_image'},
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary_large_image' },
   ];
 };
 
@@ -71,7 +71,7 @@ export async function loader(args: LoaderFunctionArgs) {
   const deferredData = getDeferredData(args);
   const criticalData = await getCriticalData(args);
 
-  return defer({...deferredData, ...criticalData});
+  return defer({ ...deferredData, ...criticalData });
 }
 
 export default function Homepage() {

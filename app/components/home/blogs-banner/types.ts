@@ -27,3 +27,11 @@ export type BlogBannerProps = {
   blogs: BlogsQuery['blogs']['edges'][0]['node']['articles']['edges'];
   className?: string;
 };
+
+
+export type SecondaryBlogCardProps = {
+  imageSrc: string;
+  title: string;
+  tag: string;
+  publishedAt: string;
+};
