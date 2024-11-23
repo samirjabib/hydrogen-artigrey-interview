@@ -1,4 +1,4 @@
-import type { CollectionProductFragment } from 'storefrontapi.generated';
+import type { ExtendedProduct } from '~/types/product';
 
 import { cn } from '~/utils/cn';
 import { Image } from '@shopify/hydrogen';
@@ -6,20 +6,20 @@ import { StarsRating } from '../StarRatings';
 import { Tag } from '../Tag';
 import type { Variant } from './ProductCard';
 import { ButtonQuickView } from '~/components/product/product-quick-view/ButtonQuickView';
+import { BestSellerTag } from '../BestSellerTag';
 
 export const ProductContent = ({
   product,
   variant = 'default',
 }: {
-  product: CollectionProductFragment;
+  product: ExtendedProduct;
   variant?: Variant;
 }) => {
 
-  const { images, title, description, tags } = product;
+  const { images, title, description, tags, isBestSeller } = product;
 
   const isProductWithSellingPlanGroups = product.sellingPlanGroups.nodes.length > 0;
   const buttonLabel = variant === 'default' ? `Add • $${parseFloat(product.priceRange.minVariantPrice.amount).toFixed(2)}` : 'Add to Cart'
-
 
   return (
     <div>
@@ -34,11 +34,9 @@ export const ProductContent = ({
           width={300}
           className="object-contain"
         />
-        {/* <div className='absolute top-0 left-0'>
-          <div>
-            <span>Best Seller</span>
-          </div>
-        </div> */}
+        {isBestSeller && (
+          <BestSellerTag />
+        )}
         <div className="absolute bottom-0 left-0">
           <div className="px-4 flex flex-row items-center gap-1">
             {tags.map((tag) => (

@@ -82,8 +82,12 @@ export const Bundles = ({
         }}
         className="w-full"
       >
-        {collection.map((item) => {
-          const product = item.node as unknown as CollectionProductFragment;
+        {collection.map((item, index) => {
+          const product = {
+            ...(item.node as unknown as CollectionProductFragment),
+            isBestSeller: index === 0 || index === 3,
+          };
+
 
           return (
             <SwiperSlide key={product.id} className="h-auto">

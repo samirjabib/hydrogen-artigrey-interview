@@ -16,7 +16,6 @@ export type ProductSliderProps = {
 export const TrendingProducts: React.FC<ProductSliderProps> = ({
   trendingProducts,
 }) => {
-  console.log('render')
   const swiperRef = useRef<any>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
@@ -60,17 +59,18 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({
           onSlideChange={handleSlideChange}
           className="w-full"
         >
-          {
-            products.map((item) => {
-              const product = item.node as unknown as CollectionProductFragment;
+          {products.map((item, index) => {
+            const product = {
+              ...(item.node as unknown as CollectionProductFragment),
+              isBestSeller: index === 0 || index === 3
+            };
 
-              return (
-                <SwiperSlide key={product.id} className="h-auto">
-                  <ProductCard product={product} variant="default" />
-                </SwiperSlide>
-              );
-            })
-          }
+            return (
+              <SwiperSlide key={product.id} className="h-auto">
+                <ProductCard product={product} variant="default" />
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </div>
     </section >

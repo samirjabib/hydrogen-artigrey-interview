@@ -8,7 +8,7 @@ export const ProductCard = ({
   product,
   variant = 'default',
 }: {
-  product: CollectionProductFragment;
+  product: CollectionProductFragment & { isBestSeller?: boolean };
   variant?: Variant;
 }) => {
   const hasSellingPlans =

@@ -6,19 +6,19 @@ import { useSubscription } from './hooks';
 import { NavLink } from '@remix-run/react';
 import { PurchaseOption } from './PurshaseOption';
 import { Variant } from './ProductCard';
-import { ProductsQuickView } from '../../product/product-quick-view/ProductsQuickView';
 import { ButtonQuickView } from '~/components/product/product-quick-view/ButtonQuickView';
+import { BestSellerTag } from '../BestSellerTag';
 
 export const ProductSubscriptionContent = ({
   product,
   variant
 }: {
-  product: CollectionProductFragment;
+  product: CollectionProductFragment & { isBestSeller?: boolean };
   variant?: Variant;
 }) => {
 
 
-  const { priceRange: { minVariantPrice: { amount: price } }, images, sellingPlanGroups } = product;
+  const { priceRange: { minVariantPrice: { amount: price } }, images, sellingPlanGroups, isBestSeller } = product;
 
 
   const {
@@ -46,6 +46,9 @@ export const ProductSubscriptionContent = ({
           width={300}
           className="object-contain"
         />
+        {isBestSeller && (
+          <BestSellerTag />
+        )}
         <div className="absolute bottom-0 left-0 w-full">
           <div className="flex flex-row px-4 gap-2">
             <PurchaseOption
