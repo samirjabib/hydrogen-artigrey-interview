@@ -25,6 +25,9 @@ export type CollectionProductFragment = Pick<
         compareAtPrice?: StorefrontAPI.Maybe<
           Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
         >;
+        metafield?: StorefrontAPI.Maybe<
+          Pick<StorefrontAPI.Metafield, 'description' | 'value' | 'id' | 'key'>
+        >;
         image?: StorefrontAPI.Maybe<
           {__typename: 'Image'} & Pick<
             StorefrontAPI.Image,
@@ -135,6 +138,12 @@ export type CollectionFragment = Pick<
             > & {
               compareAtPrice?: StorefrontAPI.Maybe<
                 Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+              >;
+              metafield?: StorefrontAPI.Maybe<
+                Pick<
+                  StorefrontAPI.Metafield,
+                  'description' | 'value' | 'id' | 'key'
+                >
               >;
               image?: StorefrontAPI.Maybe<
                 {__typename: 'Image'} & Pick<
@@ -265,6 +274,12 @@ export type CollectionByHandleQuery = {
                 > & {
                   compareAtPrice?: StorefrontAPI.Maybe<
                     Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+                  >;
+                  metafield?: StorefrontAPI.Maybe<
+                    Pick<
+                      StorefrontAPI.Metafield,
+                      'description' | 'value' | 'id' | 'key'
+                    >
                   >;
                   image?: StorefrontAPI.Maybe<
                     {__typename: 'Image'} & Pick<
@@ -740,6 +755,9 @@ export type ProductVariantFragment = Pick<
   compareAtPrice?: StorefrontAPI.Maybe<
     Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
   >;
+  metafield?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.Metafield, 'description' | 'value' | 'id' | 'key'>
+  >;
   image?: StorefrontAPI.Maybe<
     {__typename: 'Image'} & Pick<
       StorefrontAPI.Image,
@@ -756,8 +774,17 @@ export type ProductVariantFragment = Pick<
 
 export type ProductFragment = Pick<
   StorefrontAPI.Product,
-  'id' | 'title' | 'vendor' | 'handle' | 'descriptionHtml' | 'description'
+  | 'id'
+  | 'title'
+  | 'vendor'
+  | 'tags'
+  | 'handle'
+  | 'descriptionHtml'
+  | 'description'
 > & {
+  images: {
+    edges: Array<{node: Pick<StorefrontAPI.Image, 'id' | 'altText' | 'url'>}>;
+  };
   options: Array<Pick<StorefrontAPI.ProductOption, 'name' | 'values'>>;
   selectedVariant?: StorefrontAPI.Maybe<
     Pick<
@@ -766,6 +793,9 @@ export type ProductFragment = Pick<
     > & {
       compareAtPrice?: StorefrontAPI.Maybe<
         Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+      >;
+      metafield?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Metafield, 'description' | 'value' | 'id' | 'key'>
       >;
       image?: StorefrontAPI.Maybe<
         {__typename: 'Image'} & Pick<
@@ -792,6 +822,9 @@ export type ProductFragment = Pick<
         compareAtPrice?: StorefrontAPI.Maybe<
           Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
         >;
+        metafield?: StorefrontAPI.Maybe<
+          Pick<StorefrontAPI.Metafield, 'description' | 'value' | 'id' | 'key'>
+        >;
         image?: StorefrontAPI.Maybe<
           {__typename: 'Image'} & Pick<
             StorefrontAPI.Image,
@@ -810,65 +843,13 @@ export type ProductFragment = Pick<
     >;
   };
   seo: Pick<StorefrontAPI.Seo, 'description' | 'title'>;
-  sellingPlanGroups: {
-    nodes: Array<
-      Pick<StorefrontAPI.SellingPlanGroup, 'name'> & {
-        options: Array<
-          Pick<StorefrontAPI.SellingPlanGroupOption, 'name' | 'values'>
-        >;
-        sellingPlans: {
-          nodes: Array<
-            Pick<StorefrontAPI.SellingPlan, 'id' | 'recurringDeliveries'> & {
-              options: Array<
-                Pick<StorefrontAPI.SellingPlanOption, 'name' | 'value'>
-              >;
-              priceAdjustments: Array<
-                Pick<StorefrontAPI.SellingPlanPriceAdjustment, 'orderCount'> & {
-                  adjustmentValue:
-                    | ({__typename: 'SellingPlanFixedAmountPriceAdjustment'} & {
-                        adjustmentAmount: Pick<
-                          StorefrontAPI.MoneyV2,
-                          'amount' | 'currencyCode'
-                        >;
-                      })
-                    | ({__typename: 'SellingPlanFixedPriceAdjustment'} & {
-                        price: Pick<
-                          StorefrontAPI.MoneyV2,
-                          'amount' | 'currencyCode'
-                        >;
-                      })
-                    | ({
-                        __typename: 'SellingPlanPercentagePriceAdjustment';
-                      } & Pick<
-                        StorefrontAPI.SellingPlanPercentagePriceAdjustment,
-                        'adjustmentPercentage'
-                      >);
-                }
-              >;
-              checkoutCharge: Pick<
-                StorefrontAPI.SellingPlanCheckoutCharge,
-                'type'
-              > & {
-                value:
-                  | Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
-                  | Pick<
-                      StorefrontAPI.SellingPlanCheckoutChargePercentageValue,
-                      'percentage'
-                    >;
-              };
-            }
-          >;
-        };
-      }
-    >;
-  };
 };
 
 export type ProductQueryVariables = StorefrontAPI.Exact<{
   country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
   handle: StorefrontAPI.Scalars['String']['input'];
   language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
-  selectedOptions?:
+  selectedOptions:
     | Array<StorefrontAPI.SelectedOptionInput>
     | StorefrontAPI.SelectedOptionInput;
 }>;
@@ -877,8 +858,19 @@ export type ProductQuery = {
   product?: StorefrontAPI.Maybe<
     Pick<
       StorefrontAPI.Product,
-      'id' | 'title' | 'vendor' | 'handle' | 'descriptionHtml' | 'description'
+      | 'id'
+      | 'title'
+      | 'vendor'
+      | 'tags'
+      | 'handle'
+      | 'descriptionHtml'
+      | 'description'
     > & {
+      images: {
+        edges: Array<{
+          node: Pick<StorefrontAPI.Image, 'id' | 'altText' | 'url'>;
+        }>;
+      };
       options: Array<Pick<StorefrontAPI.ProductOption, 'name' | 'values'>>;
       selectedVariant?: StorefrontAPI.Maybe<
         Pick<
@@ -887,6 +879,12 @@ export type ProductQuery = {
         > & {
           compareAtPrice?: StorefrontAPI.Maybe<
             Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+          >;
+          metafield?: StorefrontAPI.Maybe<
+            Pick<
+              StorefrontAPI.Metafield,
+              'description' | 'value' | 'id' | 'key'
+            >
           >;
           image?: StorefrontAPI.Maybe<
             {__typename: 'Image'} & Pick<
@@ -913,6 +911,12 @@ export type ProductQuery = {
             compareAtPrice?: StorefrontAPI.Maybe<
               Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
             >;
+            metafield?: StorefrontAPI.Maybe<
+              Pick<
+                StorefrontAPI.Metafield,
+                'description' | 'value' | 'id' | 'key'
+              >
+            >;
             image?: StorefrontAPI.Maybe<
               {__typename: 'Image'} & Pick<
                 StorefrontAPI.Image,
@@ -931,66 +935,6 @@ export type ProductQuery = {
         >;
       };
       seo: Pick<StorefrontAPI.Seo, 'description' | 'title'>;
-      sellingPlanGroups: {
-        nodes: Array<
-          Pick<StorefrontAPI.SellingPlanGroup, 'name'> & {
-            options: Array<
-              Pick<StorefrontAPI.SellingPlanGroupOption, 'name' | 'values'>
-            >;
-            sellingPlans: {
-              nodes: Array<
-                Pick<
-                  StorefrontAPI.SellingPlan,
-                  'id' | 'recurringDeliveries'
-                > & {
-                  options: Array<
-                    Pick<StorefrontAPI.SellingPlanOption, 'name' | 'value'>
-                  >;
-                  priceAdjustments: Array<
-                    Pick<
-                      StorefrontAPI.SellingPlanPriceAdjustment,
-                      'orderCount'
-                    > & {
-                      adjustmentValue:
-                        | ({
-                            __typename: 'SellingPlanFixedAmountPriceAdjustment';
-                          } & {
-                            adjustmentAmount: Pick<
-                              StorefrontAPI.MoneyV2,
-                              'amount' | 'currencyCode'
-                            >;
-                          })
-                        | ({__typename: 'SellingPlanFixedPriceAdjustment'} & {
-                            price: Pick<
-                              StorefrontAPI.MoneyV2,
-                              'amount' | 'currencyCode'
-                            >;
-                          })
-                        | ({
-                            __typename: 'SellingPlanPercentagePriceAdjustment';
-                          } & Pick<
-                            StorefrontAPI.SellingPlanPercentagePriceAdjustment,
-                            'adjustmentPercentage'
-                          >);
-                    }
-                  >;
-                  checkoutCharge: Pick<
-                    StorefrontAPI.SellingPlanCheckoutCharge,
-                    'type'
-                  > & {
-                    value:
-                      | Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
-                      | Pick<
-                          StorefrontAPI.SellingPlanCheckoutChargePercentageValue,
-                          'percentage'
-                        >;
-                  };
-                }
-              >;
-            };
-          }
-        >;
-      };
     }
   >;
 };
@@ -1004,6 +948,9 @@ export type ProductVariantsFragment = {
       > & {
         compareAtPrice?: StorefrontAPI.Maybe<
           Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+        >;
+        metafield?: StorefrontAPI.Maybe<
+          Pick<StorefrontAPI.Metafield, 'description' | 'value' | 'id' | 'key'>
         >;
         image?: StorefrontAPI.Maybe<
           {__typename: 'Image'} & Pick<
@@ -1040,6 +987,12 @@ export type ProductVariantsQuery = {
         > & {
           compareAtPrice?: StorefrontAPI.Maybe<
             Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+          >;
+          metafield?: StorefrontAPI.Maybe<
+            Pick<
+              StorefrontAPI.Metafield,
+              'description' | 'value' | 'id' | 'key'
+            >
           >;
           image?: StorefrontAPI.Maybe<
             {__typename: 'Image'} & Pick<
@@ -1866,7 +1819,7 @@ export type PredictiveSearchQuery = {
 };
 
 interface GeneratedQueryTypes {
-  '#graphql\n  query CollectionByHandle(\n    $country: CountryCode\n    $language: LanguageCode\n    $handle: String!\n  ) @inContext(country: $country, language: $language) {\n    collectionByHandle(handle: $handle) {\n      ...Collection\n    }\n  }\n  #graphql\n  fragment Collection on Collection {\n    id\n    title\n    descriptionHtml\n    handle\n    image {\n      id\n      url\n      altText\n      width\n      height\n    }\n    products(first: 10) {\n      edges {\n        node {\n          ...CollectionProduct\n        }\n      }\n    }\n  }\n  #graphql\nfragment CollectionProduct on Product {\n    id\n    title\n    handle\n    description\n    tags\n    priceRange {\n      minVariantPrice {\n        amount\n        currencyCode\n      }\n      maxVariantPrice {\n        amount\n        currencyCode\n      }\n    }\n    images(first: 1) {\n      nodes {\n        id\n        url\n        altText\n        width\n        height\n      }\n    }\n    variants(first: 10) {\n      nodes {\n        ...ProductVariant\n      }\n    }\n    sellingPlanGroups(first: 10) {\n      nodes {\n        ...SellingPlanGroup\n      }\n    }\n  }\n  #graphql\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice {\n      amount\n      currencyCode\n    }\n    id\n    image {\n      __typename\n      id\n      url\n      altText\n      width\n      height\n    }\n    price {\n      amount\n      currencyCode\n    }\n    product {\n      title\n      handle\n    }\n    selectedOptions {\n      name\n      value\n    }\n    sku\n    title\n    unitPrice {\n      amount\n      currencyCode\n    }\n  }\n\n  #graphql\n  fragment SellingPlanGroup on SellingPlanGroup {\n    name\n    options {\n      name\n      values\n    }\n    sellingPlans(first:10) {\n      nodes {\n        ...SellingPlan\n      }\n    }\n  }\n  #graphql\n  fragment SellingPlanMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment SellingPlan on SellingPlan {\n    id\n    options {\n      name\n      value\n    }\n    priceAdjustments {\n      adjustmentValue {\n        ... on SellingPlanFixedAmountPriceAdjustment {\n          __typename\n          adjustmentAmount {\n            ... on MoneyV2 {\n               ...SellingPlanMoney\n            }\n          }\n        }\n        ... on SellingPlanFixedPriceAdjustment {\n          __typename\n          price {\n            ... on MoneyV2 {\n              ...SellingPlanMoney\n            }\n          }\n        }\n        ... on SellingPlanPercentagePriceAdjustment {\n          __typename\n          adjustmentPercentage\n        }\n      }\n      orderCount\n    }\n    recurringDeliveries\n    checkoutCharge {\n      type\n      value {\n        ... on MoneyV2 {\n          ...SellingPlanMoney\n        }\n        ... on SellingPlanCheckoutChargePercentageValue {\n          percentage\n        }\n      }\n    }\n }\n\n\n\n\n': {
+  '#graphql\n  query CollectionByHandle(\n    $country: CountryCode\n    $language: LanguageCode\n    $handle: String!\n  ) @inContext(country: $country, language: $language) {\n    collectionByHandle(handle: $handle) {\n      ...Collection\n    }\n  }\n  #graphql\n  fragment Collection on Collection {\n    id\n    title\n    descriptionHtml\n    handle\n    image {\n      id\n      url\n      altText\n      width\n      height\n    }\n    products(first: 10) {\n      edges {\n        node {\n          ...CollectionProduct\n        }\n      }\n    }\n  }\n  #graphql\nfragment CollectionProduct on Product {\n    id\n    title\n    handle\n    description\n    tags\n    priceRange {\n      minVariantPrice {\n        amount\n        currencyCode\n      }\n      maxVariantPrice {\n        amount\n        currencyCode\n      }\n    }\n    images(first: 1) {\n      nodes {\n        id\n        url\n        altText\n        width\n        height\n      }\n    }\n    variants(first: 10) {\n      nodes {\n        ...ProductVariant\n      }\n    }\n    sellingPlanGroups(first: 10) {\n      nodes {\n        ...SellingPlanGroup\n      }\n    }\n  }\n  #graphql\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice {\n      amount\n      currencyCode\n    }\n    id\n    metafield(key:"description",namespace:"custom"){\n      description\n      value\n      id\n      key\n    }\n    image {\n      __typename\n      id\n      url\n      altText\n      width\n      height\n    }\n    price {\n      amount\n      currencyCode\n    }\n    product {\n      title\n      handle\n    }\n    selectedOptions {\n      name\n      value\n    }\n    sku\n    title\n    unitPrice {\n      amount\n      currencyCode\n    }\n  }\n\n  #graphql\n  fragment SellingPlanGroup on SellingPlanGroup {\n    name\n    options {\n      name\n      values\n    }\n    sellingPlans(first:10) {\n      nodes {\n        ...SellingPlan\n      }\n    }\n  }\n  #graphql\n  fragment SellingPlanMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment SellingPlan on SellingPlan {\n    id\n    options {\n      name\n      value\n    }\n    priceAdjustments {\n      adjustmentValue {\n        ... on SellingPlanFixedAmountPriceAdjustment {\n          __typename\n          adjustmentAmount {\n            ... on MoneyV2 {\n               ...SellingPlanMoney\n            }\n          }\n        }\n        ... on SellingPlanFixedPriceAdjustment {\n          __typename\n          price {\n            ... on MoneyV2 {\n              ...SellingPlanMoney\n            }\n          }\n        }\n        ... on SellingPlanPercentagePriceAdjustment {\n          __typename\n          adjustmentPercentage\n        }\n      }\n      orderCount\n    }\n    recurringDeliveries\n    checkoutCharge {\n      type\n      value {\n        ... on MoneyV2 {\n          ...SellingPlanMoney\n        }\n        ... on SellingPlanCheckoutChargePercentageValue {\n          percentage\n        }\n      }\n    }\n }\n\n\n\n\n': {
     return: CollectionByHandleQuery;
     variables: CollectionByHandleQueryVariables;
   };
@@ -1878,11 +1831,11 @@ interface GeneratedQueryTypes {
     return: FooterQuery;
     variables: FooterQueryVariables;
   };
-  '#graphql\n  query Product(\n    $country: CountryCode\n    $handle: String!\n    $language: LanguageCode\n    $selectedOptions: [SelectedOptionInput!]! = []\n  ) @inContext(country: $country, language: $language) {\n    product(handle: $handle) {\n      ...Product\n    }\n  }\n  #graphql\n  fragment Product on Product {\n    id\n    title\n    vendor\n    handle\n    descriptionHtml\n    description\n    options {\n      name\n      values\n    }\n    selectedVariant: variantBySelectedOptions(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {\n      ...ProductVariant\n    }\n    variants(first: 1) {\n      nodes {\n        ...ProductVariant\n      }\n    }\n    seo {\n      description\n      title\n    }\n    #/***********************************************/\n    #/**********  EXAMPLE UPDATE STARTS  ************/\n    # 9. Add the SellingPlanGroups fragment to the Product fragment\n    sellingPlanGroups(first:10) {\n      nodes {\n        ...SellingPlanGroup\n      }\n    }\n    #/**********   EXAMPLE UPDATE END   ************/\n    #/***********************************************/\n  }\n  #graphql\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice {\n      amount\n      currencyCode\n    }\n    id\n    image {\n      __typename\n      id\n      url\n      altText\n      width\n      height\n    }\n    price {\n      amount\n      currencyCode\n    }\n    product {\n      title\n      handle\n    }\n    selectedOptions {\n      name\n      value\n    }\n    sku\n    title\n    unitPrice {\n      amount\n      currencyCode\n    }\n  }\n\n  #/***********************************************/\n  #/**********  EXAMPLE UPDATE STARTS  ************/\n  #graphql\n  fragment SellingPlanGroup on SellingPlanGroup {\n    name\n    options {\n      name\n      values\n    }\n    sellingPlans(first:10) {\n      nodes {\n        ...SellingPlan\n      }\n    }\n  }\n  #graphql\n  fragment SellingPlanMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment SellingPlan on SellingPlan {\n    id\n    options {\n      name\n      value\n    }\n    priceAdjustments {\n      adjustmentValue {\n        ... on SellingPlanFixedAmountPriceAdjustment {\n          __typename\n          adjustmentAmount {\n            ... on MoneyV2 {\n               ...SellingPlanMoney\n            }\n          }\n        }\n        ... on SellingPlanFixedPriceAdjustment {\n          __typename\n          price {\n            ... on MoneyV2 {\n              ...SellingPlanMoney\n            }\n          }\n        }\n        ... on SellingPlanPercentagePriceAdjustment {\n          __typename\n          adjustmentPercentage\n        }\n      }\n      orderCount\n    }\n    recurringDeliveries\n    checkoutCharge {\n      type\n      value {\n        ... on MoneyV2 {\n          ...SellingPlanMoney\n        }\n        ... on SellingPlanCheckoutChargePercentageValue {\n          percentage\n        }\n      }\n    }\n }\n\n\n  #/**********   EXAMPLE UPDATE END   ************/\n  #/***********************************************/\n\n': {
+  '#graphql\n  query Product(\n    $country: CountryCode\n    $handle: String!\n    $language: LanguageCode\n    $selectedOptions: [SelectedOptionInput!]!\n  ) @inContext(country: $country, language: $language) {\n    product(handle: $handle) {\n      ...Product\n    }\n  }\n  #graphql\n  fragment Product on Product {\n    id\n    title\n    vendor\n    tags\n    handle\n    images(first:5) {\n      edges{\n        node{\n          id\n          altText\n          url\n        }\n      }\n    }\n    descriptionHtml\n    description\n    options {\n      name\n      values\n    }\n    selectedVariant: variantBySelectedOptions(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {\n      ...ProductVariant\n    }\n    variants(first: 3) {\n      nodes {\n        ...ProductVariant\n      }\n    }\n    seo {\n      description\n      title\n    }\n  }\n  #graphql\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice {\n      amount\n      currencyCode\n    }\n    id\n    metafield(key:"description",namespace:"custom"){\n      description\n      value\n      id\n      key\n    }\n    image {\n      __typename\n      id\n      url\n      altText\n      width\n      height\n    }\n    price {\n      amount\n      currencyCode\n    }\n    product {\n      title\n      handle\n    }\n    selectedOptions {\n      name\n      value\n    }\n    sku\n    title\n    unitPrice {\n      amount\n      currencyCode\n    }\n  }\n\n\n': {
     return: ProductQuery;
     variables: ProductQueryVariables;
   };
-  '#graphql\n  #graphql\n  fragment ProductVariants on Product {\n    variants(first: 250) {\n      nodes {\n        ...ProductVariant\n      }\n    }\n  }\n  #graphql\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice {\n      amount\n      currencyCode\n    }\n    id\n    image {\n      __typename\n      id\n      url\n      altText\n      width\n      height\n    }\n    price {\n      amount\n      currencyCode\n    }\n    product {\n      title\n      handle\n    }\n    selectedOptions {\n      name\n      value\n    }\n    sku\n    title\n    unitPrice {\n      amount\n      currencyCode\n    }\n  }\n\n\n  query ProductVariants(\n    $country: CountryCode\n    $language: LanguageCode\n    $handle: String!\n  ) @inContext(country: $country, language: $language) {\n    product(handle: $handle) {\n      ...ProductVariants\n    }\n  }\n': {
+  '#graphql\n  #graphql\n  fragment ProductVariants on Product {\n    variants(first: 250) {\n      nodes {\n        ...ProductVariant\n      }\n    }\n  }\n  #graphql\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice {\n      amount\n      currencyCode\n    }\n    id\n    metafield(key:"description",namespace:"custom"){\n      description\n      value\n      id\n      key\n    }\n    image {\n      __typename\n      id\n      url\n      altText\n      width\n      height\n    }\n    price {\n      amount\n      currencyCode\n    }\n    product {\n      title\n      handle\n    }\n    selectedOptions {\n      name\n      value\n    }\n    sku\n    title\n    unitPrice {\n      amount\n      currencyCode\n    }\n  }\n\n\n  query ProductVariants(\n    $country: CountryCode\n    $language: LanguageCode\n    $handle: String!\n  ) @inContext(country: $country, language: $language) {\n    product(handle: $handle) {\n      ...ProductVariants\n    }\n  }\n': {
     return: ProductVariantsQuery;
     variables: ProductVariantsQueryVariables;
   };

@@ -68,23 +68,17 @@ export const SELLING_PLAN_GROUP_FRAGMENT = `#graphql
 export const PRODUCT_VARIANT_FRAGMENT = `#graphql
   fragment ProductVariant on ProductVariant {
     availableForSale
-    metafield(key:"description",namespace:"custom"){
-      description
-      value
-      id
-      key
-    }
     compareAtPrice {
       amount
       currencyCode
     }
+    id
     metafield(key:"description",namespace:"custom"){
       description
       value
       id
       key
     }
-    id
     image {
       __typename
       id
@@ -119,7 +113,17 @@ export const PRODUCT_FRAGMENT = `#graphql
     id
     title
     vendor
+    tags
     handle
+    images(first:5) {
+      edges{
+        node{
+          id
+          altText
+          url
+        }
+      }
+    }
     descriptionHtml
     description
     options {
@@ -129,7 +133,7 @@ export const PRODUCT_FRAGMENT = `#graphql
     selectedVariant: variantBySelectedOptions(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
       ...ProductVariant
     }
-    variants(first: 1) {
+    variants(first: 3) {
       nodes {
         ...ProductVariant
       }
@@ -138,23 +142,8 @@ export const PRODUCT_FRAGMENT = `#graphql
       description
       title
     }
-    #/***********************************************/
-    #/**********  EXAMPLE UPDATE STARTS  ************/
-    # 9. Add the SellingPlanGroups fragment to the Product fragment
-    sellingPlanGroups(first:10) {
-      nodes {
-        ...SellingPlanGroup
-      }
-    }
-    #/**********   EXAMPLE UPDATE END   ************/
-    #/***********************************************/
   }
   ${PRODUCT_VARIANT_FRAGMENT}
-  #/***********************************************/
-  #/**********  EXAMPLE UPDATE STARTS  ************/
-  ${SELLING_PLAN_GROUP_FRAGMENT}
-  #/**********   EXAMPLE UPDATE END   ************/
-  #/***********************************************/
 ` as const;
 
 export const PRODUCT_QUERY = `#graphql
@@ -162,7 +151,7 @@ export const PRODUCT_QUERY = `#graphql
     $country: CountryCode
     $handle: String!
     $language: LanguageCode
-    $selectedOptions: [SelectedOptionInput!]! = []
+    $selectedOptions: [SelectedOptionInput!]!
   ) @inContext(country: $country, language: $language) {
     product(handle: $handle) {
       ...Product

@@ -1,6 +1,6 @@
 import React from 'react';
-import {Image} from '@shopify/hydrogen';
-import {cn} from '~/utils/cn';
+import { Image } from '@shopify/hydrogen';
+import { cn } from '~/utils/cn';
 
 export type BackgroundImageProps = {
   imageUrl: string;
@@ -22,6 +22,8 @@ export const BackgroundImage: React.FC<BackgroundImageProps> = ({
       <Image
         src={imageUrl}
         alt={altText}
+        width={1440}
+        height={1440}
         className="absolute top-0 left-0 w-full h-full -z-10 object-cover object-right md:object-center rounded-lg"
       />
 

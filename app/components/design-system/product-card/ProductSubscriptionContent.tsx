@@ -7,6 +7,7 @@ import { NavLink } from '@remix-run/react';
 import { PurchaseOption } from './PurshaseOption';
 import { Variant } from './ProductCard';
 import { ProductsQuickView } from '../../product/product-quick-view/ProductsQuickView';
+import { ButtonQuickView } from '~/components/product/product-quick-view/ButtonQuickView';
 
 export const ProductSubscriptionContent = ({
   product,
@@ -27,6 +28,10 @@ export const ProductSubscriptionContent = ({
     discountedPrice,
     adjustmentPercentage,
   } = useSubscription(price, sellingPlanGroups);
+
+  const isProductWithSellingPlanGroups = sellingPlanGroups.nodes.length > 0;
+  const buttonLabel = variant === 'default' ? `Add • $${parseFloat(product.priceRange.minVariantPrice.amount).toFixed(2)}` : 'Add to Cart'
+
 
   return (
     <div>
@@ -66,8 +71,7 @@ export const ProductSubscriptionContent = ({
         role="radiogroup"
         aria-label="Purchase options"
       >
-        <ProductsQuickView product={product} variant={variant} />
-
+        <ButtonQuickView isProductWithSellingPlanGroups={isProductWithSellingPlanGroups} handle={product.handle} buttonLabel={buttonLabel} variants={product.variants} />
         <NavLink
           to="/"
           className="text-[12px] leading-[14px] font-normal py-[17px] flex items-center justify-center"

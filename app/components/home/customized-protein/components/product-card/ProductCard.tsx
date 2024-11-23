@@ -1,5 +1,5 @@
 import { Image } from '@shopify/hydrogen';
-import type { ProductCardProteinProps, ProductProps } from '../../types';
+import type { ProductCardProteinProps } from '../../types';
 import { Button } from '~/components/ui/Button';
 import { ActiveIngredients } from './ActiveIngredients';
 import { ProductFeatures } from './ProductFeatures';

@@ -44,6 +44,8 @@ export const CleanSuplements = ({
                     alt={imageData.altText || ''}
                     className="object-contain "
                     aria-hidden="true"
+                    width={48}
+                    height={48}
                     loading="lazy"
                   />
                 </div>

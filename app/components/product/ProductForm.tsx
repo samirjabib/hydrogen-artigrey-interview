@@ -1,11 +1,11 @@
-import {Link} from '@remix-run/react';
-import {type VariantOption, VariantSelector} from '@shopify/hydrogen';
+import { Link } from '@remix-run/react';
+import { type VariantOption, VariantSelector } from '@shopify/hydrogen';
 import type {
   ProductFragment,
   ProductVariantFragment,
 } from 'storefrontapi.generated';
-import {AddToCartButton} from '~/components/product/AddToCartButton';
-import {useAside} from '~/providers/Aside';
+import { AddToCartButton } from '~/components/product/AddToCartButton';
+import { useAside } from '~/providers/Aside';
 
 export function ProductForm({
   product,
@@ -16,7 +16,7 @@ export function ProductForm({
   selectedVariant: ProductFragment['selectedVariant'];
   variants: Array<ProductVariantFragment>;
 }) {
-  const {open} = useAside();
+  const { open } = useAside();
   return (
     <div className="product-form">
       <VariantSelector
@@ -26,7 +26,7 @@ export function ProductForm({
         )}
         variants={variants}
       >
-        {({option}) => <ProductOptions key={option.name} option={option} />}
+        {({ option }) => <ProductOptions key={option.name} option={option} />}
       </VariantSelector>
       <br />
       <AddToCartButton
@@ -37,12 +37,12 @@ export function ProductForm({
         lines={
           selectedVariant
             ? [
-                {
-                  merchandiseId: selectedVariant.id,
-                  quantity: 1,
-                  selectedVariant,
-                },
-              ]
+              {
+                merchandiseId: selectedVariant.id,
+                quantity: 1,
+                selectedVariant,
+              },
+            ]
             : []
         }
       >
@@ -52,12 +52,12 @@ export function ProductForm({
   );
 }
 
-function ProductOptions({option}: {option: VariantOption}) {
+function ProductOptions({ option }: { option: VariantOption }) {
   return (
     <div className="product-options" key={option.name}>
       <h5>{option.name}</h5>
       <div className="product-options-grid">
-        {option.values.map(({value, isAvailable, isActive, to}) => {
+        {option.values.map(({ value, isAvailable, isActive, to }) => {
           return (
             <Link
               className="product-options-item"

@@ -110,6 +110,7 @@ async function loadCriticalData({ context }: LoaderFunctionArgs) {
  */
 function loadDeferredData({ context, request }: LoaderFunctionArgs) {
   const { storefront, customerAccount, cart } = context;
+  const productHandle = new URL(request.url).searchParams.get('productHandle');
 
   const footer = storefront
     .query(FOOTER_QUERY, {

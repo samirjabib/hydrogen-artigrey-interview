@@ -1,29 +1,25 @@
-import type {LoaderFunctionArgs} from '@netlify/remix-runtime';
+import type { LoaderFunctionArgs } from '@netlify/remix-runtime';
 import type {
   BrandsCardsQuery,
   GoalsCardsQuery,
   FeaturedCollectionQuery,
-  RecommendedProductsQuery,
   CleanSuplementsQuery,
   CollectionByHandleQuery,
   VideosSwiperQuery,
 } from 'storefrontapi.generated';
-import type {BlogsQuery} from '~/queries/blogs';
-import {GET_BLOGS_QUERY} from '~/queries/blogs';
-import {COLLECTION_BY_HANDLE_QUERY} from '~/queries/fragments/collection';
-import {PRODUCT_QUERY, VARIANTS_QUERY} from '~/queries/fragments/product';
+import type { BlogsQuery } from '~/queries/blogs';
+import { GET_BLOGS_QUERY } from '~/queries/blogs';
+import { COLLECTION_BY_HANDLE_QUERY } from '~/queries/fragments/collection';
 import {
   BRANDS_QUERY,
   GOALS_CARDS_QUERY,
   FEATURED_COLLECTION_QUERY,
-  RECOMMENDED_PRODUCTS_QUERY,
   CLEAN_SUPPLEMENTS_QUERY,
   VIDEOS_SWIPER_QUERY,
 } from '~/queries/home';
-import {defer} from '@remix-run/node';
-import {getSelectedProductOptions} from '@shopify/hydrogen';
+import { defer } from '@remix-run/node';
 
-type CriticalData = {
+export type CriticalData = {
   featuredCollection: FeaturedCollectionQuery['collections']['nodes'][0];
   goals: GoalsCardsQuery['metaobjects']['edges'];
   brands: BrandsCardsQuery['metaobjects']['edges'];
@@ -45,7 +41,7 @@ export async function getCriticalData({
   context,
 }: LoaderFunctionArgs): Promise<CriticalData> {
   const [
-    {collections},
+    { collections },
     goalsData,
     brandsData,
     cleanSupplementsData,

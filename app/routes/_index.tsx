@@ -28,6 +28,7 @@ import { mockImages } from '~/components/home/instagram-feed/constants';
 
 import type { BlogsQuery } from '~/queries/blogs';
 import { getCriticalData, getDeferredData } from '~/services/home';
+import { RootLayoutProps } from '~/types';
 
 export const meta: MetaFunction = () => {
   return [

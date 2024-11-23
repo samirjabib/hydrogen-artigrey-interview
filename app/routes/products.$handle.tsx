@@ -1,57 +1,30 @@
-import {Suspense} from 'react';
-import {defer, redirect, type LoaderFunctionArgs} from '@netlify/remix-runtime';
-import {Await, useLoaderData, type MetaFunction} from '@remix-run/react';
-import type {ProductFragment} from 'storefrontapi.generated';
+import { Suspense } from 'react';
+import { defer, redirect, type LoaderFunctionArgs } from '@netlify/remix-runtime';
+import { Await, useLoaderData, type MetaFunction } from '@remix-run/react';
 import {
   getSelectedProductOptions,
   Analytics,
   useOptimisticVariant,
 } from '@shopify/hydrogen';
-import type {SelectedOption} from '@shopify/hydrogen/storefront-api-types';
-import {getVariantUrl} from '~/lib/variants';
-import {ProductForm} from '~/components/product/ProductForm';
-import {ProductPrice} from '~/components/product/ProductPrice';
-import {ProductImage} from '~/components/product/ProductImage';
+import { ProductForm } from '~/components/product/ProductForm';
+import { ProductPrice } from '~/components/product/ProductPrice';
+import { ProductImage } from '~/components/product/ProductImage';
+import { PRODUCT_QUERY, VARIANTS_QUERY } from '~/queries/fragments/product';
+import { ProductQuery } from 'storefrontapi.generated';
 
-export const meta: MetaFunction<typeof loader> = ({data}) => {
-  return [{title: `Hydrogen | ${data?.product.title ?? ''}`}];
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  return [{ title: `Hydrogen | ${data?.product.title ?? ''}` }];
 };
 
 export async function loader(args: LoaderFunctionArgs) {
-  const { handle } = args.params;
-  const { storefront } = args.context;
+  // Start fetching non-critical data without blocking time to first byte
+  const deferredData = loadDeferredData(args);
 
-  if (!handle) {
-    throw new Error('Expected product handle to be defined');
-  }
+  // Await the critical data required to render initial state of the page
+  const criticalData = await loadCriticalData(args);
 
-  // Obtener opciones seleccionadas del request (si aplica)
-  const selectedOptions = getSelectedProductOptions(args.request);
-
-  // Consultar producto y variantes desde Shopify Storefront API
-  const { product } = await storefront.query(PRODUCT_QUERY, {
-    variables: { handle, selectedOptions },
-  });
-
-  if (!product?.id) {
-    throw new Response('Product not found', { status: 404 });
-  }
-
-  // Seleccionar el primer variant si no hay uno seleccionado explícitamente
-  const firstVariant = product.variants.nodes[0];
-  const firstVariantIsDefault = firstVariant?.selectedOptions.some(
-    (option: SelectedOption) =>
-      option.name === 'Title' && option.value === 'Default Title'
-  );
-
-  // Añadir una propiedad "selectedVariant" al producto para manejarlo fácilmente
-  if (firstVariantIsDefault || !product.selectedVariant) {
-    product.selectedVariant = firstVariant;
-  }
-
-  return defer({ product });
+  return defer({ ...deferredData, ...criticalData });
 }
-
 
 /**
  * Load data necessary for rendering content above the fold. This is the critical data
@@ -62,41 +35,43 @@ async function loadCriticalData({
   params,
   request,
 }: LoaderFunctionArgs) {
-  const {handle} = params;
-  const {storefront} = context;
+  const { handle } = params;
+  const { storefront } = context;
 
   if (!handle) {
     throw new Error('Expected product handle to be defined');
   }
-
-  const [{product}] = await Promise.all([
-    storefront.query(PRODUCT_QUERY, {
-      variables: {handle, selectedOptions: getSelectedProductOptions(request)},
+  const [{ product }] = await Promise.all([
+    storefront.query<ProductQuery>(PRODUCT_QUERY, {
+      variables: { handle, selectedOptions: getSelectedProductOptions(request) },
     }),
     // Add other queries here, so that they are loaded in parallel
   ]);
 
   if (!product?.id) {
-    throw new Response(null, {status: 404});
+    throw new Response(null, { status: 404 });
   }
 
-  const firstVariant = product.variants.nodes[0];
-  const firstVariantIsDefault = Boolean(
-    firstVariant.selectedOptions.find(
-      (option: SelectedOption) =>
-        option.name === 'Title' && option.value === 'Default Title',
-    ),
-  );
+  /* NOTE samir : I commented out these functions because I reuse them to create a quick view, and the exercise doesn't have a product details page. If the case requires something different, we can create another loader in a different route and handle the logic there.
+   */
 
-  if (firstVariantIsDefault) {
-    product.selectedVariant = firstVariant;
-  } else {
-    // if no selected variant was returned from the selected options,
-    // we redirect to the first variant's url with it's selected options applied
-    if (!product.selectedVariant) {
-      throw redirectToFirstVariant({product, request});
-    }
-  }
+  /*   const firstVariant = product.variants.nodes[0];
+    const firstVariantIsDefault = Boolean(
+      firstVariant.selectedOptions.find(
+        (option: SelectedOption) =>
+          option.name === 'Title' && option.value === 'Default Title',
+      ),
+    ); */
+  /* 
+    if (firstVariantIsDefault) {
+      product.selectedVariant = firstVariant;
+    } *//*  else {
+// if no selected variant was returned from the selected options,
+// we redirect to the first variant's url with it's selected options applied
+if (!product.selectedVariant) {
+throw redirectToFirstVariant({ product, request });
+}
+} */
 
   return {
     product,
@@ -108,7 +83,7 @@ async function loadCriticalData({
  * fetched after the initial page load. If it's unavailable, the page should still 200.
  * Make sure to not throw any errors here, as it will cause the page to 500.
  */
-function loadDeferredData({context, params, request}: LoaderFunctionArgs) {
+function loadDeferredData({ context, params, request }: LoaderFunctionArgs) {
   // In order to show which variants are available in the UI, we need to query
   // all of them. But there might be a *lot*, so instead separate the variants
   // into it's own separate query that is deferred. So there's a brief moment
@@ -117,7 +92,7 @@ function loadDeferredData({context, params, request}: LoaderFunctionArgs) {
 
   const variants = context.storefront
     .query(VARIANTS_QUERY, {
-      variables: {handle: params.handle!},
+      variables: { handle: params.handle! },
     })
     .catch((error) => {
       // Log query errors, but don't throw them so the page can still render
@@ -130,6 +105,9 @@ function loadDeferredData({context, params, request}: LoaderFunctionArgs) {
   };
 }
 
+
+/* NOTE UP */
+/* 
 function redirectToFirstVariant({
   product,
   request,
@@ -151,16 +129,16 @@ function redirectToFirstVariant({
       status: 302,
     },
   );
-}
+} */
 
 export default function Product() {
-  const {product, variants} = useLoaderData<typeof loader>();
+  const { product, variants } = useLoaderData<typeof loader>();
   const selectedVariant = useOptimisticVariant(
     product.selectedVariant,
     variants,
   );
 
-  const {title, descriptionHtml} = product;
+  const { title, descriptionHtml } = product;
 
   return (
     <div className="product">
@@ -200,7 +178,7 @@ export default function Product() {
           <strong>Description</strong>
         </p>
         <br />
-        <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
+        <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
         <br />
       </div>
       <Analytics.ProductView
@@ -222,105 +200,3 @@ export default function Product() {
   );
 }
 
-const PRODUCT_VARIANT_FRAGMENT = `#graphql
-  fragment ProductVariant on ProductVariant {
-    availableForSale
-    compareAtPrice {
-      amount
-      currencyCode
-    }
-    id
-    image {
-      __typename
-      id
-      url
-      altText
-      width
-      height
-    }
-    price {
-      amount
-      currencyCode
-    }
-    product {
-      title
-      handle
-    }
-    selectedOptions {
-      name
-      value
-    }
-    sku
-    title
-    unitPrice {
-      amount
-      currencyCode
-    }
-  }
-` as const;
-
-const PRODUCT_FRAGMENT = `#graphql
-  fragment Product on Product {
-    id
-    title
-    vendor
-    handle
-    descriptionHtml
-    description
-    options {
-      name
-      values
-    }
-    selectedVariant: variantBySelectedOptions(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
-      ...ProductVariant
-    }
-    variants(first: 1) {
-      nodes {
-        ...ProductVariant
-      }
-    }
-    seo {
-      description
-      title
-    }
-  }
-  ${PRODUCT_VARIANT_FRAGMENT}
-` as const;
-
-const PRODUCT_QUERY = `#graphql
-  query Product(
-    $country: CountryCode
-    $handle: String!
-    $language: LanguageCode
-    $selectedOptions: [SelectedOptionInput!]!
-  ) @inContext(country: $country, language: $language) {
-    product(handle: $handle) {
-      ...Product
-    }
-  }
-  ${PRODUCT_FRAGMENT}
-` as const;
-
-const PRODUCT_VARIANTS_FRAGMENT = `#graphql
-  fragment ProductVariants on Product {
-    variants(first: 250) {
-      nodes {
-        ...ProductVariant
-      }
-    }
-  }
-  ${PRODUCT_VARIANT_FRAGMENT}
-` as const;
-
-const VARIANTS_QUERY = `#graphql
-  ${PRODUCT_VARIANTS_FRAGMENT}
-  query ProductVariants(
-    $country: CountryCode
-    $language: LanguageCode
-    $handle: String!
-  ) @inContext(country: $country, language: $language) {
-    product(handle: $handle) {
-      ...ProductVariants
-    }
-  }
-` as const;

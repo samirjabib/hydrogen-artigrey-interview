@@ -6,8 +6,6 @@ export type VideoSlideContentProps = {
     shouldPlay: boolean;
 }
 
-
-
 export type Video = {
     url: string;
     id: string;
@@ -27,6 +25,5 @@ export type VideoSliceProductCardProps = {
 }
 
 export type VideoSwiperProps = {
-
     videoSwiper: VideosSwiperQuery['metaobjects'];
 }

@@ -5,7 +5,7 @@ import { Image } from '@shopify/hydrogen';
 import { StarsRating } from '../StarRatings';
 import { Tag } from '../Tag';
 import type { Variant } from './ProductCard';
-import { ProductsQuickView } from '../../product/product-quick-view/ProductsQuickView';
+import { ButtonQuickView } from '~/components/product/product-quick-view/ButtonQuickView';
 
 export const ProductContent = ({
   product,
@@ -16,6 +16,9 @@ export const ProductContent = ({
 }) => {
 
   const { images, title, description, tags } = product;
+
+  const isProductWithSellingPlanGroups = product.sellingPlanGroups.nodes.length > 0;
+  const buttonLabel = variant === 'default' ? `Add • $${parseFloat(product.priceRange.minVariantPrice.amount).toFixed(2)}` : 'Add to Cart'
 
 
   return (
@@ -57,7 +60,7 @@ export const ProductContent = ({
         </p>
         <div className="flex flex-row items-center justify-between pb-5">
           <StarsRating isProductRating size={12} />
-          <ProductsQuickView product={product} variant={variant} />
+          <ButtonQuickView isProductWithSellingPlanGroups={isProductWithSellingPlanGroups} buttonLabel={buttonLabel} variants={product.variants} variantButton={variant} handle={product.handle} />
         </div>
       </div>
     </div>

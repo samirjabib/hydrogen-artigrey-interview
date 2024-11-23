@@ -1,4 +1,3 @@
-import React from 'react';
 import { Image } from '@shopify/hydrogen';
 import { Plus } from 'lucide-react';
 import { VideoSliceProductCardProps } from '../types';

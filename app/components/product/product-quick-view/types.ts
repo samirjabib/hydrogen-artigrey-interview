@@ -1,10 +1,8 @@
-import { CollectionProductFragment } from "storefrontapi.generated";
+import { CollectionProductFragment, ProductQuery } from "storefrontapi.generated";
 import { Variant } from "~/components/design-system/product-card/ProductCard";
+import { loader } from "~/routes/products.$handle";
 
-export type ProductsQuickViewProps = {
-  variant: Variant;
-  product: CollectionProductFragment;
-};
+
 
 
 export type QuantityCellProps = {
@@ -22,14 +20,6 @@ export type VariantWithMetaField = CollectionProductFragment['variants']['nodes'
   };
 };
 
-
-export type ProductVariant = {
-  name: string;
-  price: string;
-  discount: string;
-  total: string;
-  size: string;
-}
 
 export type ProductVariantTableProps = {
   variants: CollectionProductFragment['variants']['nodes'];
@@ -54,3 +44,15 @@ export type CartSummaryProps = {
   totalItems: number;
   subtotal: number;
 };
+
+export type ButtonQuickViewProps = {
+  buttonLabel: string;
+  isProductWithSellingPlanGroups: boolean;
+  variants: CollectionProductFragment['variants']
+  handle: string;
+  variantButton?: Variant
+}
+
+export type QuickViewContentProps = {
+  product: ProductQuery['product'];
+}

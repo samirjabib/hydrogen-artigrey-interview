@@ -32,6 +32,7 @@ export const TableRow = ({ variant }: TableRowProps) => {
       <ImageCell
         name={variant.title}
         size={formattedSize}
+        imageSrc={variant.image?.url || ''}
       />
       <QuantityCell
         quantity={quantity}
