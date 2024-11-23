@@ -18,8 +18,8 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({
 }) => {
   console.log('render')
   const swiperRef = useRef<any>(null);
-  /*   const [isBeginning, setIsBeginning] = useState(true);
-    const [isEnd, setIsEnd] = useState(false); */
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
 
   if (!trendingProducts?.products?.edges) {
     return <div>No products available</div>;
@@ -28,25 +28,25 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({
   const handleSwiperInit = useCallback((swiper: any) => {
     swiperRef.current = swiper;
   }, []);
-  /*   
-      const handleSlideChange = useCallback((swiper: any) => {
-        setIsBeginning(swiper.isBeginning);
-        setIsEnd(swiper.isEnd);
-      }, []);
-     */
+
+  const handleSlideChange = useCallback((swiper: any) => {
+    setIsBeginning(swiper.isBeginning);
+    setIsEnd(swiper.isEnd);
+  }, []);
+
   const products = trendingProducts.products.edges;
 
   return (
     <section className="py-20 bg-[#F6F6F5]">
       <div className="wrapper px-4 md:px-10">
-        {/*    <HeadingSwiper
+        <HeadingSwiper
           isEnd={isEnd}
           isBeginning={isBeginning}
           title="Trending Supplements"
           swiperRef={swiperRef}
           subtitle="🌟 Trending"
           className="mb-12"
-        /> */}
+        />
 
         <Swiper
           spaceBetween={10}
@@ -55,22 +55,24 @@ export const TrendingProducts: React.FC<ProductSliderProps> = ({
             375: { spaceBetween: 10, slidesPerView: 1 },
             500: { spaceBetween: 10, slidesPerView: 2 },
             800: { spaceBetween: 20, slidesPerView: 3 },
-            1280: { spaceBetween: 20, slidesPerView: 4 },
+            1400: { spaceBetween: 20, slidesPerView: 5 },
           }}
-/*           onSlideChange={handleSlideChange}
- */          className="w-full"
+          onSlideChange={handleSlideChange}
+          className="w-full"
         >
-          {products.map((item) => {
-            const product = item.node as unknown as CollectionProductFragment;
+          {
+            products.map((item) => {
+              const product = item.node as unknown as CollectionProductFragment;
 
-            return (
-              <SwiperSlide key={product.id} className="h-auto">
-                <ProductCard product={product} variant="default" />
-              </SwiperSlide>
-            );
-          })}
+              return (
+                <SwiperSlide key={product.id} className="h-auto">
+                  <ProductCard product={product} variant="default" />
+                </SwiperSlide>
+              );
+            })
+          }
         </Swiper>
       </div>
-    </section>
+    </section >
   );
 };

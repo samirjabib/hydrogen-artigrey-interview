@@ -1,15 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
-import {MainBlogCard} from './MainBlogCard';
-import {SecondaryBlogCard} from './SecondaryBlogCard';
-import type {BlogBannerProps} from '../../types';
+import { MainBlogCard } from './MainBlogCard';
+import { SecondaryBlogCard } from './SecondaryBlogCard';
+import type { BlogBannerProps } from '../../types';
 
-export const BlogsGrid: React.FC<BlogBannerProps> = ({blogs, className}) => {
+export const BlogsGrid: React.FC<BlogBannerProps> = ({ blogs, className }) => {
 
-  const isBlogAvailable = Array.isArray(blogs) && blogs.length > 0;
-  if (isBlogAvailable) {
-    return null;
-  }
 
   return (
     <div

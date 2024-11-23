@@ -9,6 +9,7 @@ type BlogBannerProps = {
 };
 
 export const BlogsBanner: React.FC<BlogBannerProps> = ({ blogs }) => {
+  console.log(blogs);
   if (!blogs || blogs.length === 0) {
     return null;
   }

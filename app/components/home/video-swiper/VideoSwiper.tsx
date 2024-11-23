@@ -22,8 +22,6 @@ export const VideoSwiper: React.FC<{
     swiperRef.current = swiper;
   }, []);
 
-  console.log('run');
-
   const handleSlideChange = useCallback((swiper: any) => {
     setActiveIndex(swiper.realIndex);
   }, []);

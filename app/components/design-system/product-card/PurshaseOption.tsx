@@ -19,7 +19,7 @@ export const PurchaseOption = ({
 }) => (
   <div
     className={cn(
-      'flex flex-row gap-2 bg-[#F6F6F5] py-[10px] px-3 w-full sm:w-1/2 md:w-1/2 lg:w-1/2 rounded-[4px] border max-h-[52px] ',
+      'flex flex-row gap-2 bg-[#F6F6F5] py-[10px] px-3 w-full sm:w-1/2 md:w-1/2 lg:w-1/2 rounded-[4px] border max-h-[52px] overflow-hidden',
       selectedOption === optionValue
         ? 'border-[#1B1F23]'
         : 'border border-[#EEEEEE]',
@@ -31,8 +31,8 @@ export const PurchaseOption = ({
       isSelected={selectedOption === optionValue}
       onChange={handleOptionChange}
     />
-    <div>
-      <h3 className="text-[10px] 2xl:text-[12px] font-normal leading-[14px] text-[#1B1F23] whitespace-nowrap">
+    <div className="overflow-hidden">
+      <h3 className="text-[10px] 2xl:text-[12px] font-normal leading-[14px] text-[#1B1F23] whitespace-nowrap truncate">
         {label}
       </h3>
       <div className="flex flex-row gap-2 items-center">

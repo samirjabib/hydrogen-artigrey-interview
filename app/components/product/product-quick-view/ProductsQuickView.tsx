@@ -27,7 +27,6 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
     >
       <SheetContent className="overflow-y-scroll">
         <SheetTitle className='sr-only'>{product.title}</SheetTitle>
-
         <QuickViewContent product={product} />
       </SheetContent>
     </Sheet>
