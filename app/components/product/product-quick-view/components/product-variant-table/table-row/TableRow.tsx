@@ -2,7 +2,6 @@
 import { TableCell } from './TableCell';
 import { TableRowProps } from '../../../types';
 import { useProductPrice } from '~/hooks/useProductPrice';
-import { useQuantityControl } from '~/hooks/useQuantityControl';
 import { QuantityCell } from './QualityCell';
 import { ImageCell } from './ImageCell';
 
@@ -12,18 +11,14 @@ const formatSize = (size: string): string => {
 };
 
 export const TableRow = ({ variant }: TableRowProps) => {
-  const {
-    quantity,
-    updateQuantity,
-    isMinQuantity,
-    isMaxQuantity,
-  } = useQuantityControl(1);
+
+  console.log(variant)
 
   const {
     total,
     discountPercentage,
     formattedUnitPrice,
-  } = useProductPrice(variant.price.amount, quantity);
+  } = useProductPrice(variant.price.amount, 2);
 
   const formattedSize = variant.metafield?.value ? formatSize(variant.metafield.value) : '';
 
@@ -35,10 +30,7 @@ export const TableRow = ({ variant }: TableRowProps) => {
         imageSrc={variant.image?.url || ''}
       />
       <QuantityCell
-        quantity={quantity}
-        onQuantityChange={updateQuantity}
-        isMinQuantity={isMinQuantity}
-        isMaxQuantity={isMaxQuantity}
+        variant={variant}
       />
       <TableCell className="text-center text-xs leading-[14px] text-[#30363C] w-[120px]">
         {formattedUnitPrice} / Each

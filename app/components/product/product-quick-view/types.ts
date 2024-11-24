@@ -6,10 +6,7 @@ import { RootLayoutProps } from "~/types";
 
 
 export type QuantityCellProps = {
-  quantity: number;
-  onQuantityChange: (newQuantity: number) => void;
-  isMinQuantity: boolean;
-  isMaxQuantity: boolean;
+  variant: VariantWithMetaField
 };
 
 
@@ -81,4 +78,13 @@ export enum FetchStatus {
   ERROR = 'error',
   TIMEOUT = 'timeout',
   SUCCESS = 'success'
+}
+
+
+export type AddToCartSectionProps = {
+  initialQuantity?: number;
+  price: number;
+  product: ProductQuery['product'];
+  selectedVariantId?: string;
+  onQuantityChange?: (quantity: number) => void;
 }

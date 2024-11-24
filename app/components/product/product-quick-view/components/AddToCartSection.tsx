@@ -1,21 +1,23 @@
 import { useState } from 'react';
 import { Minus, Plus } from 'lucide-react';
 import { Button } from '~/components/ui/Button';
+import { AddToCartButton } from '../../AddToCartButton';
+import { AddToCartSectionProps } from '../types';
+import { useToast } from '~/hooks/use-toast';
 
-interface AddToCartSectionProps {
-  initialQuantity?: number;
-  price: number;
-  onQuantityChange?: (quantity: number) => void;
-  onAddToCart?: () => void;
-}
 
 export function AddToCartSection({
   initialQuantity = 1,
   price,
+  product,
   onQuantityChange,
-  onAddToCart,
 }: AddToCartSectionProps) {
+  if (!product) {
+    return null;
+  }
   const [quantity, setQuantity] = useState(initialQuantity);
+  const { toast } = useToast()
+
 
   const handleQuantityChange = (newQuantity: number) => {
     if (newQuantity >= 1) {
@@ -24,9 +26,11 @@ export function AddToCartSection({
     }
   };
 
+
+
   return (
-    <>
-      <div className="bg-black flex flex-row items-center px-[6px] py-[6px] rounded-lg gap-10 md:gap-[100px]">
+    <AddToCartButton lines={[{ merchandiseId: product?.variants.nodes[0].id, quantity }]} onClick={() => toast({ title: "Product added to cart", })}>
+      <div className="bg-black flex flex-row items-center px-[6px] py-[6px] rounded-lg gap-10 md:gap-[100px] w-full">
         <div className="flex items-center gap-[26px] py-3 px-3 border rounded-md justify-center bg-white">
           <button
             className="text-[16px] text-[#1B1F23CC]"
@@ -47,12 +51,6 @@ export function AddToCartSection({
           role="button"
           tabIndex={0}
           className="text-white text-base leading-[18px] font-medium cursor-pointer"
-          onClick={onAddToCart}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              onAddToCart?.();
-            }
-          }}
         >
           Add to Cart - ${(price * quantity).toFixed(2)}
         </div>
@@ -66,6 +64,6 @@ export function AddToCartSection({
       >
         View Full Details
       </Button>
-    </>
+    </AddToCartButton>
   );
 }

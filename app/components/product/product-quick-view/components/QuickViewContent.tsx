@@ -33,8 +33,7 @@ export function QuickViewContent({ product, cart }: QuickViewContentProps) {
         <AddToCartSection
           initialQuantity={1}
           price={39.96}
-          onQuantityChange={(qty) => console.log(`Quantity changed to: ${qty}`)}
-          onAddToCart={() => console.log('Added to cart')}
+          product={product}
         />
       </div>
     </section>

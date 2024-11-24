@@ -1,3 +1,4 @@
+
 import { Aside } from '~/providers/Aside';
 import type { RootLayoutProps } from '~/types';
 import { MobileMenuAside } from '../components/layout/header/mobile/MobileMenuAside';
@@ -6,6 +7,7 @@ import { CartAside } from '../components/cart/CartAside';
 import { Header } from '../components/layout/header/Header';
 import { Footer } from '../components/layout/footer/Footer';
 import { ProductsQuickView } from '~/components/product/product-quick-view/ProductsQuickView';
+import { Toaster } from '~/components/ui/toaster';
 
 export function RootProvider({
   cart,
@@ -40,6 +42,7 @@ export function RootProvider({
           publicStoreDomain={publicStoreDomain}
         />
       )}
+      <Toaster />
     </Aside.Provider>
   );
 }
