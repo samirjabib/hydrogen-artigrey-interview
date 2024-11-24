@@ -23,6 +23,7 @@ import {
   VideoSwiper,
 } from '~/components';
 import { BlogsBanner } from '~/components/home/blogs-banner/components/Blogs-Banner';
+import { navItems } from '~/components/home/bundles/constants';
 
 import { mockImages } from '~/components/home/instagram-feed/constants';
 
@@ -85,7 +86,7 @@ export default function Homepage() {
       <TrendingProducts trendingProducts={data?.trendingProducts} />
       <CleanSuplements cleanSupplements={data?.cleanSupplements} />
       <VideoSwiper videoSwiper={data.videoSwiper} />
-      <Bundles initialBundle={data?.bundleCollection} />
+      <Bundles initialBundle={data?.bundleCollection} navItems={navItems} />
       <CustomizedProtein />
       <SecondBanner />
       <BlogsBanner blogs={data?.blogs} />

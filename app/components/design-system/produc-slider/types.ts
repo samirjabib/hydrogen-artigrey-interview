@@ -1,5 +1,6 @@
 import { CollectionProductFragment } from "storefrontapi.generated";
 import { SwiperOptions } from "swiper/types";
+import { NavItemProps } from "~/components/home/bundles/types";
 import { SwiperType } from "~/types";
 
 export interface ProductSliderProps {
@@ -12,6 +13,8 @@ export interface ProductSliderProps {
     viewAllText?: string;
     headerVariant?: 'swiper' | 'default';
     bestSellerIndices?: number[];
+    selectedItem?: NavItemProps
+    onSelectItem?: (item: NavItemProps) => void
 }
 
 export type ProductSliderHeaderProps = {
@@ -23,7 +26,10 @@ export type ProductSliderHeaderProps = {
     headerVariant?: 'swiper' | 'default';
     swiperRef: React.MutableRefObject<SwiperType | null>;
     isBeginning: boolean;
-    isEnd: boolean;
+    isEnd: boolean
+    onSelectItem?: (item: NavItemProps) => void
+    selectedItem?: NavItemProps
+    ;
 
 };
 

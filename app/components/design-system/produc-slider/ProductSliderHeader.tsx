@@ -4,6 +4,8 @@ import { NavLink } from "@remix-run/react";
 import { SwiperNavButton } from "../SwiperNavButton";
 import { HeadingSwiper } from "../HeadingSwiper";
 import { ProductSliderHeaderProps } from "./types";
+import { NavigationMenu } from "~/components/home/bundles/components/NavigationMenu";
+import { navItems } from "~/components/home/bundles/constants";
 
 
 
@@ -16,7 +18,10 @@ export const ProductSliderHeader: React.FC<ProductSliderHeaderProps> = ({
     headerVariant = 'swiper',
     swiperRef,
     isBeginning,
-    isEnd
+    selectedItem,
+    isEnd,
+    onSelectItem,
+
 }) => {
     if (headerVariant === 'swiper') {/*  */
         return (
@@ -34,6 +39,15 @@ export const ProductSliderHeader: React.FC<ProductSliderHeaderProps> = ({
     return (
         <div className="flex flex-col md:pb-[50px] md:flex-row items-center justify-between w-full">
             <Heading subtitle={subtitle} title={title} />
+            {navItems && selectedItem && onSelectItem && (
+                <NavigationMenu
+                    items={navItems}
+                    selectedItem={selectedItem}
+                    onSelectItem={onSelectItem}
+                />
+
+
+            )}
             {showViewAll && (
                 <div className="flex flex-col md:flex-row items-center gap-6 pb-8 md:pb-0">
                     <NavLink
@@ -42,6 +56,7 @@ export const ProductSliderHeader: React.FC<ProductSliderHeaderProps> = ({
                     >
                         {viewAllText}
                     </NavLink>
+
                     <div className="flex flex-row items-center gap-4">
                         <SwiperNavButton
                             disabled={isBeginning}

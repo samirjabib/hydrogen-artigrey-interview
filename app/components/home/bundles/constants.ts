@@ -1,5 +1,7 @@
+import { NavItemProps } from "./types";
 
-export const navItems: { id: number; title: string; handle: string }[] = [
+
+export const navItems: NavItemProps[] = [
   {
     id: 1,
     title: 'Sleep',

@@ -1,16 +1,21 @@
 import { CollectionByHandleQuery } from "storefrontapi.generated";
 import { navItems } from "./constants";
 
-
+export type NavItemProps = {
+    id: number;
+    title: string;
+    handle: string;
+};
 
 export type BundlesProps = {
     initialBundle: CollectionByHandleQuery['collectionByHandle'];
+    navItems: typeof navItems
 };
 
 export type NavigationMenuProps = {
-    items: typeof navItems;
+    items: NavItemProps[];
     selectedItem: { id: number; title: string; handle: string };
-    onSelectItem: (item: { id: number; title: string; handle: string }) => void;
+    onSelectItem: (item: NavItemProps) => void;
 };
 
 export type SwiperControlsProps = {

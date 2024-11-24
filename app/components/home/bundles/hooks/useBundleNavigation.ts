@@ -1,9 +1,7 @@
 import { useState, useCallback } from 'react';
-import type { CollectionByHandleQuery } from 'storefrontapi.generated';
-import { navItems } from '../constants';
-import { BundlesProps } from '../types';
+import { BundlesProps, NavItemProps } from '../types';
 
-export const useBundleNavigation = ({ initialBundle }: BundlesProps) => {
+export const useBundleNavigation = ({ initialBundle, navItems }: BundlesProps) => {
     const [selectedItem, setSelectedItem] = useState(navItems[0]);
     const [collection, setCollection] = useState(
         initialBundle?.products.edges || []
@@ -11,10 +9,9 @@ export const useBundleNavigation = ({ initialBundle }: BundlesProps) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<Error | null>(null);
 
-    const handleItemSelect = useCallback((item: typeof navItems[0]) => {
+    const onSelectItem = useCallback((item: NavItemProps) => {
         setIsLoading(true);
         setError(null);
-
         try {
             // Here you would implement the logic to fetch the new bundle data
             // based on the selected item's handle
@@ -31,7 +28,7 @@ export const useBundleNavigation = ({ initialBundle }: BundlesProps) => {
     return {
         selectedItem,
         collection,
-        handleItemSelect,
+        onSelectItem,
         isLoading,
         error,
     };

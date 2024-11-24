@@ -1,4 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
+
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { VideosSwiperQuery } from 'storefrontapi.generated';
 

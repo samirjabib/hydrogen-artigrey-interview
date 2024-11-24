@@ -17,6 +17,8 @@ export const ProductSlider: React.FC<ProductSliderProps> = ({
   viewAllText = 'View All',
   headerVariant = 'swiper',
   bestSellerIndices = [0, 3],
+  selectedItem,
+  onSelectItem,
 }) => {
 
 
@@ -41,6 +43,8 @@ export const ProductSlider: React.FC<ProductSliderProps> = ({
         swiperRef={swiperRef}
         isBeginning={isBeginning}
         isEnd={isEnd}
+        selectedItem={selectedItem}
+        onSelectItem={onSelectItem}
       />
       <Swiper
         spaceBetween={10}
