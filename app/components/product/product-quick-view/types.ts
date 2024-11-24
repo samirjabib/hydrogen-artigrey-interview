@@ -1,6 +1,5 @@
-import { CollectionProductFragment, ProductQuery } from "storefrontapi.generated";
+import { CartApiQueryFragment, CollectionProductFragment, ProductQuery } from "storefrontapi.generated";
 import { Variant } from "~/components/design-system/product-card/ProductCard";
-import { RootLayoutProps } from "~/types";
 
 
 
@@ -20,7 +19,7 @@ export type VariantWithMetaField = CollectionProductFragment['variants']['nodes'
 
 export type ProductVariantTableProps = {
   variants: CollectionProductFragment['variants']['nodes'];
-  cart?: RootLayoutProps['cart'];
+  cart: CartApiQueryFragment | null;
 }
 
 export type ProductHeaderProps = {
@@ -35,13 +34,14 @@ export type ProductHeaderProps = {
 
 export type TableRowProps = {
   variant: VariantWithMetaField;
+  cart: CartApiQueryFragment | null;
 };
 
 
 export type CartSummaryProps = {
   totalItems: number;
-  subtotal: number;
-  cart?: RootLayoutProps['cart'];
+  subtotal: string;
+  cart: CartApiQueryFragment | null;
 };
 
 export type ButtonQuickViewProps = {
@@ -53,7 +53,7 @@ export type ButtonQuickViewProps = {
 
 export type QuickViewContentProps = {
   product: ProductQuery['product'];
-  cart?: RootLayoutProps['cart'];
+  cart: CartApiQueryFragment | null;
 }
 
 export type HeaderItem = {

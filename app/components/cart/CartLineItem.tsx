@@ -7,7 +7,7 @@ import { ProductPrice } from '../product/ProductPrice';
 import { useAside } from '../../providers/Aside';
 import type { CartApiQueryFragment } from 'storefrontapi.generated';
 
-type CartLine = OptimisticCartLine<CartApiQueryFragment>;
+export type CartLine = OptimisticCartLine<CartApiQueryFragment>;
 
 /**
  * A single line item in the cart. It displays the product image, title, price.

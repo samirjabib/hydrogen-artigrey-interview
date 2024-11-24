@@ -1,11 +1,11 @@
-export function SubtotalInformation({subtotal}: {subtotal: number}) {
+export function SubtotalInformation({ subtotal }: { subtotal: string }) {
   return (
     <div className="flex flex-col" aria-label="Subtotal Information">
       <span
         className="text-sm text-[#1b1f23] leading-4 font-medium text-end"
         aria-hidden="true"
       >
-        ${subtotal.toFixed(2)}
+        ${subtotal}
       </span>
       <p
         className="text-end font-medium text-[#424951] text-[10px]"

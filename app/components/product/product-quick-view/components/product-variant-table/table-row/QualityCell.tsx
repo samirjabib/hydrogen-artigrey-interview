@@ -7,7 +7,7 @@ export const QuantityCell = ({
   variant,
 }: QuantityCellProps) => {
   const { toast } = useToast();
-  const quantity = 1; // Valor inicial
+  const quantity = 1;
 
 
   const prevQuantity = Math.max(0, quantity - 1);

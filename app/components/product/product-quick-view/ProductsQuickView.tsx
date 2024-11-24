@@ -1,9 +1,11 @@
+import { Suspense } from 'react';
 import { Sheet, SheetContent, SheetTitle } from '~/components/ui/sheet';
 import { RootLayoutProps } from '~/types';
 import { useQuickViewStore } from './quickViewStore';
 import { useProductFetcher } from './hooks/useProductFetcher';
 import { QuickViewContent } from './components/QuickViewContent';
 import { QuickViewSkeleton } from './components/QuickViewSkeleton';
+import { Await } from '@remix-run/react';
 
 
 export const ErrorDisplay = ({
@@ -58,6 +60,17 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
     return null;
   }
 
+  {/* <Suspense fallback={<p>Loading cart ...</p>}>
+  <Await
+    resolve={rootData.cart}
+    errorElement={<div>An error occurred</div>}
+  >
+    {(cart) => {
+      return <CartMain layout="page" cart={cart} />;
+    }}
+  </Await>
+</Suspense> */}
+
 
   return (
     <Sheet
@@ -68,13 +81,23 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
       }}
     >
       <SheetContent className="overflow-y-scroll">
-        {isLoading
-          ? <QuickViewSkeleton /> :
-          <>
-            <SheetTitle className='sr-only'>{product.title}</SheetTitle>
-            <QuickViewContent product={product} cart={cart} />
-          </>
-        }
+        <Suspense fallback={<QuickViewSkeleton />}>
+          <Await
+            resolve={cart}
+            errorElement={<div>Error loading cart</div>}
+          >
+            {(resolvedCart) => (
+              isLoading ? (
+                <QuickViewSkeleton />
+              ) : (
+                <>
+                  <SheetTitle className='sr-only'>{product.title}</SheetTitle>
+                  <QuickViewContent product={product} cart={resolvedCart} />
+                </>
+              )
+            )}
+          </Await>
+        </Suspense>
       </SheetContent>
     </Sheet>
   );
