@@ -24,8 +24,6 @@ export const Bundles = ({ initialBundle, navItems }: BundlesProps) => {
 
   return (
     <section className="bg-white px-4 md:px-10 py-20 wrapper w-full">
-
-
       {isLoading ? (
         <div className="flex items-center justify-center py-20">
           <p>Loading bundles...</p>
