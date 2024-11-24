@@ -1,3 +1,6 @@
+import type { Swiper as SwiperJSType } from 'swiper';
+
+
 import type {
   CartApiQueryFragment,
   FooterQuery,
@@ -14,4 +17,4 @@ export type RootLayoutProps = {
 };
 
 
-export type SwiperType = any | null;
+export type SwiperType = SwiperJSType | null;

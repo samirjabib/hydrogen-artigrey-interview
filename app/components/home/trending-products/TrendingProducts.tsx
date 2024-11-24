@@ -2,7 +2,7 @@ import 'swiper/css';
 
 import React from 'react';
 import type { CollectionByHandleQuery } from 'storefrontapi.generated';
-import { ProductSlider } from '~/components/design-system/ProductSlider';
+import { ProductSlider } from '~/components/design-system/produc-slider/ProductSlider';
 
 export type ProductSliderProps = {
   trendingProducts: CollectionByHandleQuery['collectionByHandle'];

@@ -9,22 +9,25 @@ import 'swiper/css/navigation';
 import { HeadingSwiper } from '~/components/design-system/HeadingSwiper';
 import VideoSlideContent from './components/VideoSlideContent';
 import { VideoSliceProductCard } from './components/VideoSliceProductCard';
+import { SwiperType } from '~/types';
 
 export const VideoSwiper: React.FC<{
   videoSwiper: VideosSwiperQuery['metaobjects'];
 }> = ({ videoSwiper }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const swiperRef = useRef<any | null>(null);
+  const swiperRef = useRef<SwiperType | null>(null);
   const { containerRef, isVisible } = useIntersectionVisibility();
   const { videosUrl, middleIndex, product } = useVideoProcessing(videoSwiper);
 
-  const handleSwiperInit = useCallback((swiper: any) => {
+  const handleSwiperInit = useCallback((swiper: SwiperType) => {
     swiperRef.current = swiper;
   }, []);
 
-  const handleSlideChange = useCallback((swiper: any) => {
+  const handleSlideChange = useCallback((swiper: SwiperType) => {
+    if (!swiper) return;
     setActiveIndex(swiper.realIndex);
   }, []);
+
   if (!videosUrl.length || !product) return null;
 
   return (

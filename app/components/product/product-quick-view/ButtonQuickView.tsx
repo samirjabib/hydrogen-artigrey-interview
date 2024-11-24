@@ -1,7 +1,7 @@
 import { Button } from "~/components/ui/Button"
 import { cn } from "~/utils/cn"
 import { ButtonQuickViewProps } from "./types"
-import { useQuickViewStore } from "./store"
+import { useQuickViewStore } from "./quickViewStore"
 
 
 

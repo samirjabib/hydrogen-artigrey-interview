@@ -1,21 +1,21 @@
-import { Suspense } from 'react';
-import { defer, redirect, type LoaderFunctionArgs } from '@netlify/remix-runtime';
-import { Await, useLoaderData, type MetaFunction } from '@remix-run/react';
-import {
+/* import { Suspense } from 'react';
+ */import { defer, type LoaderFunctionArgs } from '@netlify/remix-runtime';
+/* import { Await, useLoaderData, type MetaFunction } from '@remix-run/react';
+ */import {
   getSelectedProductOptions,
-  Analytics,
-  useOptimisticVariant,
+  /*   Analytics,
+    useOptimisticVariant, */
 } from '@shopify/hydrogen';
-import { ProductForm } from '~/components/product/ProductForm';
+/* import { ProductForm } from '~/components/product/ProductForm';
 import { ProductPrice } from '~/components/product/ProductPrice';
-import { ProductImage } from '~/components/product/ProductImage';
+import { ProductImage } from '~/components/product/ProductImage'; */
 import { PRODUCT_QUERY, VARIANTS_QUERY } from '~/queries/fragments/product';
 import { ProductQuery } from 'storefrontapi.generated';
 
-export const meta: MetaFunction<typeof loader> = ({ data }) => {
+/* export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return [{ title: `Hydrogen | ${data?.product.title ?? ''}` }];
 };
-
+ */
 export async function loader(args: LoaderFunctionArgs) {
   // Start fetching non-critical data without blocking time to first byte
   const deferredData = loadDeferredData(args);
@@ -30,7 +30,7 @@ export async function loader(args: LoaderFunctionArgs) {
  * Load data necessary for rendering content above the fold. This is the critical data
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  */
-async function loadCriticalData({
+/* async function loadCriticalData({
   context,
   params,
   request,
@@ -52,30 +52,83 @@ async function loadCriticalData({
     throw new Response(null, { status: 404 });
   }
 
-  /* NOTE samir : I commented out these functions because I reuse them to create a quick view, and the exercise doesn't have a product details page. If the case requires something different, we can create another loader in a different route and handle the logic there.
-   */
 
-  /*   const firstVariant = product.variants.nodes[0];
-    const firstVariantIsDefault = Boolean(
-      firstVariant.selectedOptions.find(
-        (option: SelectedOption) =>
-          option.name === 'Title' && option.value === 'Default Title',
-      ),
-    ); */
-  /* 
-    if (firstVariantIsDefault) {
-      product.selectedVariant = firstVariant;
-    } *//*  else {
-// if no selected variant was returned from the selected options,
-// we redirect to the first variant's url with it's selected options applied
-if (!product.selectedVariant) {
-throw redirectToFirstVariant({ product, request });
+
+  const firstVariant = product.variants.nodes[0];
+  const firstVariantIsDefault = Boolean(
+    firstVariant.selectedOptions.find(
+      (option: SelectedOption) =>
+        option.name === 'Title' && option.value === 'Default Title',
+    ),
+  ); */
+
+/* if (firstVariantIsDefault) {
+  product.selectedVariant = firstVariant;
+} else {
+
+  if (!product.selectedVariant) {
+    throw redirectToFirstVariant({ product, request });
+  }
 }
-} */
+ */
+/* return {
+  product,
+  error: null
+}; */
+/* } */
 
-  return {
-    product,
-  };
+
+async function loadCriticalData({
+  context,
+  params,
+  request,
+}: LoaderFunctionArgs) {
+  const { handle } = params;
+  const { storefront } = context;
+
+  // Validate handle
+  if (!handle) {
+    return {
+      product: null,
+      error: 'Product handle is required'
+    };
+  }
+
+  try {
+    // Fetch product with selected options
+    const { product } = await storefront.query<ProductQuery>(PRODUCT_QUERY, {
+      variables: {
+        handle,
+        selectedOptions: getSelectedProductOptions(request)
+      },
+    });
+
+    // Handle product not found
+    if (!product?.id) {
+      return {
+        product: null,
+        error: 'Product not found'
+      };
+    }
+
+    // Optional: Variant selection logic (commented out as per your note)
+    // You can add more complex variant selection if needed
+
+    return {
+      product,
+      error: null
+    };
+  } catch (error) {
+    // Comprehensive error handling
+    console.error('Product fetch error:', error);
+
+    return {
+      product: null,
+      error: error instanceof Error
+        ? error.message
+        : 'An unexpected error occurred while fetching the product'
+    };
+  }
 }
 
 /**
@@ -89,6 +142,7 @@ function loadDeferredData({ context, params, request }: LoaderFunctionArgs) {
   // into it's own separate query that is deferred. So there's a brief moment
   // where variant options might show as available when they're not, but after
   // this deffered query resolves, the UI will update.
+
 
   const variants = context.storefront
     .query(VARIANTS_QUERY, {
@@ -106,7 +160,6 @@ function loadDeferredData({ context, params, request }: LoaderFunctionArgs) {
 }
 
 
-/* NOTE UP */
 /* 
 function redirectToFirstVariant({
   product,
@@ -131,7 +184,7 @@ function redirectToFirstVariant({
   );
 } */
 
-export default function Product() {
+/* export default function Product() {
   const { product, variants } = useLoaderData<typeof loader>();
   const selectedVariant = useOptimisticVariant(
     product.selectedVariant,
@@ -200,3 +253,4 @@ export default function Product() {
   );
 }
 
+ */
