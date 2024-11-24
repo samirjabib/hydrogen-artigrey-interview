@@ -6,7 +6,7 @@ export const NavigationMenu = ({
   onSelectItem,
 }: NavigationMenuProps) => (
   <nav>
-    <ul className="flex flex-row items-center gap-10 flex-wrap justify-center py-16 md:py-0">
+    <ul className="flex flex-row items-center gap-10 flex-wrap justify-center py-8 lg:py-0">
       {items.map((item) => (
         <li
           key={item.id}

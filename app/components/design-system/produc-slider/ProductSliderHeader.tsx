@@ -37,7 +37,7 @@ export const ProductSliderHeader: React.FC<ProductSliderHeaderProps> = ({
     }
 
     return (
-        <div className="flex flex-col md:pb-[50px] md:flex-row items-center justify-between w-full">
+        <div className="flex flex-col md:pb-[50px] lg:flex-row items-center justify-between w-full">
             <Heading subtitle={subtitle} title={title} />
             {navItems && selectedItem && onSelectItem && (
                 <NavigationMenu
@@ -49,7 +49,7 @@ export const ProductSliderHeader: React.FC<ProductSliderHeaderProps> = ({
 
             )}
             {showViewAll && (
-                <div className="flex flex-col md:flex-row items-center gap-6 pb-8 md:pb-0">
+                <div className="flex flex-col lg:flex-row items-center gap-6 pb-8 md:pb-0">
                     <NavLink
                         to={viewAllLink}
                         className="text-lg underline leading-5 font-normal text-[#1B1F23]"
