@@ -5,11 +5,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { ProductCardProtein } from './components/product-card/ProductCard';
 import { NavButtonsDesktop } from './components/NavButtonsDesktop';
-import { NavButtonsMobile } from './components/NavButtonsMobile';
 import { Heading } from '~/components/design-system/Heading';
 import { products } from './constants';
 import { SwiperType } from '~/types';
 import { SwiperOptions } from 'swiper/types';
+import { HeadingSwiper } from '~/components/design-system/HeadingSwiper';
 
 
 export const CustomizedProtein: React.FC = () => {
@@ -28,15 +28,18 @@ export const CustomizedProtein: React.FC = () => {
         <Heading
           title="Customized Protein Powder"
           subtitle="Simple & Effective Ingredients"
-          className="mb-[54px] text-center"
+          className="mb-[54px] hidden text-center xl:block"
         />
-
-        <NavButtonsMobile
-          swiperRef={swiperRef}
-          isBeginning={isBeginning}
-          isEnd={isEnd}
-        />
-
+        <div className='xl:hidden'>
+          <HeadingSwiper
+            isEnd={isEnd}
+            isBeginning={isBeginning}
+            title="Customized Protein Powder"
+            subtitle="Simple & Effective Ingredients"
+            swiperRef={swiperRef}
+            className="mb-12"
+          />
+        </div>
         <Swiper
           {...swiperConfig}
           onBeforeInit={(swiper) => {
@@ -53,12 +56,14 @@ export const CustomizedProtein: React.FC = () => {
               <ProductCardProtein product={product} />
             </SwiperSlide>
           ))}
+          <div className='hidden xl:block'>
+            <NavButtonsDesktop
+              swiperRef={swiperRef}
+              isBeginning={isBeginning}
+              isEnd={isEnd}
+            />
+          </div>
 
-          <NavButtonsDesktop
-            swiperRef={swiperRef}
-            isBeginning={isBeginning}
-            isEnd={isEnd}
-          />
         </Swiper>
       </div>
     </section>

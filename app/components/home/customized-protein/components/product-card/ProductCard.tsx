@@ -5,15 +5,14 @@ import { ActiveIngredients } from './ActiveIngredients';
 import { ProductFeatures } from './ProductFeatures';
 
 export const ProductCardProtein: React.FC<ProductCardProteinProps> = ({ product }) => {
-  console.log(product.image, 'customized protein');
   return (
     <div
-      className="flex flex-col md:flex-row h-auto px-4 md:px-[120px]"
+      className="flex flex-col xl:flex-row h-auto px-4 md:px-[120px]"
       role="region"
       aria-labelledby={`product-${product.id}-title`}
     >
       <div
-        className="w-full md:max-w-[590px] bg-white 
+        className="w-full xl:max-w-[590px] bg-white 
         border-x border-t rounded-t-lg md:rounded-t-none  md:border md:border-black/10 md:rounded-tl-lg md:rounded-bl-lg flex items-center justify-center h-auto"
       >
         <Image
