@@ -1,6 +1,6 @@
 import { CollectionProductFragment, ProductQuery } from "storefrontapi.generated";
 import { Variant } from "~/components/design-system/product-card/ProductCard";
-import { loader } from "~/routes/products.$handle";
+import { RootLayoutProps } from "~/types";
 
 
 
@@ -23,6 +23,7 @@ export type VariantWithMetaField = CollectionProductFragment['variants']['nodes'
 
 export type ProductVariantTableProps = {
   variants: CollectionProductFragment['variants']['nodes'];
+  cart?: RootLayoutProps['cart'];
 }
 
 export type ProductHeaderProps = {
@@ -43,18 +44,19 @@ export type TableRowProps = {
 export type CartSummaryProps = {
   totalItems: number;
   subtotal: number;
+  cart?: RootLayoutProps['cart'];
 };
 
 export type ButtonQuickViewProps = {
   buttonLabel: string;
   isProductWithSellingPlanGroups: boolean;
-  variants: CollectionProductFragment['variants']
   handle: string;
   variantButton?: Variant
 }
 
 export type QuickViewContentProps = {
   product: ProductQuery['product'];
+  cart?: RootLayoutProps['cart'];
 }
 
 export type HeaderItem = {
@@ -66,3 +68,17 @@ export type DiscountRow = {
   quantity: string;
   discount: string;
 };
+
+export type UseProductFetcherOptions = {
+  productHandle: string | null;
+  isOpen: boolean;
+  timeout?: number;
+}
+
+export enum FetchStatus {
+  IDLE = 'idle',
+  LOADING = 'loading',
+  ERROR = 'error',
+  TIMEOUT = 'timeout',
+  SUCCESS = 'success'
+}

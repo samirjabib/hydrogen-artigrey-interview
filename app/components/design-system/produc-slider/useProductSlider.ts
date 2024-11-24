@@ -6,9 +6,7 @@ import { SwiperType } from '~/types';
 interface UseProductSliderProps {
     products: Array<{ node: CollectionProductFragment }>;
     bestSellerIndices?: number[];
-    pageSize?: number;
 }
-
 
 /**
  * Creates an enriched version of the products array
@@ -34,8 +32,10 @@ export const useEnrichedProducts = (
 export const useProductSlider = ({
     products,
     bestSellerIndices = [0, 3],
-    pageSize = 10
-}: UseProductSliderProps) => {
+}: {
+    products: Array<{ node: CollectionProductFragment }>;
+    bestSellerIndices?: number[];
+}) => {
     const swiperRef = useRef<SwiperType>(null);
     const [isBeginning, setIsBeginning] = useState(true);
     const [isEnd, setIsEnd] = useState(false);

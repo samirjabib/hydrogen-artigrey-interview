@@ -1,17 +1,10 @@
 import { useFetcher } from "@remix-run/react";
 import { useEffect, useMemo, useCallback, useState } from "react";
 import { loader } from "~/routes/products.$handle";
+import { FetchStatus, UseProductFetcherOptions } from "../types";
 
-// Enum for more descriptive fetch states
-enum FetchStatus {
-  IDLE = 'idle',
-  LOADING = 'loading',
-  ERROR = 'error',
-  TIMEOUT = 'timeout',
-  SUCCESS = 'success'
-}
 
-// Custom error types for more specific error handling
+
 class FetchTimeoutError extends Error {
   constructor(message: string) {
     super(message);
@@ -19,20 +12,48 @@ class FetchTimeoutError extends Error {
   }
 }
 
-interface UseProductFetcherOptions {
-  productHandle: string | null;
-  isOpen: boolean;
-  timeout?: number; // Optional timeout in milliseconds
-}
+
+
+/**
+ * A hook that fetches a product by its handle and manages the state of the
+ * fetch process. It also provides a retry mechanism and a way to clear the
+ * fetched data.
+ *
+ * Cases of use:
+ * - When you need to fetch a product inside a component and handle the
+ * loading state, errors, and retries.
+ * - When you need to fetch a product and clear the data when the component
+ * is unmounted or when the user navigates away.
+ * - When you need to fetch a product and control the fetch process with a
+ * timeout.
+ *
+ * @param {Object} options
+ * @param {string} options.productHandle - The handle of the product to fetch.
+ * @param {boolean} options.isOpen - A boolean that indicates whether the
+ * component is open or not. If it's false, the hook won't fetch the product.
+ * @param {number} options.timeout - The timeout in milliseconds for the fetch
+ * process. If it's not provided, it will default to 10 seconds.
+ *
+ * @returns {Object}
+ * @returns {boolean} isLoading - A boolean that indicates whether the product
+ * is being fetched or not.
+ * @returns {Product} product - The fetched product.
+ * @returns {string|null} error - The error message if there was an error
+ * fetching the product.
+ * @returns {FetchStatus} status - The status of the fetch process.
+ * @returns {function} clearData - A function that clears the fetched data and
+ * resets the states.
+ * @returns {function} retry - A function that retries the fetch process.
+ */
+
 
 export function useProductFetcher({
   productHandle,
   isOpen,
-  timeout = 10000 // Default 10 seconds timeout
+  timeout = 10000
 }: UseProductFetcherOptions) {
   const fetcher = useFetcher<typeof loader>();
 
-  // Enhanced state management
   const [fetchStatus, setFetchStatus] = useState<FetchStatus>(FetchStatus.IDLE);
   const [fetchError, setFetchError] = useState<string | null>(null);
 
@@ -83,29 +104,22 @@ export function useProductFetcher({
 
         setFetchError(errorMessage);
 
-        // Optional: Log error for monitoring
         console.error('Product fetch error:', error);
       });
   }, [shouldFetch, productHandle, fetcher.load, timeout]);
 
-  // Effect for loading product with controlled dependencies
   useEffect(() => {
     fetchProduct();
   }, [fetchProduct]);
 
-  // Comprehensive return object
   return {
-    // Enhanced loading state
     isLoading: fetchStatus === FetchStatus.LOADING,
 
-    // Product data with error handling
     product: fetcher.data?.product,
     error: fetchError,
 
-    // Detailed fetch status
     status: fetchStatus,
 
-    // State management methods
     clearData: () => {
       // Safely clear fetcher data and reset states
       fetcher.data = undefined;

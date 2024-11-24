@@ -7,7 +7,7 @@ import { QuickViewContentProps } from '../types';
 
 
 
-export function QuickViewContent({ product }: QuickViewContentProps) {
+export function QuickViewContent({ product, cart }: QuickViewContentProps) {
   if (!product) {
     return null;
   }
@@ -27,8 +27,8 @@ export function QuickViewContent({ product }: QuickViewContentProps) {
         imageAlt={imageAlt || title}
       />
       <div className="mt-10 relative">
-        <ProductVariantTable variants={variants.nodes} />
-        <CartSummary totalItems={20} subtotal={249.95} />
+        <ProductVariantTable variants={variants.nodes} cart={cart} />
+        <CartSummary totalItems={20} subtotal={249.95} cart={cart} />
         {isProductWithVariants && <SubscriptionPlanOptions />}
         <AddToCartSection
           initialQuantity={1}
