@@ -1,7 +1,7 @@
 import { tableHead } from '../../constants';
 import { ProductVariantTableProps, VariantWithMetaField } from '../../types';
 import { TableRow } from './table-row/TableRow';
-import { TableHead } from './TableHead';
+import { TableHead } from './table-head/TableHead';
 
 export function ProductVariantTable({ variants }: ProductVariantTableProps) {
   return (

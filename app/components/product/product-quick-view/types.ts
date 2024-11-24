@@ -56,3 +56,13 @@ export type ButtonQuickViewProps = {
 export type QuickViewContentProps = {
   product: ProductQuery['product'];
 }
+
+export type HeaderItem = {
+  id: number;
+  name: string;
+}
+
+export type DiscountRow = {
+  quantity: string;
+  discount: string;
+};

@@ -11,7 +11,7 @@ export const ImageCell = ({ name, size, imageSrc }: { name: string; size: string
           height={25}
         />
       </div>
-      <div className="flex flex-col pt-1">
+      <div className="flex flex-col pt-2">
         <h4 className="text-[10px] leading-3 text-[#1B1F23] font-semibold">
           {name}
         </h4>
