@@ -13,6 +13,10 @@ export function QuickViewContent({ product, cart }: QuickViewContentProps) {
   const imageSrc = product.images.edges[0].node.url;
   const imageAlt = product.images.edges[0].node.altText;
   const isProductWithVariants = variants.nodes.length > 1;
+  const isProductWithSellingPlanGroups = product.sellingPlanGroups.nodes.length > 0;
+
+
+
 
   const totalQuantity = cart?.totalQuantity ?? 0;
   const subtotalAmount = cart?.cost?.subtotalAmount?.amount ?? '0';
@@ -34,7 +38,7 @@ export function QuickViewContent({ product, cart }: QuickViewContentProps) {
           subtotal={subtotalAmount}
           cart={cart}
         />
-        {isProductWithVariants && <SubscriptionPlanOptions product={product} />}
+        {isProductWithSellingPlanGroups && <SubscriptionPlanOptions product={product} />}
         <AddToCartSection
           price={39.96}
           cart={cart}

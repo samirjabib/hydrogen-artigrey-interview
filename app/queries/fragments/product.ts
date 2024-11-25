@@ -124,6 +124,7 @@ export const PRODUCT_FRAGMENT = `#graphql
         }
       }
     }
+      
     descriptionHtml
     description
     options {
@@ -138,12 +139,18 @@ export const PRODUCT_FRAGMENT = `#graphql
         ...ProductVariant
       }
     }
+    sellingPlanGroups(first: 10) {
+      nodes {
+        ...SellingPlanGroup
+      }
+    }
     seo {
       description
       title
     }
   }
   ${PRODUCT_VARIANT_FRAGMENT}
+  ${SELLING_PLAN_GROUP_FRAGMENT}
 ` as const;
 
 export const PRODUCT_QUERY = `#graphql

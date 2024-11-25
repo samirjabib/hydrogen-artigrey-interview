@@ -55,7 +55,7 @@ export type ButtonQuickViewProps = {
 }
 
 export type QuickViewContentProps = {
-  product: ProductQuery['product'];
+  product: ProductQuery['product']
   cart: CartApiQueryFragment | null;
 }
 

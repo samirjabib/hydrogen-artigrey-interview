@@ -1,4 +1,4 @@
-import { Suspense, useCallback } from 'react';
+import { Suspense } from 'react';
 import { Sheet, SheetContent, SheetTitle } from '~/components/ui/sheet';
 import { RootLayoutProps } from '~/types';
 import { useQuickViewStore } from './quickViewStore';
@@ -6,6 +6,7 @@ import { useProductFetcher } from './hooks/useProductFetcher';
 import { QuickViewContent } from './components/QuickViewContent';
 import { QuickViewSkeleton } from './components/QuickViewSkeleton';
 import { Await } from '@remix-run/react';
+import { CollectionProductFragment } from 'storefrontapi.generated';
 
 export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
   const { isOpen, close, productHandle } = useQuickViewStore();
@@ -18,14 +19,11 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
     isOpen,
   });
 
-  const handleClose = useCallback(() => {
-    // Pequeño delay para evitar el flash del overlay
-    requestAnimationFrame(() => {
-      if (product) {
-        close();
-      }
-    });
-  }, [product, close]);
+  const handleClose = () => {
+    if (product) {
+      close();
+    }
+  };
 
   const shouldShowSkeleton = isOpen && state === 'loading' && !product && productHandle;
 
@@ -51,7 +49,7 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
                   <SheetTitle className='sr-only'>{product.title}</SheetTitle>
                   <QuickViewContent
                     key={`content-${productHandle}`}
-                    product={product}
+                    product={product as CollectionProductFragment}
                     cart={resolvedCart}
                   />
                 </>
