@@ -7,7 +7,6 @@ import { QuickViewContent } from './components/QuickViewContent';
 import { QuickViewSkeleton } from './components/QuickViewSkeleton';
 import { Await } from '@remix-run/react';
 
-
 export const ErrorDisplay = ({
   message,
   onRetry,
@@ -26,11 +25,8 @@ export const ErrorDisplay = ({
   );
 };
 
-
-
 export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
   const { isOpen, close, productHandle } = useQuickViewStore();
-
 
   const {
     isLoading,
@@ -42,32 +38,29 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
     productHandle,
     isOpen,
     timeout: 5000
-  })
+  });
+
+  const handleClose = () => {
+    clearData();
+    close();
+  };
 
   if (error) {
     return (
-      <ErrorDisplay
-        message={error}
-        onRetry={retry}
-        onClose={() => {
-          clearData();
-        }}
-      />
+      <Sheet open={isOpen} onOpenChange={handleClose}>
+        <SheetContent>
+          <ErrorDisplay
+            message={error}
+            onRetry={retry}
+            onClose={handleClose}
+          />
+        </SheetContent>
+      </Sheet>
     );
   }
 
-  if (!product) {
-    return null;
-  }
-
   return (
-    <Sheet
-      open={isOpen}
-      onOpenChange={() => {
-        clearData();
-        close();
-      }}
-    >
+    <Sheet open={isOpen} onOpenChange={handleClose}>
       <SheetContent className="overflow-y-scroll">
         <Suspense fallback={<QuickViewSkeleton />}>
           <Await
@@ -75,7 +68,7 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
             errorElement={<div>Error loading cart</div>}
           >
             {(resolvedCart) => (
-              isLoading ? (
+              isLoading || !product ? (
                 <QuickViewSkeleton />
               ) : (
                 <>

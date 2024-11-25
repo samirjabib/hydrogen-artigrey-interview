@@ -16,6 +16,7 @@ import { SwiperType } from '~/types';
 export const VideoSwiper: React.FC<{
   videoSwiper: VideosSwiperQuery['metaobjects'];
 }> = ({ videoSwiper }) => {
+  console.log(videoSwiper, 'videoSwiper');
   const [activeIndex, setActiveIndex] = useState(0);
   const swiperRef = useRef<SwiperType | null>(null);
   const { containerRef, isVisible } = useIntersectionVisibility();
@@ -59,6 +60,7 @@ export const VideoSwiper: React.FC<{
         {videosUrl.map((video, index) => {
           const isActive = activeIndex === index;
           const shouldPlay = isVisible && isActive;
+
 
           return (
             <SwiperSlide
