@@ -31,8 +31,6 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
   const {
     isLoading,
     product,
-    error,
-    retry,
     clearData
   } = useProductFetcher({
     productHandle,
@@ -44,20 +42,20 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
     clearData();
     close();
   };
-
-  if (error) {
-    return (
-      <Sheet open={isOpen} onOpenChange={handleClose}>
-        <SheetContent>
-          <ErrorDisplay
-            message={error}
-            onRetry={retry}
-            onClose={handleClose}
-          />
-        </SheetContent>
-      </Sheet>
-    );
-  }
+  /* 
+    if (error) {
+      return (
+        <Sheet open={isOpen} onOpenChange={handleClose}>
+          <SheetContent>
+            <ErrorDisplay
+              message={error}
+              onRetry={retry}
+              onClose={handleClose}
+            />
+          </SheetContent>
+        </Sheet>
+      );
+    } */
 
   return (
     <Sheet open={isOpen} onOpenChange={handleClose}>

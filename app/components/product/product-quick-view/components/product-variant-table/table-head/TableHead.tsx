@@ -24,7 +24,7 @@ const HeaderCell = ({
     className={cn(
       'font-medium text-[12px] leading-[14px] text-center pb-5',
       index === 0 ? 'text-start' : 'text-center',
-      index === totalColumns - 1 ? 'text-end' : 'text-start',
+      index === totalColumns - 1 ? 'text-end' : null,
     )}
   >
     {item.name === 'Quantity' ? (

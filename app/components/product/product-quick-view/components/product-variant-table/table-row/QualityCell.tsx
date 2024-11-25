@@ -1,6 +1,5 @@
 import { CartForm } from '@shopify/hydrogen';
 import { QuantityCellProps } from '../../../types';
-import { useToast } from '~/hooks/use-toast';
 import { CartLineUpdateButton } from '~/components/cart/CartLineItem';
 import { QuantityButton } from '../../AddToCartSection/QuantityButton';
 
@@ -8,19 +7,12 @@ export const QuantityCell = ({
   variant,
   cartLine,
 }: QuantityCellProps) => {
-  const { toast } = useToast();
-
-  console.log(cartLine, 'cartLine');
-
-
   if (!cartLine && !variant) return null;
 
   const quantity = cartLine?.quantity || 0;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
-  const handleQuantityUpdate = () => {
-    toast({ title: `Updated product with quantity ${cartLine?.merchandise.title}` });
-  };
+
 
   const renderDecreaseButton = () => {
     if (cartLine) {
@@ -30,7 +22,6 @@ export const QuantityCell = ({
             disabled={quantity <= 1 || cartLine.isOptimistic}
             ariaLabel="Decrease quantity"
             icon="minus"
-            onClick={handleQuantityUpdate}
           />
         </CartLineUpdateButton>
       );
@@ -53,7 +44,6 @@ export const QuantityCell = ({
             disabled={cartLine.isOptimistic}
             ariaLabel="Increase quantity"
             icon="plus"
-            onClick={handleQuantityUpdate}
           />
         </CartLineUpdateButton>
       );
@@ -74,7 +64,6 @@ export const QuantityCell = ({
           disabled={false}
           ariaLabel="Add to cart"
           icon="plus"
-          onClick={handleQuantityUpdate}
         />
       </CartForm>
     );

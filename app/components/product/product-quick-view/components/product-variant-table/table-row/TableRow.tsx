@@ -34,13 +34,13 @@ export const TableRow = ({ variant, cart: originalCart }: TableRowProps) => {
         variant={variant}
         cartLine={cartLine}
       />
-      <TableCell className="text-center text-xs leading-[14px] text-[#30363C] w-[120px]">
+      <TableCell className="text-center text-xs leading-[14px] text-[#30363C]  w-[86px]">
         ${variant.price.amount} / Each
       </TableCell>
-      <TableCell className="font-normal text-xs leading-[14px] text-[#30363C] text-center px-[26px] w-[100px]">
+      <TableCell className="font-normal text-xs leading-[14px] text-[#30363C] text-center px-[26px] w-[70px]">
         {0}%
       </TableCell>
-      <TableCell className="text-end text-xs leading-[14px] text-[#30363C] w-[120px]">
+      <TableCell className="text-end text-xs leading-[14px] text-[#30363C] w-[70px]">
         ${totalAmount}
       </TableCell>
     </tr>

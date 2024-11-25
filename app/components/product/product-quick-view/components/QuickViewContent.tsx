@@ -9,7 +9,6 @@ export function QuickViewContent({ product, cart }: QuickViewContentProps) {
   if (!product) {
     return null;
   }
-  console.log(product, 'product');
   const { title, description, tags, variants } = product;
   const imageSrc = product.images.edges[0].node.url;
   const imageAlt = product.images.edges[0].node.altText;
