@@ -1,4 +1,4 @@
-import { Suspense, memo } from 'react';
+import { Suspense } from 'react';
 import { Sheet, SheetContent, SheetTitle } from '~/components/ui/sheet';
 import { RootLayoutProps } from '~/types';
 import { useQuickViewStore } from './quickViewStore';
@@ -7,7 +7,6 @@ import { QuickViewContent } from './components/QuickViewContent';
 import { QuickViewSkeleton } from './components/QuickViewSkeleton';
 import { Await } from '@remix-run/react';
 
-const MemoizedQuickViewContent = memo(QuickViewContent);
 
 export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
   const { isOpen, close, productHandle } = useQuickViewStore();
@@ -26,6 +25,8 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
     }
   };
 
+  const loadingSkeleton = state === 'loading' && !product && productHandle;
+
   return (
     <Sheet open={isOpen} onOpenChange={handleClose}>
       <SheetContent className="overflow-y-scroll">
@@ -35,14 +36,14 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
             errorElement={<div>Error loading cart</div>}
           >
             {(resolvedCart) => {
-              /*     if (state === 'loading' || !product) {
-                    return <QuickViewSkeleton key={`skeleton-${productHandle}`} />;
-                  }
-     */
+              if (loadingSkeleton) {
+                return <QuickViewSkeleton key={`skeleton-${productHandle}`} />;
+              }
+
               return (
                 <>
                   <SheetTitle className='sr-only'>{product?.title}</SheetTitle>
-                  <MemoizedQuickViewContent
+                  <QuickViewContent
                     key={`content-${productHandle}`}
                     product={product}
                     cart={resolvedCart}

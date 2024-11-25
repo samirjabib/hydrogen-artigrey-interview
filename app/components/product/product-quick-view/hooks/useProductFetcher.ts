@@ -11,22 +11,23 @@ export function useProductFetcher({
   const fetcher = useFetcher<typeof loader>({
     key: fetcherKey,
   });
-  const loadingRef = useRef(false);
+  const hasDataRef = useRef(false);
 
   useEffect(() => {
-    if (!productHandle || !isOpen) {
-      loadingRef.current = false;
-      return;
+    // Only fetch if the modal is open and we don't have data yet
+    if (isOpen && !hasDataRef.current && !fetcher.data) {
+      fetcher.load(`/products/${productHandle}`);
+      hasDataRef.current = true;
     }
 
-    if (!loadingRef.current && !fetcher.data) {
-      loadingRef.current = true;
-      fetcher.load(`/products/${productHandle}`);
+    // Reset when modal is closed
+    if (!isOpen) {
+      hasDataRef.current = false;
     }
-  }, [productHandle, isOpen, fetcherKey]);
+  }, [productHandle, isOpen, fetcher.load]);
 
   return {
-    state: fetcher.state,
+    state: fetcher.data ? 'idle' : fetcher.state,
     product: fetcher.data?.product,
   };
 }
