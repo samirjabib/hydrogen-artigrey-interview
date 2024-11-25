@@ -14,7 +14,7 @@ import { devtools } from 'zustand/middleware';
 
 interface QuickViewState {
     isOpen: boolean;
-    productHandle: string | null;
+    productHandle: string | null | undefined;
     open: (productHandle: string) => void;
     close: () => void;
 }

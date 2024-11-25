@@ -58,7 +58,7 @@ export const ProductContent = ({
         </p>
         <div className="flex flex-row items-center justify-between pb-5">
           <StarsRating isProductRating size={12} />
-          <ButtonQuickView isProductWithSellingPlanGroups={isProductWithSellingPlanGroups} buttonLabel={buttonLabel} variants={product.variants} variantButton={variant} handle={product.handle} />
+          <ButtonQuickView isProductWithSellingPlanGroups={isProductWithSellingPlanGroups} buttonLabel={buttonLabel} variantButton={variant} product={product} />
         </div>
       </div>
     </div>

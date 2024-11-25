@@ -1,7 +1,6 @@
 
 import { TableCell } from './TableCell';
 import { TableRowProps } from '../../../types';
-import { useProductPrice } from '~/hooks/useProductPrice';
 import { QuantityCell } from './QualityCell';
 import { ImageCell } from './ImageCell';
 import { useOptimisticCart } from '@shopify/hydrogen';
@@ -16,15 +15,11 @@ export const TableRow = ({ variant, cart: originalCart }: TableRowProps) => {
   const cart = useOptimisticCart(originalCart);
 
 
-  const {
-    total,
-    discountPercentage,
-    formattedUnitPrice,
-  } = useProductPrice(variant.price.amount, 2);
-
   const cartLine = cart?.lines?.nodes?.find(
     line => line.merchandise.id === variant.id
   );
+  const totalAmount = cartLine?.cost.totalAmount?.amount || 0;
+
 
   const formattedSize = variant.metafield?.value ? formatSize(variant.metafield.value) : '';
 
@@ -40,13 +35,13 @@ export const TableRow = ({ variant, cart: originalCart }: TableRowProps) => {
         cartLine={cartLine}
       />
       <TableCell className="text-center text-xs leading-[14px] text-[#30363C] w-[120px]">
-        {formattedUnitPrice} / Each
+        ${variant.price.amount} / Each
       </TableCell>
       <TableCell className="font-normal text-xs leading-[14px] text-[#30363C] text-center px-[26px] w-[100px]">
-        {discountPercentage}%
+        {0}%
       </TableCell>
       <TableCell className="text-end text-xs leading-[14px] text-[#30363C] w-[120px]">
-        {total}
+        ${totalAmount}
       </TableCell>
     </tr>
   );

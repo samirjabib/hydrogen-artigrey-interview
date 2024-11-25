@@ -10,14 +10,16 @@ export const QuantityCell = ({
 }: QuantityCellProps) => {
   const { toast } = useToast();
 
+  console.log(cartLine, 'cartLine');
+
+
   if (!cartLine && !variant) return null;
 
   const quantity = cartLine?.quantity || 0;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
-
   const handleQuantityUpdate = () => {
-    toast({ title: "Quantity updated" });
+    toast({ title: `Updated product with quantity ${cartLine?.merchandise.title}` });
   };
 
   const renderDecreaseButton = () => {

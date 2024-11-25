@@ -1,6 +1,7 @@
 import { CartApiQueryFragment, CollectionProductFragment, ProductQuery } from "storefrontapi.generated";
 import { CartLine } from "~/components/cart/CartLineItem";
 import { Variant } from "~/components/design-system/product-card/ProductCard";
+import { ExtendedProduct } from "~/types/product";
 
 
 
@@ -49,7 +50,7 @@ export type CartSummaryProps = {
 export type ButtonQuickViewProps = {
   buttonLabel: string;
   isProductWithSellingPlanGroups: boolean;
-  handle: string;
+  product?: ExtendedProduct
   variantButton?: Variant
 }
 
@@ -69,7 +70,7 @@ export type DiscountRow = {
 };
 
 export type UseProductFetcherOptions = {
-  productHandle: string | null;
+  productHandle: string | null | undefined;
   isOpen: boolean;
   timeout?: number;
 }

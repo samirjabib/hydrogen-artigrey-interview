@@ -74,7 +74,7 @@ export const ProductSubscriptionContent = ({
         role="radiogroup"
         aria-label="Purchase options"
       >
-        <ButtonQuickView isProductWithSellingPlanGroups={isProductWithSellingPlanGroups} handle={product.handle} buttonLabel={buttonLabel} variants={product.variants} />
+        <ButtonQuickView isProductWithSellingPlanGroups={isProductWithSellingPlanGroups} product={product} buttonLabel={buttonLabel} />
         <NavLink
           to="/"
           className="text-[12px] leading-[14px] font-normal py-[17px] flex items-center justify-center"
