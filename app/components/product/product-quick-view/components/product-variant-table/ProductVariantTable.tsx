@@ -4,7 +4,6 @@ import { TableRow } from './table-row/TableRow';
 import { TableHead } from './table-head/TableHead';
 
 export function ProductVariantTable({ variants, cart }: ProductVariantTableProps) {
-  console.log(variants, 'variants');
   return (
     <div className="relative overflow-x-scroll md:overflow-x-hidden">
       <table >

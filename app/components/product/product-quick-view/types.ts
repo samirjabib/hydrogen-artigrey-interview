@@ -72,7 +72,6 @@ export type DiscountRow = {
 export type UseProductFetcherOptions = {
   productHandle: string | null | undefined;
   isOpen: boolean;
-  timeout?: number;
 }
 
 export enum FetchStatus {

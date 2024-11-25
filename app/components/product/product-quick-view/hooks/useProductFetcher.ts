@@ -1,5 +1,5 @@
 import { useFetcher } from "@remix-run/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { loader } from "~/routes/products.$handle";
 import { UseProductFetcherOptions } from "../types";
 
@@ -7,24 +7,26 @@ export function useProductFetcher({
   productHandle,
   isOpen,
 }: UseProductFetcherOptions) {
-  const fetcher = useFetcher<typeof loader>();
-  const [isLoading, setIsLoading] = useState(false);
+  const fetcherKey = useMemo(() => `product-fetcher-${productHandle}`, [productHandle]);
+  const fetcher = useFetcher<typeof loader>({
+    key: fetcherKey,
+  });
+  const loadingRef = useRef(false);
 
   useEffect(() => {
-    if (!productHandle || !isOpen) return;
-    setIsLoading(true);
-    fetcher.load(`/products/${productHandle}`)
-    setIsLoading(false);
+    if (!productHandle || !isOpen) {
+      loadingRef.current = false;
+      return;
+    }
 
-
-  }, [productHandle, isOpen]);
+    if (!loadingRef.current && !fetcher.data) {
+      loadingRef.current = true;
+      fetcher.load(`/products/${productHandle}`);
+    }
+  }, [productHandle, isOpen, fetcherKey]);
 
   return {
-    isLoading,
+    state: fetcher.state,
     product: fetcher.data?.product,
-    clearData: () => {
-      fetcher.data = undefined;
-      setIsLoading(false);
-    }
   };
 }

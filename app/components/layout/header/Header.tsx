@@ -17,7 +17,7 @@ export function Header({
   } = header;
   const primaryDomainUrl = primaryDomain.url;
   const { matches: isMobile } = useMediaQuery('(max-width: 1064px)');
-  const { isHeaderVisible } = useHeaderVisibility(0.3);
+  const { isHeaderVisible } = useHeaderVisibility(0.2);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {

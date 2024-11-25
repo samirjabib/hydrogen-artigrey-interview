@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, memo } from 'react';
 import { Sheet, SheetContent, SheetTitle } from '~/components/ui/sheet';
 import { RootLayoutProps } from '~/types';
 import { useQuickViewStore } from './quickViewStore';
@@ -7,55 +7,24 @@ import { QuickViewContent } from './components/QuickViewContent';
 import { QuickViewSkeleton } from './components/QuickViewSkeleton';
 import { Await } from '@remix-run/react';
 
-export const ErrorDisplay = ({
-  message,
-  onRetry,
-  onClose
-}: {
-  message: string;
-  onRetry: () => void;
-  onClose: () => void;
-}) => {
-  return (
-    <div>
-      <p>{message}</p>
-      <button onClick={onRetry}>Retry</button>
-      <button onClick={onClose}>Close</button>
-    </div>
-  );
-};
+const MemoizedQuickViewContent = memo(QuickViewContent);
 
 export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
   const { isOpen, close, productHandle } = useQuickViewStore();
 
   const {
-    isLoading,
+    state,
     product,
-    clearData
   } = useProductFetcher({
     productHandle,
     isOpen,
-    timeout: 5000
   });
 
   const handleClose = () => {
-    clearData();
-    close();
+    if (product) {
+      close();
+    }
   };
-  /* 
-    if (error) {
-      return (
-        <Sheet open={isOpen} onOpenChange={handleClose}>
-          <SheetContent>
-            <ErrorDisplay
-              message={error}
-              onRetry={retry}
-              onClose={handleClose}
-            />
-          </SheetContent>
-        </Sheet>
-      );
-    } */
 
   return (
     <Sheet open={isOpen} onOpenChange={handleClose}>
@@ -65,16 +34,22 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
             resolve={cart}
             errorElement={<div>Error loading cart</div>}
           >
-            {(resolvedCart) => (
-              isLoading || !product ? (
-                <QuickViewSkeleton />
-              ) : (
+            {(resolvedCart) => {
+              /*     if (state === 'loading' || !product) {
+                    return <QuickViewSkeleton key={`skeleton-${productHandle}`} />;
+                  }
+     */
+              return (
                 <>
-                  <SheetTitle className='sr-only'>{product.title}</SheetTitle>
-                  <QuickViewContent product={product} cart={resolvedCart} />
+                  <SheetTitle className='sr-only'>{product?.title}</SheetTitle>
+                  <MemoizedQuickViewContent
+                    key={`content-${productHandle}`}
+                    product={product}
+                    cart={resolvedCart}
+                  />
                 </>
-              )
-            )}
+              );
+            }}
           </Await>
         </Suspense>
       </SheetContent>
