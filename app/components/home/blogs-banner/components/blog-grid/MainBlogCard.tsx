@@ -19,6 +19,8 @@ export const MainBlogCard: React.FC<MainBlogCardProps> = ({
         src={imageSrc}
         alt={title}
         className="absolute h-full w-full object-cover rounded-lg"
+        width={500}
+        height={500}
       />
       <div className="absolute w-full h-full p-5 lg:p-8 flex flex-col justify-end bg-gradient-to-t from-black/70 via-black/40 to-transparent rounded-lg">
         <h3 id="main-blog-tag" className="text text-white mb-2">

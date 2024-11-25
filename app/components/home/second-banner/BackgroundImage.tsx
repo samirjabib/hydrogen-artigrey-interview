@@ -20,11 +20,11 @@ export const BackgroundImage: React.FC<BackgroundImageProps> = ({
   return (
     <div className={cn('absolute w-full h-full', className)}>
       <Image
-        src={imageUrl}
-        alt={altText}
+        data={{ url: imageUrl, altText: altText }}
+        width={1920}
+        height={1080}
         className="absolute top-0 left-0 w-full h-full -z-10 object-cover object-right md:object-center rounded-lg"
       />
-
       <div
         className="absolute inset-0 rounded-lg"
         style={{

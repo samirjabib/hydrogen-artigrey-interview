@@ -1,4 +1,5 @@
 import { CartApiQueryFragment, CollectionProductFragment, ProductQuery } from "storefrontapi.generated";
+import { CartLine } from "~/components/cart/CartLineItem";
 import { Variant } from "~/components/design-system/product-card/ProductCard";
 
 
@@ -6,6 +7,7 @@ import { Variant } from "~/components/design-system/product-card/ProductCard";
 
 export type QuantityCellProps = {
   variant: VariantWithMetaField
+  cartLine?: CartLine
 };
 
 
@@ -87,4 +89,5 @@ export type AddToCartSectionProps = {
   product: ProductQuery['product'];
   selectedVariantId?: string;
   onQuantityChange?: (quantity: number) => void;
+  cart: CartApiQueryFragment | null;
 }

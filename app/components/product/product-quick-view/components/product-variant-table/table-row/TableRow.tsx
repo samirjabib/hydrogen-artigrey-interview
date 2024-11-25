@@ -26,8 +26,6 @@ export const TableRow = ({ variant, cart: originalCart }: TableRowProps) => {
     line => line.merchandise.id === variant.id
   );
 
-  console.log(cartLine, 'cartLine');
-
   const formattedSize = variant.metafield?.value ? formatSize(variant.metafield.value) : '';
 
   return (
@@ -39,6 +37,7 @@ export const TableRow = ({ variant, cart: originalCart }: TableRowProps) => {
       />
       <QuantityCell
         variant={variant}
+        cartLine={cartLine}
       />
       <TableCell className="text-center text-xs leading-[14px] text-[#30363C] w-[120px]">
         {formattedUnitPrice} / Each

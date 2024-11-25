@@ -5,9 +5,12 @@ import { CartLineUpdateButton } from '~/components/cart/CartLineItem';
 
 export const QuantityCell = ({
   variant,
+  cartLine,
 }: QuantityCellProps) => {
   const { toast } = useToast();
-  const quantity = 1;
+
+  const quantity = cartLine?.quantity || 0;
+
 
 
   const prevQuantity = Math.max(0, quantity - 1);

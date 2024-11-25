@@ -4,28 +4,47 @@ import { Button } from '~/components/ui/Button';
 import { AddToCartButton } from '../../AddToCartButton';
 import { AddToCartSectionProps } from '../types';
 import { useToast } from '~/hooks/use-toast';
+import { useOptimisticCart } from '@shopify/hydrogen';
 
 
 export function AddToCartSection({
   initialQuantity = 1,
   price,
   product,
+  cart: originalCart,
   onQuantityChange,
 }: AddToCartSectionProps) {
   if (!product) {
     return null;
   }
-  const [quantity, setQuantity] = useState(initialQuantity);
+
+  console.log(originalCart, 'cart on AddToCartSection');
+
+  console.log(product.variants.nodes[0].id, 'product.variants.nodes[0].id');
+  const cart = useOptimisticCart(originalCart);
+
+  const cartLine = cart?.lines?.nodes?.find(
+    line => line.merchandise.id === product.variants.nodes[0].id
+  );
+
+  console.log(cartLine, 'cartLine on AddToCartSection');
+
+  const quantity = cartLine?.quantity || 0;
+
+  /*   const [quantity, setQuantity] = useState(initialQuantity); */
   const { toast } = useToast()
 
 
-  const handleQuantityChange = (newQuantity: number) => {
-    if (newQuantity >= 1) {
-      setQuantity(newQuantity);
-      onQuantityChange?.(newQuantity);
-    }
-  };
 
+
+  /* 
+    const handleQuantityChange = (newQuantity: number) => {
+      if (newQuantity >= 1) {
+        setQuantity(newQuantity);
+        onQuantityChange?.(newQuantity);
+      }
+    };
+   */
 
 
   return (
@@ -34,15 +53,15 @@ export function AddToCartSection({
         <div className="flex items-center gap-[26px] py-3 px-3 border rounded-md justify-center bg-white">
           <button
             className="text-[16px] text-[#1B1F23CC]"
-            onClick={() => handleQuantityChange(quantity - 1)}
-          >
+/*             onClick={() => handleQuantityChange(quantity - 1)}
+ */          >
             <Minus size={14} />
           </button>
           <span className="text-[10px] text-[#1B1F23CC]">{quantity}</span>
           <button
             className="text-[16px] text-[#1B1F23CC]"
-            onClick={() => handleQuantityChange(quantity + 1)}
-          >
+/*             onClick={() => handleQuantityChange(quantity + 1)}
+ */          >
             <Plus size={14} />
           </button>
         </div>

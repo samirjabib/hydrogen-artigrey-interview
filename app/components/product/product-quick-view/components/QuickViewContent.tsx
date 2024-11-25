@@ -14,6 +14,8 @@ export function QuickViewContent({ product, cart }: QuickViewContentProps) {
   // The useOptimisticCart hook applies pending actions to the cart
   // so the user immediately sees feedback when they modify the cart.
 
+
+
   const { title, description, tags, variants } = product;
   const imageSrc = product.images.edges[0].node.url;
   const imageAlt = product.images.edges[0].node.altText;

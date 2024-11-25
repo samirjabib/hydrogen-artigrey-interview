@@ -60,18 +60,6 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
     return null;
   }
 
-  {/* <Suspense fallback={<p>Loading cart ...</p>}>
-  <Await
-    resolve={rootData.cart}
-    errorElement={<div>An error occurred</div>}
-  >
-    {(cart) => {
-      return <CartMain layout="page" cart={cart} />;
-    }}
-  </Await>
-</Suspense> */}
-
-
   return (
     <Sheet
       open={isOpen}

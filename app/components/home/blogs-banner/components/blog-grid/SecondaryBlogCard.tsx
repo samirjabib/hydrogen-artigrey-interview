@@ -20,6 +20,8 @@ export const SecondaryBlogCard: React.FC<SecondaryBlogCardProps> = ({
           src={imageSrc}
           alt={title}
           className="w-full h-full object-cover rounded-lg"
+          width={500}
+          height={500}
         />
       </div>
 
