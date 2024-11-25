@@ -1,6 +1,10 @@
+import { ProductQuery } from "storefrontapi.generated";
 import { PurchaseOption } from "../PurshaseOption";
+import { SubscriptionPlanOptionsProps } from "../../types";
 
-export function SubscriptionPlanOptions() {
+
+
+export function SubscriptionPlanOptions({ product }: SubscriptionPlanOptionsProps) {
     return (
         <div className="flex-col sm:flex-row bg-[#F6F6F5] p-4 rounded-md flex gap-[10px] mb-5">
             <PurchaseOption

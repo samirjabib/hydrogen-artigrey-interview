@@ -84,10 +84,25 @@ export enum FetchStatus {
 
 
 export type AddToCartSectionProps = {
-  initialQuantity?: number;
   price: number;
   product: ProductQuery['product'];
   selectedVariantId?: string;
   onQuantityChange?: (quantity: number) => void;
   cart: CartApiQueryFragment | null;
+}
+
+
+export type PriceDisplayProps = {
+  price?: string;
+}
+
+export type CartQuantityControlsProps = {
+  cartLine?: CartLine
+  quantity: number;
+  merchandiseId: string;
+};
+
+
+export type SubscriptionPlanOptionsProps = {
+  product: ProductQuery['product'];
 }

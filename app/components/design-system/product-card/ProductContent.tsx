@@ -5,8 +5,8 @@ import { Image } from '@shopify/hydrogen';
 import { StarsRating } from '../StarRatings';
 import { Tag } from '../Tag';
 import type { Variant } from './ProductCard';
-import { ButtonQuickView } from '~/components/product/product-quick-view/ButtonQuickView';
 import { BestSellerTag } from '../BestSellerTag';
+import { ButtonQuickView } from '~/components/product/product-quick-view/components/ButtonQuickView';
 
 export const ProductContent = ({
   product,

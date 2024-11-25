@@ -21,6 +21,8 @@ export function ProductHeader({
             src={imageSrc}
             alt={imageAlt || title}
             className="object-cover w-full h-full rounded-lg"
+            width={500}
+            height={500}
           />
         </div>
       )}

@@ -6,8 +6,8 @@ import { useSubscription } from './hooks';
 import { NavLink } from '@remix-run/react';
 import { PurchaseOption } from './PurshaseOption';
 import { Variant } from './ProductCard';
-import { ButtonQuickView } from '~/components/product/product-quick-view/ButtonQuickView';
 import { BestSellerTag } from '../BestSellerTag';
+import { ButtonQuickView } from '~/components/product/product-quick-view/components/ButtonQuickView';
 
 export const ProductSubscriptionContent = ({
   product,
