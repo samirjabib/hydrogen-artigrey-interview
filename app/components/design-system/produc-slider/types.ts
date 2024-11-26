@@ -14,6 +14,7 @@ export interface ProductSliderProps {
     headerVariant?: 'swiper' | 'default';
     bestSellerIndices?: number[];
     selectedItem?: NavItemProps
+    isLoading?: boolean
     onSelectItem?: (item: NavItemProps) => void
 }
 

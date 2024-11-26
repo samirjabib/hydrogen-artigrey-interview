@@ -19,8 +19,8 @@ export const navItems: NavItemProps[] = [
   },
   {
     id: 4,
-    title: 'Athletic Health',
-    handle: 'athletic-health',
+    title: 'Athletic Perfomance',
+    handle: 'athletic-perfomance',
   },
   {
     id: 5,
