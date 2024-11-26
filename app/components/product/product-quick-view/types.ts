@@ -1,5 +1,5 @@
 import { CartApiQueryFragment, CollectionProductFragment, ProductQuery } from "storefrontapi.generated";
-import { CartLine } from "~/components/cart/CartLineItem";
+import { CartLine } from "~/components/cart/components/cart-line/CartLineItem";
 import { Variant } from "~/components/design-system/product-card/ProductCard";
 import { ExtendedProduct } from "~/types/product";
 
@@ -52,6 +52,7 @@ export type ButtonQuickViewProps = {
   isProductWithSellingPlanGroups: boolean;
   product?: ExtendedProduct
   variantButton?: Variant
+  selectedSellingPlanId?: string
 }
 
 export type QuickViewContentProps = {

@@ -1,18 +1,20 @@
 import { Await, useAsyncValue } from '@remix-run/react';
 import { CartBadge } from './CartBadge';
 import { Suspense } from 'react';
-import type { CartToggleProps } from './types';
+import type { CartToggleProps } from '../types';
 import { ShoppingBag } from 'lucide-react';
 import type { CartApiQueryFragment } from 'storefrontapi.generated';
 import { useAnalytics, useOptimisticCart } from '@shopify/hydrogen';
 import { useAside } from '~/providers/Aside';
-import { Icon } from '../ui/Icon';
+import { Icon } from '../../ui/Icon';
+import { useCartStore } from './cartStore';
 
 export function CartToggle({ cart }: CartToggleProps) {
   const originalCart = useAsyncValue() as CartApiQueryFragment | null;
   const cartUpdated = useOptimisticCart(originalCart);
-  const { open } = useAside();
+  const open = useCartStore((set) => set.open);
   const { publish, shop, cart: cartAnalytics, prevCart } = useAnalytics();
+
 
   return (
     <Suspense fallback={<CartBadge count={cartUpdated?.totalQuantity ?? 0} />}>
@@ -23,7 +25,7 @@ export function CartToggle({ cart }: CartToggleProps) {
             className="relative cursor-pointer transition-all hover:bg-gray-200 rounded-lg"
             onClick={(e) => {
               e.preventDefault();
-              open('cart');
+              open();
               publish('cart_viewed', {
                 cart: cartAnalytics,
                 prevCart,

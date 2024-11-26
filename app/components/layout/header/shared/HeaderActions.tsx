@@ -1,10 +1,10 @@
-import {Await, NavLink} from '@remix-run/react';
-import {Suspense} from 'react';
-import {CartToggle} from '~/components/cart/CartToggle';
-import type {HeaderActionsProps} from '../types';
-import {Button} from '~/components/ui/Button';
-import {Icon} from '~/components/ui/Icon';
-import {SearchToggle} from '~/components/search/SearchToggle';
+import { Await, NavLink } from '@remix-run/react';
+import { Suspense } from 'react';
+import { CartToggle } from '~/components/cart/components/CartToggle';
+import type { HeaderActionsProps } from '../types';
+import { Button } from '~/components/ui/Button';
+import { Icon } from '~/components/ui/Icon';
+import { SearchToggle } from '~/components/search/SearchToggle';
 
 export function HeaderActions({
   isLoggedIn,

@@ -1,5 +1,11 @@
-import {Aside} from '~/providers/Aside';
-import type {RootLayoutProps} from '~/types';
+import type { RootLayoutProps } from '~/types';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from '~/components/ui/sheet';
+import { useMobileMenuStore } from './mobileMenuStore';
 
 export function MobileMenuAside({
   header,
@@ -8,12 +14,19 @@ export function MobileMenuAside({
   header: RootLayoutProps['header'];
   publicStoreDomain: RootLayoutProps['publicStoreDomain'];
 }) {
+  const isOpen = useMobileMenuStore((state) => state.isOpen);
+  const close = useMobileMenuStore((state) => state.close);
+
   return (
     header.menu &&
     header.shop.primaryDomain?.url && (
-      <Aside type="menu-mobile" heading="MENU" side="left">
-        menu aside
-      </Aside>
+      <Sheet open={isOpen} onOpenChange={close}>
+        <SheetContent side="left" className="w-full sm:max-w-lg">
+          <SheetHeader>
+            <SheetTitle>Menu</SheetTitle>
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
     )
   );
 }

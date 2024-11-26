@@ -1,13 +1,13 @@
-import {useAside} from '~/providers/Aside';
-import {Icon} from '../ui/Icon';
+import { useAside } from '~/providers/Aside';
+import { Icon } from '../ui/Icon';
 
 export const SearchToggle = () => {
-  const {open} = useAside();
-  return (
+/*   const {open} = useAside();
+ */  return (
     <button
-      onClick={() => {
-        open('search');
-      }}
+      /*  onClick={() => {
+         open('search');
+       }} */
       aria-label="Open search"
       className="cursor-pointer"
     >

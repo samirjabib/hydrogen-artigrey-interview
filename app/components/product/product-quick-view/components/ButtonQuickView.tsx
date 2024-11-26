@@ -4,10 +4,15 @@ import { ButtonQuickViewProps } from "../types";
 import { useQuickViewStore } from "../quickViewStore";
 import { CartForm } from "@shopify/hydrogen";
 
-export const ButtonQuickView = ({ buttonLabel, isProductWithSellingPlanGroups, product }: ButtonQuickViewProps) => {
+
+export const ButtonQuickView = ({
+    buttonLabel,
+    isProductWithSellingPlanGroups,
+    product,
+    selectedSellingPlanId
+}: ButtonQuickViewProps) => {
     const open = useQuickViewStore((state) => state.open);
     const firstVariant = product?.variants?.nodes[0];
-
 
     if (!firstVariant || !product?.handle) {
         return null;
@@ -17,22 +22,26 @@ export const ButtonQuickView = ({ buttonLabel, isProductWithSellingPlanGroups, p
         open(product?.handle);
     };
 
-
+    const cartLines = [{
+        merchandiseId: firstVariant.id,
+        quantity: 1,
+        ...(selectedSellingPlanId && { sellingPlanId: selectedSellingPlanId })
+    }];
 
     return (
         <CartForm
             route="/cart"
             action={CartForm.ACTIONS.LinesAdd}
             inputs={{
-                lines: [{
-                    merchandiseId: firstVariant.id,
-                    quantity: 1
-                }]
+                lines: cartLines
             }}
         >
             <Button
-                className={cn(isProductWithSellingPlanGroups ? 'text-sm w-full' : 'font-medium text-[13px] py-[5px] px-4 inline-flex')}
+                className={cn(
+                    isProductWithSellingPlanGroups ? 'text-sm w-full' : 'font-medium text-[13px] py-[5px] px-4 inline-flex'
+                )}
                 onClick={handleClick}
+                disabled={isProductWithSellingPlanGroups && !selectedSellingPlanId}
             >
                 {buttonLabel}
             </Button>

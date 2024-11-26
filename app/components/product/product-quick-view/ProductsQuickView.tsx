@@ -6,10 +6,12 @@ import { useProductFetcher } from './hooks/useProductFetcher';
 import { QuickViewContent } from './components/QuickViewContent';
 import { QuickViewSkeleton } from './components/QuickViewSkeleton';
 import { Await } from '@remix-run/react';
-import { CollectionProductFragment } from 'storefrontapi.generated';
 
 export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
-  const { isOpen, close, productHandle } = useQuickViewStore();
+
+  const isOpen = useQuickViewStore((set) => set.isOpen);
+  const close = useQuickViewStore((set) => set.close);
+  const productHandle = useQuickViewStore((set) => set.productHandle);
 
   const {
     state,
@@ -49,7 +51,7 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
                   <SheetTitle className='sr-only'>{product.title}</SheetTitle>
                   <QuickViewContent
                     key={`content-${productHandle}`}
-                    product={product as CollectionProductFragment}
+                    product={product}
                     cart={resolvedCart}
                   />
                 </>

@@ -1,6 +1,7 @@
-import type {CollectionProductFragment} from 'storefrontapi.generated';
-import type {SelectOptions} from './types';
-import {useState} from 'react';
+import type { CollectionProductFragment } from 'storefrontapi.generated';
+import type { SelectOptions } from './types';
+import { useState } from 'react';
+
 
 export const useSubscription = (
   price: string,
@@ -17,7 +18,7 @@ export const useSubscription = (
     sellingPlanGroups.nodes[0]?.sellingPlans.nodes[0];
 
   const adjustmentPercentage = selectFirstSellingPlan?.priceAdjustments[0]
-    ?.adjustmentValue as {adjustmentPercentage: number};
+    ?.adjustmentValue as { adjustmentPercentage: number };
 
   const parsedPrice = parseFloat(price);
 
@@ -31,5 +32,6 @@ export const useSubscription = (
     parsedPrice,
     discountedPrice,
     adjustmentPercentage,
+    selectedSellingPlan: selectedOption === 'subscribe' ? selectFirstSellingPlan : null,
   };
 };

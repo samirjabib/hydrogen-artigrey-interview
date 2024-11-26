@@ -1,8 +1,8 @@
 import { AddToCartButton } from '../../../AddToCartButton';
-import { CartLineUpdateButton } from '~/components/cart/CartLineItem';
 import { QuantityButton } from './QuantityButton';
 import { toast } from '~/hooks/use-toast';
 import { CartQuantityControlsProps } from '../../types';
+import { CartLineUpdateButton } from '~/components/cart/components/cart-line/CartLineUpdateButton';
 
 
 export const CartQuantityControls = ({

@@ -1,7 +1,7 @@
 import { CartForm } from '@shopify/hydrogen';
 import { QuantityCellProps } from '../../../types';
-import { CartLineUpdateButton } from '~/components/cart/CartLineItem';
 import { QuantityButton } from '../../AddToCartSection/QuantityButton';
+import { CartLineUpdateButton } from '~/components/cart/components/cart-line/CartLineUpdateButton';
 
 export const QuantityCell = ({
   variant,

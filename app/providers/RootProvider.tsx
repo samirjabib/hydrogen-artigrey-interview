@@ -2,8 +2,8 @@
 import { Aside } from '~/providers/Aside';
 import type { RootLayoutProps } from '~/types';
 import { MobileMenuAside } from '../components/layout/header/mobile/MobileMenuAside';
-import { SearchAside } from '../components/search/SearchAside';
-import { CartAside } from '../components/cart/CartAside';
+/* import { SearchAside } from '../components/search/SearchAside';
+ */import { CartAside } from '../components/cart/CartAside';
 import { Header } from '../components/layout/header/Header';
 import { Footer } from '../components/layout/footer/Footer';
 import { ProductsQuickView } from '~/components/product/product-quick-view/ProductsQuickView';
@@ -23,8 +23,8 @@ export function RootProvider({
       <ProductsQuickView cart={cart} />
       <CartAside cart={cart} />
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
-      <SearchAside />
-      {header && (
+      {/*       <SearchAside />
+ */}      {header && (
         <div className="wrapper relative">
           <Header
             header={header}

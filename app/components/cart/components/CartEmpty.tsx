@@ -1,6 +1,6 @@
-import {useAside} from '~/providers/Aside';
-import type {CartMainProps} from './CartMain';
-import {Link} from '@remix-run/react';
+import { useAside } from '~/providers/Aside';
+import type { CartMainProps } from './CartMain';
+import { Link } from '@remix-run/react';
 
 export function CartEmpty({
   hidden = false,
@@ -8,7 +8,7 @@ export function CartEmpty({
   hidden: boolean;
   layout?: CartMainProps['layout'];
 }) {
-  const {close} = useAside();
+  const { close } = useAside();
   return (
     <div hidden={hidden}>
       <br />

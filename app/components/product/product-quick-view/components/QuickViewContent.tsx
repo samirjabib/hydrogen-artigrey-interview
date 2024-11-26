@@ -12,7 +12,6 @@ export function QuickViewContent({ product, cart }: QuickViewContentProps) {
   const { title, description, tags, variants } = product;
   const imageSrc = product.images.edges[0].node.url;
   const imageAlt = product.images.edges[0].node.altText;
-  const isProductWithVariants = variants.nodes.length > 1;
   const isProductWithSellingPlanGroups = product.sellingPlanGroups.nodes.length > 0;
 
 
