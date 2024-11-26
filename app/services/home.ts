@@ -76,6 +76,7 @@ export async function getCriticalData({
       },
     ),
     context.storefront.query<VideosSwiperQuery>(VIDEOS_SWIPER_QUERY),
+
   ]);
 
   return {

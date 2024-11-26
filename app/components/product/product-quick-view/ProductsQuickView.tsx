@@ -7,7 +7,7 @@ import { QuickViewContent } from './components/QuickViewContent';
 import { QuickViewSkeleton } from './components/QuickViewSkeleton';
 import { Await } from '@remix-run/react';
 
-export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
+export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'], }) {
 
   const isOpen = useQuickViewStore((set) => set.isOpen);
   const close = useQuickViewStore((set) => set.close);

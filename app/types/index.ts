@@ -3,6 +3,7 @@ import type { Swiper as SwiperJSType } from 'swiper';
 
 import type {
   CartApiQueryFragment,
+  CollectionByHandleQuery,
   FooterQuery,
   HeaderQuery,
 } from 'storefrontapi.generated';

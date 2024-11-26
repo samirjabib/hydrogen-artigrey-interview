@@ -22,6 +22,8 @@ import { FOOTER_QUERY, HEADER_QUERY } from '~/queries/fragments/fragments';
 import './styles/tailwind.css';
 
 import { RootProvider } from './components';
+import { CollectionByHandleQuery } from 'storefrontapi.generated';
+import { COLLECTION_BY_HANDLE_QUERY } from './queries/fragments/collection';
 
 export type RootLoader = typeof loader;
 
@@ -110,7 +112,6 @@ async function loadCriticalData({ context }: LoaderFunctionArgs) {
  */
 function loadDeferredData({ context, request }: LoaderFunctionArgs) {
   const { storefront, customerAccount, cart } = context;
-  const productHandle = new URL(request.url).searchParams.get('productHandle');
 
   const footer = storefront
     .query(FOOTER_QUERY, {

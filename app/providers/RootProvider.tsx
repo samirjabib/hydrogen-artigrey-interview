@@ -18,13 +18,14 @@ export function RootProvider({
   publicStoreDomain,
 }: RootLayoutProps) {
 
+
   return (
     <Aside.Provider>
       <ProductsQuickView cart={cart} />
       <CartAside cart={cart} />
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
       {/*       <SearchAside />
- */}      {header && (
+  */}      {header && (
         <div className="wrapper relative">
           <Header
             header={header}
