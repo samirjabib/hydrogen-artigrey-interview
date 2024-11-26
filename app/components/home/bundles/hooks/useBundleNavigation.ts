@@ -9,9 +9,6 @@ export const useBundleNavigation = ({ initialBundle, navItems }: BundlesProps) =
         initialBundle?.products.edges || []
     );
     const [error, setError] = useState<Error | null>(null);
-
-    console.log('selectedItem', selectedItem, collection);
-
     const fetcherKey = useMemo(() => `collection-fetcher-${selectedItem.handle}`, [selectedItem.handle]);
     const fetcher = useFetcher<typeof loader>({
         key: fetcherKey,

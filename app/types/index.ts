@@ -15,6 +15,7 @@ export type RootLayoutProps = {
   isLoggedIn: Promise<boolean>;
   publicStoreDomain: string;
   children?: React.ReactNode;
+  enhanceCollection: Promise<CollectionByHandleQuery | null>;
 };
 
 

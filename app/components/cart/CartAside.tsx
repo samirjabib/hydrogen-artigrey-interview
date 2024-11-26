@@ -11,15 +11,13 @@ import {
 import { useCartStore } from './components/cartStore';
 import { Heading } from '../design-system/Heading';
 
-export function CartAside({ cart }: { cart: RootLayoutProps['cart'] }) {
+export function CartAside({ cart, enhanceCollection }: { cart: RootLayoutProps['cart'], enhanceCollection: RootLayoutProps['enhanceCollection'] }) {
   const isOpen = useCartStore((set) => set.isOpen);
   const close = useCartStore((set) => set.close);
 
-
-
   return (
     <Sheet open={isOpen} onOpenChange={close}>
-      <SheetContent side="right" className="w-full sm:max-w-lg" classNameCloseButton='right-6 top-10'>
+      <SheetContent side="right" className="w-full sm:max-w-[580px] overflow-y-scroll px-[30px] pt-[26px]" classNameCloseButton='right-6 top-10'>
         <SheetHeader>
           <SheetTitle className='sr-only'>
             Cart
@@ -28,7 +26,7 @@ export function CartAside({ cart }: { cart: RootLayoutProps['cart'] }) {
         <Suspense fallback={<p>Loading cart ...</p>}>
           <Await resolve={cart}>
             {(cart) => {
-              return <CartMain cart={cart} layout="aside" />;
+              return <CartMain cart={cart} layout="aside" enhanceCollection={enhanceCollection} />;
             }}
           </Await>
         </Suspense>

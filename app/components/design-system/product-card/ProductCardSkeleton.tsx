@@ -16,7 +16,6 @@ export const ProductCardSkeleton = ({ variant = 'default' }: { variant?: Variant
                     <div className="w-[300px] h-[300px] bg-gray-200 rounded-lg animate-pulse" />
 
 
-
                     {/* Tags skeleton */}
                     <div className="absolute bottom-0 left-0 px-4 flex flex-row items-center gap-1">
                         <div className="w-16 h-6 bg-gray-200 rounded animate-pulse" />

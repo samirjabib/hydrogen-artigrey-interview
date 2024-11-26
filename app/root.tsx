@@ -125,17 +125,31 @@ function loadDeferredData({ context, request }: LoaderFunctionArgs) {
       console.error(error);
       return null;
     });
+
+
+  const enhanceCollection = storefront
+    .query(COLLECTION_BY_HANDLE_QUERY, {
+      cache: storefront.CacheShort(),
+      variables: {
+        handle: 'enhance-your-performance',
+      },
+    })
+    .catch((error) => {
+      console.error(error);
+      return null;
+    });
+
   return {
     cart: cart.get(),
     isLoggedIn: customerAccount.isLoggedIn(),
     footer,
+    enhanceCollection,
   };
 }
 
 export function Layout({ children }: { children?: React.ReactNode }) {
   const nonce = useNonce();
   const data = useRouteLoaderData<RootLoader>('root');
-
   return (
     <html lang="en">
       <head>

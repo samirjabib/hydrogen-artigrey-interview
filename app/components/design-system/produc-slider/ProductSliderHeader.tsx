@@ -45,8 +45,6 @@ export const ProductSliderHeader: React.FC<ProductSliderHeaderProps> = ({
                     selectedItem={selectedItem}
                     onSelectItem={onSelectItem}
                 />
-
-
             )}
             {showViewAll && (
                 <div className="flex flex-col lg:flex-row items-center gap-6 pb-8 md:pb-0">

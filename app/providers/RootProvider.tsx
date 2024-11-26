@@ -16,13 +16,14 @@ export function RootProvider({
   header,
   isLoggedIn,
   publicStoreDomain,
+  enhanceCollection
 }: RootLayoutProps) {
 
 
   return (
     <Aside.Provider>
       <ProductsQuickView cart={cart} />
-      <CartAside cart={cart} />
+      <CartAside cart={cart} enhanceCollection={enhanceCollection} />
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
       {/*       <SearchAside />
   */}      {header && (
