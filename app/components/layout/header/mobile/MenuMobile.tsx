@@ -1,11 +1,12 @@
-import {NavLink} from '@remix-run/react';
-import type {MenuMobileProps} from '../types';
-import {HeaderActions} from '../shared/HeaderActions';
-import {Menu} from 'lucide-react';
-import {useAside} from '~/providers/Aside';
+import { NavLink } from '@remix-run/react';
+import type { MenuMobileProps } from '../types';
+import { HeaderActions } from '../shared/HeaderActions';
+import { Menu } from 'lucide-react';
+import { useMobileMenuStore } from './mobileMenuStore';
 
-export const MenuMobile = ({shopName, isLoggedIn, cart}: MenuMobileProps) => {
-  const {open} = useAside();
+export const MenuMobile = ({ shopName, isLoggedIn, cart }: MenuMobileProps) => {
+
+  const open = useMobileMenuStore((state) => state.open);
   return (
     <nav
       className="flex flex-row justify-between bg-white py-[23px] px-6 rounded-lg"
@@ -16,9 +17,7 @@ export const MenuMobile = ({shopName, isLoggedIn, cart}: MenuMobileProps) => {
         type="button"
         aria-label="Open menu mobile"
         aria-controls="menu-mobile"
-        onClick={() => {
-          open('menu-mobile');
-        }}
+        onClick={open}
       >
         <span className="sr-only">Open menu</span>
         <Menu aria-hidden="true" />

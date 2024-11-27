@@ -21,8 +21,8 @@ export function MobileMenuAside({
     header.menu &&
     header.shop.primaryDomain?.url && (
       <Sheet open={isOpen} onOpenChange={close}>
-        <SheetContent side="left" className="w-full sm:max-w-lg">
-          <SheetHeader>
+        <SheetContent side="left" className="w-full sm:max-w-sm">
+          <SheetHeader className='border-2'>
             <SheetTitle>Menu</SheetTitle>
           </SheetHeader>
         </SheetContent>

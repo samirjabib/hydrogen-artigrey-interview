@@ -16,13 +16,13 @@ export function ProductHeader({
   return (
     <div className="flex flex-col gap-4">
       {imageSrc && (
-        <div className="relative w-full aspect-square">
+        <div className="relative w-full flex justify-center max-w-[300px] mx-auto">
           <Image
             src={imageSrc}
             alt={imageAlt || title}
             className="object-cover w-full h-full rounded-lg"
-            width={500}
-            height={500}
+            width={300}
+            height={300}
           />
         </div>
       )}
