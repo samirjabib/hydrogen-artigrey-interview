@@ -8,7 +8,7 @@ export const useSubscription = (
   sellingPlanGroups: CollectionProductFragment['sellingPlanGroups'],
 ) => {
   const [selectedOption, setSelectedOption] =
-    useState<SelectOptions>('oneTime');
+    useState<SelectOptions>('subscribe');
 
   const handleOptionChange = (option: SelectOptions) => {
     setSelectedOption(option);

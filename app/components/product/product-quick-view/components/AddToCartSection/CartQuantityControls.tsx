@@ -67,9 +67,9 @@ export const CartQuantityControls = ({
   };
 
   return (
-    <div className="flex items-center gap-[26px] py-3 px-3 border rounded-md justify-center bg-white">
+    <div className="flex items-center gap-[26px] px-5 border rounded-md justify-center bg-white h-[53px]">
       {renderDecreaseButton()}
-      <span className="text-[10px] text-[#1B1F23CC]">{quantity}</span>
+      <p className="text-[10px] text-[#1B1F23CC]">{quantity}</p>
       {renderIncreaseButton()}
     </div>
   );

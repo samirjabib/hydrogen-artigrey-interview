@@ -24,7 +24,7 @@ export function AddToCartSection({
 
   return (
     <div className="w-full">
-      <div className="bg-black flex flex-row items-center px-[6px] py-[6px] rounded-lg gap-6 sm:gap-10 md:gap-[100px] w-full">
+      <div className="bg-black flex flex-row items-center px-[6px] py-[6px] rounded-lg gap-6 sm:gap-[100px] w-full">
         <CartQuantityControls
           cartLine={cartLine}
           quantity={quantity}

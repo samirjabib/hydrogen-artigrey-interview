@@ -6,11 +6,15 @@ export function PurchaseOption({
   price,
   frequency,
   className,
+  isSelected,
+  onHandleSelect,
 }: {
   label: string;
   price: number;
   frequency: string;
   className?: string;
+  isSelected?: boolean;
+  onHandleSelect?: () => void;
 }) {
   return (
     <div
@@ -18,9 +22,10 @@ export function PurchaseOption({
         'bg-white flex flex-row gap-2 px-5 py-3 rounded-md',
         className,
       )}
+      onClick={onHandleSelect}
     >
       <div>
-        <RadioButton />
+        <RadioButton isSelected={isSelected} />
       </div>
       <div>
         <p className="text text-[#1B1F23] text-sm leading-[18px] mb-[6px]">

@@ -90,6 +90,7 @@ export type AddToCartSectionProps = {
   selectedVariantId?: string;
   onQuantityChange?: (quantity: number) => void;
   cart: CartApiQueryFragment | null;
+  selectedSellingPlanId?: string;
 }
 
 
@@ -101,9 +102,12 @@ export type CartQuantityControlsProps = {
   cartLine?: CartLine
   quantity: number;
   merchandiseId: string;
+  sellingPlanId?: string
 };
 
 
 export type SubscriptionPlanOptionsProps = {
   product: ProductQuery['product'];
+  selectedOption?: string;
+  onOptionChange: (option: string) => void;
 }
