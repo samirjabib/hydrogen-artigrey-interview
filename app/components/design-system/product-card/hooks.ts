@@ -7,11 +7,21 @@ export const useSubscription = (
   price: string,
   sellingPlanGroups: CollectionProductFragment['sellingPlanGroups'],
 ) => {
-  const [selectedOption, setSelectedOption] =
-    useState<SelectOptions>('subscribe');
 
-  const handleOptionChange = (option: SelectOptions) => {
-    setSelectedOption(option);
+  const selectedSellingPlanId = sellingPlanGroups.nodes[0]?.sellingPlans.nodes[0]?.id;
+
+  const [selectedOption, setSelectedOption] =
+    useState<string | null>(selectedSellingPlanId);
+
+
+
+  const onOptionChange = () => {
+    if (selectedOption === selectedSellingPlanId) {
+      setSelectedOption(null);
+      return;
+    }
+    const optionId = sellingPlanGroups.nodes[0]?.sellingPlans.nodes[0]?.id;
+    setSelectedOption(optionId);
   };
 
   const selectFirstSellingPlan =
@@ -28,10 +38,10 @@ export const useSubscription = (
 
   return {
     selectedOption,
-    handleOptionChange,
     parsedPrice,
     discountedPrice,
     adjustmentPercentage,
     selectedSellingPlan: selectedOption === 'subscribe' ? selectFirstSellingPlan : null,
+    onOptionChange
   };
 };

@@ -2,8 +2,13 @@ import { TotalItems } from './TotalItems';
 import { SubtotalInformation } from './SubtotalInformation';
 import { CartSummaryProps } from '../types';
 import { Button } from '~/components/ui/Button';
+import { useOptimisticCart } from '@shopify/hydrogen';
 
-export function CartSummary({ totalItems, subtotal }: CartSummaryProps) {
+export function CartSummary({ cart: originalCart }: CartSummaryProps) {
+  const cart = useOptimisticCart(originalCart);
+  const totalItems = cart?.totalQuantity ?? 0;
+  const subtotal = cart?.cost?.subtotalAmount?.amount;
+
   return (
     <div
       className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 sm:justify-between mt-4 sm:mt-6 mb-5"

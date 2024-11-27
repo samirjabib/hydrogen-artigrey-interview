@@ -1,11 +1,12 @@
 import { CartForm } from '@shopify/hydrogen';
 import { QuantityCellProps } from '../../../types';
-import { QuantityButton } from '../../AddToCartSection/QuantityButton';
+import { QuantityButton } from '../../add-to-cart-section/QuantityButton';
 import { CartLineUpdateButton } from '~/components/cart/components/cart-line/CartLineUpdateButton';
 
 export const QuantityCell = ({
   variant,
   cartLine,
+  selectedOption, selectedSellingPlanId
 }: QuantityCellProps) => {
   if (!cartLine && !variant) return null;
 
@@ -19,7 +20,7 @@ export const QuantityCell = ({
       return (
         <CartLineUpdateButton lines={[{ id: cartLine.id, quantity: prevQuantity }]}>
           <QuantityButton
-            disabled={quantity <= 1 || cartLine.isOptimistic}
+            disabled={quantity <= 0 || cartLine.isOptimistic}
             ariaLabel="Decrease quantity"
             icon="minus"
           />
@@ -56,9 +57,11 @@ export const QuantityCell = ({
         inputs={{
           lines: [{
             merchandiseId: variant.id,
-            quantity: 1
+            quantity: 1,
+            sellingPlanId: selectedOption === selectedSellingPlanId ? selectedSellingPlanId : null
           }]
         }}
+
       >
         <QuantityButton
           disabled={false}

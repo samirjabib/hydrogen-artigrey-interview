@@ -10,9 +10,10 @@ const formatSize = (size: string): string => {
   return size.replace(/[\[\]"]/g, '').trim();
 };
 
-export const TableRow = ({ variant, cart: originalCart }: TableRowProps) => {
+export const TableRow = ({ variant, cart: originalCart, selectedSellingPlanId, selectedOption }: TableRowProps) => {
 
   const cart = useOptimisticCart(originalCart);
+
 
 
   const cartLine = cart?.lines?.nodes?.find(
@@ -33,6 +34,8 @@ export const TableRow = ({ variant, cart: originalCart }: TableRowProps) => {
       <QuantityCell
         variant={variant}
         cartLine={cartLine}
+        selectedSellingPlanId={selectedSellingPlanId}
+        selectedOption={selectedOption}
       />
       <TableCell className="text-center text-xs leading-[14px] text-[#30363C] w-[86px]">
         ${variant.price.amount} / Each

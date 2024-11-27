@@ -12,6 +12,8 @@ import { HeadingSwiper } from '~/components/design-system/HeadingSwiper';
 import VideoSlideContent from './components/VideoSlideContent';
 import { VideoSliceProductCard } from './components/VideoSliceProductCard';
 import { SwiperType } from '~/types';
+import { useQuickViewStore } from '~/components/product/product-quick-view/quickViewStore';
+import { useCartStore } from '~/components/cart/components/cartStore';
 
 export const VideoSwiper: React.FC<{
   videoSwiper: VideosSwiperQuery['metaobjects'];
@@ -20,6 +22,8 @@ export const VideoSwiper: React.FC<{
   const swiperRef = useRef<SwiperType | null>(null);
   const { containerRef, isVisible } = useIntersectionVisibility();
   const { videosUrl, middleIndex, product } = useVideoProcessing(videoSwiper);
+  const isOpenQuickView = useQuickViewStore((state) => state.isOpen);
+  const isOpenCart = useCartStore((state) => state.isOpen);
 
   const handleSwiperInit = useCallback((swiper: SwiperType) => {
     swiperRef.current = swiper;
@@ -58,7 +62,7 @@ export const VideoSwiper: React.FC<{
       >
         {videosUrl.map((video, index) => {
           const isActive = activeIndex === index;
-          const shouldPlay = isVisible && isActive;
+          const shouldPlay = isVisible && isActive && !isOpenQuickView && !isOpenCart;
 
 
           return (

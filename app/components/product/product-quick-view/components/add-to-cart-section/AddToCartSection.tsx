@@ -7,6 +7,8 @@ import { PriceDisplay } from './PriceDisplay';
 export function AddToCartSection({
   price,
   product,
+  selectedOption,
+  selectedSellingPlanId,
   cart: originalCart,
 }: AddToCartSectionProps) {
   if (!product) return null;
@@ -29,6 +31,8 @@ export function AddToCartSection({
           cartLine={cartLine}
           quantity={quantity}
           merchandiseId={merchandiseId}
+          selectedOption={selectedOption}
+          selectedSellingPlanId={selectedSellingPlanId}
         />
         <PriceDisplay price={totalPrice} />
       </div>

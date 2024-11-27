@@ -7,22 +7,25 @@ export function PurchaseOption({
   frequency,
   className,
   isSelected,
-  onHandleSelect,
+  onOptionChange,
 }: {
   label: string;
   price: number;
   frequency: string;
   className?: string;
   isSelected?: boolean;
-  onHandleSelect?: () => void;
+  onOptionChange?: () => void;
 }) {
   return (
     <div
       className={cn(
         'bg-white flex flex-row gap-2 px-5 py-3 rounded-md',
         className,
+        {
+          'border border-[#1B1F23]': isSelected,
+        }
       )}
-      onClick={onHandleSelect}
+      onClick={onOptionChange}
     >
       <div>
         <RadioButton isSelected={isSelected} />

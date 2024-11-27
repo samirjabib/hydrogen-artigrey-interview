@@ -23,11 +23,12 @@ export const ProductSubscriptionContent = ({
 
   const {
     selectedOption,
-    handleOptionChange,
+    onOptionChange,
     parsedPrice,
     discountedPrice,
     adjustmentPercentage,
   } = useSubscription(price, sellingPlanGroups);
+
 
   const isProductWithSellingPlanGroups = sellingPlanGroups.nodes.length > 0;
   const buttonLabel = variant === 'default' ? `Add • $${parseFloat(product.priceRange.minVariantPrice.amount).toFixed(2)}` : 'Add to Cart'
@@ -55,15 +56,15 @@ export const ProductSubscriptionContent = ({
               label="One-Time Purchase"
               price={parsedPrice}
               selectedOption={selectedOption}
-              optionValue="oneTime"
-              handleOptionChange={handleOptionChange}
+              onOptionChange={onOptionChange}
+              isSelected={selectedOption === null}
             />
             <PurchaseOption
               label="Subscribe & Save"
               price={discountedPrice}
               selectedOption={selectedOption}
-              optionValue="subscribe"
-              handleOptionChange={handleOptionChange}
+              onOptionChange={onOptionChange}
+              isSelected={selectedOption !== null}
               adjustmentPercentage={adjustmentPercentage?.adjustmentPercentage}
             />
           </div>
@@ -74,7 +75,7 @@ export const ProductSubscriptionContent = ({
         role="radiogroup"
         aria-label="Purchase options"
       >
-        <ButtonQuickView isProductWithSellingPlanGroups={isProductWithSellingPlanGroups} product={product} buttonLabel={buttonLabel} selectedSellingPlanId={selectedOption === 'subscribe' ? sellingPlanGroups.nodes[0]?.sellingPlans.nodes[0]?.id : undefined} />
+        <ButtonQuickView isProductWithSellingPlanGroups={isProductWithSellingPlanGroups} product={product} buttonLabel={buttonLabel} selectedSellingPlanId={selectedOption} />
         <NavLink
           to="/"
           className="text-[12px] leading-[14px] font-normal py-[17px] flex items-center justify-center"

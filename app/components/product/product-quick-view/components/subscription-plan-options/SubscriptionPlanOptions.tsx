@@ -6,10 +6,11 @@ export function SubscriptionPlanOptions({
     product,
     selectedOption,
     onOptionChange
+
 }: SubscriptionPlanOptionsProps) {
-    const handleOptionSelect = (option: string) => {
-        onOptionChange(option);
-    };
+
+
+    const isSubscriptionActive = product?.sellingPlanGroups.nodes[0]?.sellingPlans.nodes[0]?.id === selectedOption;
 
     return (
         <div className="flex-col sm:flex-row bg-[#F6F6F5] p-4 rounded-md flex gap-[10px] mb-5" >
@@ -18,16 +19,16 @@ export function SubscriptionPlanOptions({
                 price={49.95}
                 frequency="Delivery Every 2 Months"
                 className="w-full sm:w-1/2"
-                isSelected={selectedOption === "onetime"}
-                onHandleSelect={() => handleOptionSelect("onetime")}
+                isSelected={selectedOption === null}
+                onOptionChange={onOptionChange}
             />
             <PurchaseOption
                 label="Subscribe & Save"
                 price={49.95}
                 frequency="Delivery Every 2 Months"
                 className="w-full sm:w-1/2"
-                isSelected={selectedOption === "subscription"}
-                onHandleSelect={() => handleOptionSelect("subscription")}
+                isSelected={isSubscriptionActive}
+                onOptionChange={onOptionChange}
             />
         </div>
     );

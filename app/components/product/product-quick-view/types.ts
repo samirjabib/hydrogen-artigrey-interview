@@ -9,6 +9,8 @@ import { ExtendedProduct } from "~/types/product";
 export type QuantityCellProps = {
   variant: VariantWithMetaField
   cartLine?: CartLine
+  selectedSellingPlanId: string | null;
+  selectedOption: string | null;
 };
 
 
@@ -23,6 +25,8 @@ export type VariantWithMetaField = CollectionProductFragment['variants']['nodes'
 export type ProductVariantTableProps = {
   variants: CollectionProductFragment['variants']['nodes'];
   cart: CartApiQueryFragment | null;
+  selectedSellingPlanId: string | null;
+  selectedOption: string | null;
 }
 
 export type ProductHeaderProps = {
@@ -38,12 +42,12 @@ export type ProductHeaderProps = {
 export type TableRowProps = {
   variant: VariantWithMetaField;
   cart: CartApiQueryFragment | null;
+  selectedSellingPlanId: string | null;
+  selectedOption: string | null;
 };
 
 
 export type CartSummaryProps = {
-  totalItems: number;
-  subtotal: string;
   cart: CartApiQueryFragment | null;
 };
 
@@ -52,7 +56,7 @@ export type ButtonQuickViewProps = {
   isProductWithSellingPlanGroups: boolean;
   product?: ExtendedProduct
   variantButton?: Variant
-  selectedSellingPlanId?: string
+  selectedSellingPlanId: string | null
 }
 
 export type QuickViewContentProps = {
@@ -90,7 +94,8 @@ export type AddToCartSectionProps = {
   selectedVariantId?: string;
   onQuantityChange?: (quantity: number) => void;
   cart: CartApiQueryFragment | null;
-  selectedSellingPlanId?: string;
+  selectedSellingPlanId: string | null;
+  selectedOption: string | null;
 }
 
 
@@ -102,12 +107,13 @@ export type CartQuantityControlsProps = {
   cartLine?: CartLine
   quantity: number;
   merchandiseId: string;
-  sellingPlanId?: string
+  selectedSellingPlanId: string | null;
+  selectedOption: string | null;
 };
 
 
 export type SubscriptionPlanOptionsProps = {
   product: ProductQuery['product'];
-  selectedOption?: string;
-  onOptionChange: (option: string) => void;
+  selectedOption?: string | null;
+  onOptionChange?: () => void;
 }
