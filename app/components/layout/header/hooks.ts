@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react';
-import {getScrollRatio, hasUserScrolledPastThreshold} from './utils';
+import { useState, useEffect } from 'react';
+import { getScrollRatio, hasUserScrolledPastThreshold } from './utils';
 
 export function useHeaderVisibility(scrollThreshold = 0.3) {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
@@ -9,6 +9,10 @@ export function useHeaderVisibility(scrollThreshold = 0.3) {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (window.scrollY === 0) {
+        setIsHeaderVisible(true);
+      }
+
       const scrollRatio = getScrollRatio();
 
       const userScrolledPastThreshold = hasUserScrolledPastThreshold(
@@ -32,5 +36,5 @@ export function useHeaderVisibility(scrollThreshold = 0.3) {
     };
   }, [lastScrollPosition, scrollThreshold]);
 
-  return {isHeaderVisible, hasScrolledPastThreshold};
+  return { isHeaderVisible, hasScrolledPastThreshold };
 }

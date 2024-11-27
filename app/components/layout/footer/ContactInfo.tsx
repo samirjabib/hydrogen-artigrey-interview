@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from '@remix-run/react';
+import { Link } from '@remix-run/react';
 
 interface SocialLink {
   name: string;
@@ -61,9 +61,9 @@ const socialLinks: SocialLink[] = [
 ];
 
 const helpLinks = [
-  {name: 'Track Order', href: '#'},
-  {name: 'Returns & Exchanges', href: '#'},
-  {name: 'Shipping Info', href: '#'},
+  { name: 'Track Order', href: '#' },
+  { name: 'Returns & Exchanges', href: '#' },
+  { name: 'Shipping Info', href: '#' },
 ];
 
 export const ContactInfo: React.FC = () => {
