@@ -4,7 +4,6 @@ import { toast } from '~/hooks/use-toast';
 import { CartQuantityControlsProps } from '../../types';
 import { CartLineUpdateButton } from '~/components/cart/components/cart-line/CartLineUpdateButton';
 
-
 export const CartQuantityControls = ({
   cartLine,
   quantity,
@@ -19,25 +18,32 @@ export const CartQuantityControls = ({
     toast({ title: "Product added to cart" });
   };
 
+  const buttonClasses = "min-w-[24px] max-w-[24px] h-[24px] flex items-center justify-center";
+  const buttonWrapperClasses = "flex items-center justify-center h-full";
+
   const renderDecreaseButton = () => {
     if (cartLine) {
       return (
         <CartLineUpdateButton lines={[{ id: cartLine.id, quantity: prevQuantity }]}>
-          <QuantityButton
-            disabled={quantity <= 0 || cartLine.isOptimistic}
-            ariaLabel="Decrease quantity"
-            icon="minus"
-          />
+          <div className={buttonClasses}>
+            <QuantityButton
+              disabled={quantity <= 0 || cartLine.isOptimistic}
+              ariaLabel="Decrease quantity"
+              icon="minus"
+            />
+          </div>
         </CartLineUpdateButton>
       );
     }
 
     return (
-      <QuantityButton
-        disabled={true}
-        ariaLabel="Decrease quantity"
-        icon="minus"
-      />
+      <div className={buttonClasses}>
+        <QuantityButton
+          disabled={true}
+          ariaLabel="Decrease quantity"
+          icon="minus"
+        />
+      </div>
     );
   };
 
@@ -45,11 +51,13 @@ export const CartQuantityControls = ({
     if (cartLine) {
       return (
         <CartLineUpdateButton lines={[{ id: cartLine.id, quantity: nextQuantity }]}>
-          <QuantityButton
-            disabled={cartLine.isOptimistic}
-            ariaLabel="Increase quantity"
-            icon="plus"
-          />
+          <div className={buttonClasses}>
+            <QuantityButton
+              disabled={cartLine.isOptimistic}
+              ariaLabel="Increase quantity"
+              icon="plus"
+            />
+          </div>
         </CartLineUpdateButton>
       );
     }
@@ -61,22 +69,24 @@ export const CartQuantityControls = ({
           quantity: 1,
           sellingPlanId: selectedOption === selectedSellingPlanId ? selectedSellingPlanId : null
         }]}
-
         onClick={handleAddToCart}
+        className={buttonWrapperClasses}
       >
-        <QuantityButton
-          disabled={false}
-          ariaLabel="Add to cart"
-          icon="plus"
-        />
-      </AddToCartButton >
+        <div className={buttonClasses}>
+          <QuantityButton
+            disabled={false}
+            ariaLabel="Add to cart"
+            icon="plus"
+          />
+        </div>
+      </AddToCartButton>
     );
   };
 
   return (
-    <div className="flex items-center gap-[26px] px-5 border rounded-md justify-center bg-white h-[53px]">
+    <div className="flex items-center gap-[14px] px-3 border rounded-md justify-center bg-white h-[50px] w-[140px]">
       {renderDecreaseButton()}
-      <p className="text-[10px] text-[#1B1F23CC]">{quantity}</p>
+      <p className="text-[10px] text-[#1B1F23CC] min-w-[20px] text-center">{quantity}</p>
       {renderIncreaseButton()}
     </div>
   );

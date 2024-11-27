@@ -37,7 +37,7 @@ export const TableRow = ({ variant, cart: originalCart, selectedSellingPlanId, s
         selectedSellingPlanId={selectedSellingPlanId}
         selectedOption={selectedOption}
       />
-      <TableCell className="text-center text-xs leading-[14px] text-[#30363C] w-[86px]">
+      <TableCell className="text-center text-xs leading-[14px] text-[#30363C] w-[86px] whitespace-nowrap">
         ${variant.price.amount} / Each
       </TableCell>
       <TableCell className="font-normal text-xs leading-[14px] text-[#30363C] text-center px-[26px] w-[70px]">
