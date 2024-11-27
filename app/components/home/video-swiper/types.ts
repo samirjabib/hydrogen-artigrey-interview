@@ -16,12 +16,14 @@ export type ProductInfo = {
     price: string;
     image: string;
     id: string;
+    productHandle: string;
 }
 
 export type VideoSliceProductCardProps = {
     title: string;
     price: string;
     imageSrc: string;
+    productHandle: string;
 }
 
 export type VideoSwiperProps = {

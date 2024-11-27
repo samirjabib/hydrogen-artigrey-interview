@@ -86,6 +86,7 @@ export const VideoSwiper: React.FC<{
                 imageSrc={product.image}
                 title={product.title}
                 price={product.price}
+                productHandle={product.productHandle}
               />
             </SwiperSlide>
           );

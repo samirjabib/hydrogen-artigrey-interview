@@ -20,12 +20,14 @@ export function useVideoProcessing(
       id: edge.node.id || Math.random().toString(36).substr(2, 9),
     }));
 
-    // Por ahora, creamos un producto dummy ya que no viene en el metaobject
-    const product: ProductInfo = {
+
+/*     mockup product
+ */    const product: ProductInfo = {
       title: "Magnesium L-Threonate",
-      price: "39.99",
+      price: "49.95",
       image: "https://cdn.shopify.com/s/files/1/0917/5161/2725/files/Magnesium_L-Threonate.png?v=1732554316",
-      id: "dummy-product"
+      id: "dummy-product",
+      productHandle: "magnesium-l-threonate"
     };
 
     return {

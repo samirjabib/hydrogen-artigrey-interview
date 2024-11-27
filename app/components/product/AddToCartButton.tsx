@@ -7,17 +7,19 @@ export function AddToCartButton({
   disabled,
   lines,
   onClick,
+  className,
 }: {
   analytics?: unknown;
   children: React.ReactNode;
   disabled?: boolean;
+  className?: string;
   lines: Array<OptimisticCartLineInput>;
   onClick?: () => void;
 }) {
   return (
     <CartForm route="/cart" inputs={{ lines }} action={CartForm.ACTIONS.LinesAdd}>
       {(fetcher: FetcherWithComponents<any>) => (
-        <>
+        <div className={className}>
           <input
             name="analytics"
             type="hidden"
@@ -31,7 +33,7 @@ export function AddToCartButton({
           >
             {children}
           </button>
-        </>
+        </div>
       )}
     </CartForm>
   );
