@@ -11,38 +11,48 @@ export const SecondaryBlogCard: React.FC<SecondaryBlogCardProps> = ({
 }) => {
   return (
     <article
-      className="flex flex-col md:flex-row gap-5 h-auto md:h-[215px]"
+      className="flex flex-col sm:flex-row gap-4 sm:gap-5 h-auto sm:h-[180px] md:h-[215px] hover:opacity-90 transition-opacity"
       role="listitem"
       aria-labelledby={`secondary-blog-title-${title}`}
     >
-      <div className="w-full md:w-[300px] h-[200px] md:h-full overflow-hidden rounded-lg shrink-0">
+      <div className="w-full sm:w-[240px] md:w-[300px] h-[200px] sm:h-full overflow-hidden rounded-lg shrink-0">
         <Image
           src={imageSrc}
           alt={title}
           className="w-full h-full object-cover rounded-lg"
-          width={500}
-          height={500}
+          width={600}
+          height={600}
+          sizes="(min-width: 768px) 300px, (min-width: 640px) 240px, 100vw"
         />
       </div>
 
-      <div className="flex-1 flex flex-col justify-between py-2 md:py-[31px]">
+      <div className="flex-1 flex flex-col justify-between py-3 sm:py-4 md:py-[31px]">
         <div>
-          <h3 id={`secondary-blog-tag-${title}`} className="text mb-2 md:mb-4">
+          <h3
+            id={`secondary-blog-tag-${title}`}
+            className="text text-sm sm:text-base mb-2 sm:mb-3 md:mb-4 text-[#1B1F23]/70"
+          >
             {tag}
           </h3>
           <h4
             id={`secondary-blog-title-${title}`}
-            className="font-medium text-[#1B1F23] text-lg leading-[26px] mb-3 md:mb-4 line-clamp-2"
+            className="font-medium text-[#1B1F23] text-base sm:text-lg leading-snug sm:leading-[26px] mb-3 sm:mb-4 line-clamp-2 max-w-[600px]"
           >
             {title}
           </h4>
         </div>
-        <div className="flex flex-row items-center text-sm text-gray-500">
-          <p className="text text-[14px] 2xl:text-base" id={`secondary-blog-author-${title}`}>
+        <div className="flex flex-row items-center text-[#1B1F23]/60">
+          <p
+            className="text-xs sm:text-sm 2xl:text-base"
+            id={`secondary-blog-author-${title}`}
+          >
             By samir jabib
           </p>
-          <span className="text text-[14px] 2xl:text-base mx-2 md:mx-3">|</span>
-          <p className="text text-[14px]  2xl:text-base" id={`secondary-blog-date-${title}`}>
+          <span className="mx-2 sm:mx-3">|</span>
+          <p
+            className="text-xs sm:text-sm 2xl:text-base"
+            id={`secondary-blog-date-${title}`}
+          >
             {formatDate(publishedAt)}
           </p>
         </div>

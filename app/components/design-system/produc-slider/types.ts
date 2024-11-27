@@ -37,6 +37,6 @@ export type ProductSliderHeaderProps = {
 export const SWIPER_BREAKPOINTS: SwiperOptions['breakpoints'] = {
     375: { spaceBetween: 10, slidesPerView: 1 },
     500: { spaceBetween: 10, slidesPerView: 2 },
-    800: { spaceBetween: 20, slidesPerView: 3 },
+    1000: { spaceBetween: 20, slidesPerView: 3 },
     1400: { spaceBetween: 20, slidesPerView: 4 },
 };
