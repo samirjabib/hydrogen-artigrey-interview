@@ -43,23 +43,26 @@ export function CartMain({ layout, cart: originalCart, enhanceCollection }: Cart
 
 
   return (
-    <div >
-      <HeaderCart totalQuantity={cart?.totalQuantity ?? 0} />
-      <FreeShipping total={cart?.cost?.subtotalAmount?.amount ?? '0'} />
-      <CartEmpty hidden={linesCount} layout={layout} />
-      <div>
-        <div aria-labelledby="cart-lines">
-          <ul>
-            {(cart?.lines?.nodes ?? []).map((line) => (
-              <CartLineItem key={line.id} line={line} layout={layout} />
-            ))}
-          </ul>
-        </div>
-        {/*         {cartHasItems && <CartSummary cart={cart} layout={layout} />}
+    <div>
+      <div className='px-[30px]' >
+        <HeaderCart totalQuantity={cart?.totalQuantity ?? 0} />
+        <FreeShipping total={cart?.cost?.subtotalAmount?.amount ?? '0'} />
+        <CartEmpty hidden={linesCount} layout={layout} />
+        <div>
+          <div aria-labelledby="cart-lines">
+            <ul className='bg-[#F6F6F5] p-4 rounded-xl'>
+              {(cart?.lines?.nodes ?? []).map((line) => (
+                <CartLineItem key={line.id} line={line} layout={layout} />
+              ))}
+            </ul>
+          </div>
+          {/*         {cartHasItems && <CartSummary cart={cart} layout={layout} />}
  */}      </div>
-
+      </div>
       <RecommendProducts enhanceCollection={enhanceCollection} />
+
     </div>
+
   );
 }
 

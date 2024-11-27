@@ -17,7 +17,7 @@ export function CartAside({ cart, enhanceCollection }: { cart: RootLayoutProps['
 
   return (
     <Sheet open={isOpen} onOpenChange={close}>
-      <SheetContent side="right" className="w-full sm:max-w-[580px] overflow-y-scroll px-[30px] pt-[26px]" classNameCloseButton='right-6 top-10'>
+      <SheetContent side="right" className="w-full sm:max-w-[580px] overflow-y-scroll pt-[26px] px-0" classNameCloseButton='right-6 top-10'>
         <SheetHeader>
           <SheetTitle className='sr-only'>
             Cart

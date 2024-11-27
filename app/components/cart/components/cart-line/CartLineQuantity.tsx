@@ -34,7 +34,7 @@ export function CartLineQuantity({ line }: { line: CartLine }) {
     );
 
     return (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full">
             <div className="flex items-center gap-[14px] py-[8px] px-3 border border-black/20 rounded-[6px] justify-center">
                 {renderDecreaseButton()}
                 <span className="text-[12px] text-[#1B1F23]/70 w-[20px] text-center">

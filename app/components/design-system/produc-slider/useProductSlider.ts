@@ -1,7 +1,6 @@
-// useProductSlider.ts
-import { useState, useCallback, useRef, useMemo } from 'react';
+import { useMemo } from 'react';
 import type { CollectionProductFragment } from 'storefrontapi.generated';
-import { SwiperType } from '~/types';
+import { useSwiper } from '~/hooks/useSwiper';
 
 interface UseProductSliderProps {
     products: Array<{ node: CollectionProductFragment }>;
@@ -32,23 +31,9 @@ export const useEnrichedProducts = (
 export const useProductSlider = ({
     products,
     bestSellerIndices = [0, 3],
-}: {
-    products: Array<{ node: CollectionProductFragment }>;
-    bestSellerIndices?: number[];
-}) => {
-    const swiperRef = useRef<SwiperType>(null);
-    const [isBeginning, setIsBeginning] = useState(true);
-    const [isEnd, setIsEnd] = useState(false);
+}: UseProductSliderProps) => {
+    const { handleSlideChange, handleSwiperInit, isBeginning, isEnd, swiperRef } = useSwiper()
 
-    const handleSwiperInit = useCallback((swiper: SwiperType) => {
-        swiperRef.current = swiper;
-    }, []);
-
-    const handleSlideChange = useCallback((swiper: SwiperType) => {
-        if (!swiper) return;
-        setIsBeginning(swiper.isBeginning);
-        setIsEnd(swiper.isEnd);
-    }, []);
 
     const enrichedProducts = useMemo(() =>
         products.map((item, index) => ({

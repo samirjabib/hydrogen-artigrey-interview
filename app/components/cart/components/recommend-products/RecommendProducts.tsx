@@ -1,29 +1,28 @@
-
 import 'swiper/css';
 import { Await } from "@remix-run/react";
-import { Suspense, useCallback, useRef, useState } from "react";
+import { Suspense } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { RootLayoutProps, SwiperType } from "~/types";
+import { RootLayoutProps } from "~/types";
 import { SwiperNavButton } from '~/components/design-system/SwiperNavButton';
-import { Image } from '@shopify/hydrogen';
-import { ProductPrice } from '~/components/product/ProductPrice';
-import { Plus } from 'lucide-react';
+import { useSwiper } from '~/hooks/useSwiper';
+import { CartProductCard } from './CartProductCard';
 
-export const RecommendProducts = ({ enhanceCollection }: {
+
+export const RecommendProducts = ({
+    enhanceCollection
+}: {
     enhanceCollection: RootLayoutProps['enhanceCollection']
 }) => {
-
-    const swiperRef = useRef<SwiperType>(null);
-    const [isBeginning, setIsBeginning] = useState(true);
-    const [isEnd, setIsEnd] = useState(false);
-
-    const handleSwiperInit = useCallback((swiper: SwiperType) => {
-        swiperRef.current = swiper;
-    }, []);
-
+    const {
+        swiperRef,
+        isBeginning,
+        isEnd,
+        handleSwiperInit,
+        handleSlideChange
+    } = useSwiper();
 
     return (
-        < Suspense fallback={< div > Loading recommendations...</div >}>
+        <Suspense fallback={<div>Loading recommendations...</div>}>
             <Await resolve={enhanceCollection}>
                 {(resolvedCollection) => {
                     if (!resolvedCollection?.collectionByHandle) return null;
@@ -32,61 +31,45 @@ export const RecommendProducts = ({ enhanceCollection }: {
 
                     return (
                         <div className="mt-8">
-                            <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center justify-between mb-5 px-[30px]">
                                 <h3 className="text-lg font-medium">Enhance Your Performance</h3>
-                                <div className='flex flex-row gap-3'>
-                                    <SwiperNavButton direction="prev" onClick={() => swiperRef.current?.slidePrev()} disabled={isBeginning} />
-                                    <SwiperNavButton direction="next" onClick={() => swiperRef.current?.slideNext()} disabled={isEnd} />
+                                <div className="flex flex-row gap-3">
+                                    <SwiperNavButton
+                                        direction="prev"
+                                        onClick={() => swiperRef.current?.slidePrev()}
+                                        disabled={isBeginning}
+                                    />
+                                    <SwiperNavButton
+                                        direction="next"
+                                        onClick={() => swiperRef.current?.slideNext()}
+                                        disabled={isEnd}
+                                    />
                                 </div>
                             </div>
-                            <Swiper
-                                onSwiper={handleSwiperInit}
-                                onSlideChange={(swiper) => {
-                                    setIsBeginning(swiper.isBeginning);
-                                    setIsEnd(swiper.isEnd);
-                                }}
-                                spaceBetween={16}
-                                slidesPerView="auto"
-                                className="w-full"
-                                breakpoints={{
-                                    320: {
-                                        slidesPerView: 1,
-                                    },
-                                    480: {
-                                        slidesPerView: 2.4,
-                                    },
-                                }}
-                            >
-                                {products.map(({ node: product }) => (
-                                    <SwiperSlide key={product.id} className="p-5">
-                                        <div className='mb-4'>
-                                            <div>
-                                                <Image
-                                                    src={product.images.nodes[0].url}
-                                                    alt={product.title}
-                                                    width={180}
-                                                    height={140}
-                                                    className="object-cover"
-                                                />
-                                            </div>
+                            <div className='pl-[30px]'>
+                                <Swiper
+                                    onSwiper={handleSwiperInit}
+                                    onSlideChange={handleSlideChange}
+                                    spaceBetween={16}
+                                    className="w-full pl-[30px]"
+                                    breakpoints={{
+                                        300: { slidesPerView: 1.4 },
+                                        480: { slidesPerView: 2.4 },
 
-                                        </div>
-                                        <h3 className='font-medium text-xs leading-[18px] mb-4 text-[#1B1F23]'>{product.title}</h3>
-                                        <div className='flex flex-row items-center justify-between'>
-                                            <ProductPrice price={product.priceRange.minVariantPrice} />
-                                            <button className='flex flex-row items-center gap-2'>
-                                                <span>Add to cart</span>
-                                                <Plus />
-                                            </button>
-                                        </div>
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
+                                    }}
+                                >
+                                    {products.map(({ node: product }) => (
+                                        <SwiperSlide key={product.id}>
+                                            <CartProductCard product={product} />
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+                            </div>
+
                         </div>
                     );
                 }}
             </Await>
-        </Suspense >
-    )
-
+        </Suspense>
+    );
 };
