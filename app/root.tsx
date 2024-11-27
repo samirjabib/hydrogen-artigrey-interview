@@ -17,6 +17,7 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
   type ShouldRevalidateFunction,
+  Link,
 } from '@remix-run/react';
 import { FOOTER_QUERY, HEADER_QUERY } from '~/queries/fragments/fragments';
 import './styles/tailwind.css';
@@ -24,6 +25,7 @@ import './styles/tailwind.css';
 import { RootProvider } from './components';
 import { CollectionByHandleQuery } from 'storefrontapi.generated';
 import { COLLECTION_BY_HANDLE_QUERY } from './queries/fragments/collection';
+import { Button } from './components/ui/Button';
 
 export type RootLoader = typeof loader;
 
@@ -194,14 +196,16 @@ export function ErrorBoundary() {
   }
 
   return (
-    <div className="route-error">
-      <h1>Oops</h1>
-      <h2>{errorStatus}</h2>
-      {errorMessage && (
-        <fieldset>
-          <pre>{errorMessage}</pre>
-        </fieldset>
-      )}
-    </div>
+    <main className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground">
+      <h1 className="text-4xl font-bold mb-4">404 - Page Not Found</h1>
+      <p className="text-xl mb-4">This page hasn't been created yet.</p>
+      <p className="text-lg mb-8">Please continue exploring our test site!</p>
+      <Button >
+        <Link to="/">
+          Back to Test Site
+        </Link>
+      </Button>
+    </main>
   );
 }
+

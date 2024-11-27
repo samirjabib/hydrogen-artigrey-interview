@@ -1,5 +1,6 @@
 import { defer, type LoaderFunctionArgs } from '@netlify/remix-runtime';
-import { useLoaderData, type MetaFunction } from '@remix-run/react';
+import { Link, useLoaderData, type MetaFunction } from '@remix-run/react';
+import { Button } from '~/components/ui/Button';
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return [{ title: `Hydrogen | ${data?.page.title ?? ''}` }];
@@ -58,12 +59,16 @@ export default function Page() {
   const { page } = useLoaderData<typeof loader>();
 
   return (
-    <div className="page">
-      <header>
-        <h1>{page.title}</h1>
-      </header>
-      <main dangerouslySetInnerHTML={{ __html: page.body }} />
-    </div>
+    <main className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground">
+      <h1 className="text-4xl font-bold mb-4">{page?.title ? ` ${page.title} Page` : 'Page Not Found'}</h1>
+      <p className="text-xl mb-4">This page is under development.</p>
+      <p className="text-lg mb-8">Please come back later to check the progress.</p>
+      <Button >
+        <Link to="/">
+          Back to Test Site
+        </Link>
+      </Button>
+    </main>
   );
 }
 
