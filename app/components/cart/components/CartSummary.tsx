@@ -42,11 +42,9 @@ export function CartCheckoutActions({ checkoutUrl }: { checkoutUrl?: string }) {
 
   return (
     <div className='px-4 sm:px-[30px]'>
-      <div className='bg-[#1B1F23] text-white py-6 flex items-center justify-center rounded-xl'>
-        <a href={checkoutUrl} target="_self" className=''>
-          <p>Checkout</p>
-        </a>
-      </div>
+      <a href={checkoutUrl} className='bg-[#1B1F23] text-white py-6 flex items-center justify-center rounded-xl'>
+        <p>Checkout</p>
+      </a>
     </div>
   );
 }

@@ -14,20 +14,21 @@ export function QuickViewContent({ product, cart }: QuickViewContentProps) {
   const selectedSellingPlanId = useQuickViewStore((state) => state.selectedSellingPlanId);
   const [selectedOption, setSelectedOption] = useState(selectedSellingPlanId);
 
-
   const { title, description, tags, variants } = product;
   const imageSrc = product.images.edges[0].node.url;
   const imageAlt = product.images.edges[0].node.altText;
   const isProductWithSellingPlanGroups = product.sellingPlanGroups.nodes.length > 0;
-  const onOptionChange = () => {
-    if (selectedOption === selectedSellingPlanId) {
-      setSelectedOption(null);
-      return;
-    }
-    const optionId = product.sellingPlanGroups.nodes[0]?.sellingPlans.nodes[0]?.id;
-    setSelectedOption(optionId);
-  };
 
+  const onOptionChange = () => {
+    const firstPlan = product.sellingPlanGroups.nodes[0]?.sellingPlans.nodes[0];
+    if (!firstPlan) return;
+
+    if (selectedOption === firstPlan.id) {
+      setSelectedOption(null);
+    } else {
+      setSelectedOption(firstPlan.id);
+    }
+  };
 
   return (
     <section className="w-full">

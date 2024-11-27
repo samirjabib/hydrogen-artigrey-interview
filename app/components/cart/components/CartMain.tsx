@@ -7,8 +7,6 @@ import { CartSummary } from './CartSummary';
 import { CartEmpty } from './CartEmpty';
 import { HeaderCart } from './HeaderCart';
 import { FreeShipping } from './FreeShipping';
-import { ProductSlider } from '~/components/design-system/produc-slider/ProductSlider';
-import { Await, useLoaderData } from '@remix-run/react';
 import { RootLayoutProps } from '~/types';
 import { RecommendProducts } from './recommend-products/RecommendProducts';
 
@@ -25,6 +23,9 @@ export function CartMain({ layout, cart: originalCart, enhanceCollection }: Cart
   const cart = useOptimisticCart(originalCart);
   const cartHasItems = cart?.totalQuantity > 0;
   const linesCount = cart?.lines?.nodes?.length > 3;
+
+
+
 
   return (
     <div>

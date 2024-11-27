@@ -9,6 +9,8 @@ export const CartQuantityControls = ({
   cartLine,
   quantity,
   merchandiseId,
+  selectedOption,
+  selectedSellingPlanId,
 }: CartQuantityControlsProps) => {
   const prevQuantity = Math.max(0, quantity - 1);
   const nextQuantity = quantity + 1;
@@ -54,7 +56,12 @@ export const CartQuantityControls = ({
 
     return (
       <AddToCartButton
-        lines={[{ merchandiseId, quantity: 1 }]}
+        lines={[{
+          merchandiseId,
+          quantity: 1,
+          sellingPlanId: selectedOption === selectedSellingPlanId ? selectedSellingPlanId : null
+        }]}
+
         onClick={handleAddToCart}
       >
         <QuantityButton
@@ -62,7 +69,7 @@ export const CartQuantityControls = ({
           ariaLabel="Add to cart"
           icon="plus"
         />
-      </AddToCartButton>
+      </AddToCartButton >
     );
   };
 
