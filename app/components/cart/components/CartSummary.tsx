@@ -15,10 +15,12 @@ export function CartSummary({ cart, layout }: CartSummaryProps) {
 
   return (
     <div aria-labelledby="cart-summary" className={className}>
-      <h4>Totals</h4>
-      <dl className="cart-subtotal">
-        <dt>Subtotal</dt>
-        <dd>
+      <dl className="flex flex-row justify-between items-center px-4 sm:px-[30px] py-[34px] border-t-2 border-black/10">
+        <div>
+          <dt className='text-[#1B1F23] font-medium leading-6 text-xl'>Subtotal</dt>
+          <p className='text-[#1B1F2399] text-[10px] sm:text-sm leading-4 font-normal '>Tax included. Shipping calculated at checkout.</p>
+        </div>
+        <dd className='text-[#1B1F23] font-semibold leading-7 text-2xl'>
           {cart.cost?.subtotalAmount?.amount ? (
             <Money data={cart.cost?.subtotalAmount} />
           ) : (
@@ -26,21 +28,25 @@ export function CartSummary({ cart, layout }: CartSummaryProps) {
           )}
         </dd>
       </dl>
-      <CartDiscounts discountCodes={cart.discountCodes} />
+      {/*    <CartDiscounts discountCodes={cart.discountCodes} />
       <CartGiftCard giftCardCodes={cart.appliedGiftCards} />
+       */}
       <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
     </div>
   );
 }
-function CartCheckoutActions({ checkoutUrl }: { checkoutUrl?: string }) {
+
+
+export function CartCheckoutActions({ checkoutUrl }: { checkoutUrl?: string }) {
   if (!checkoutUrl) return null;
 
   return (
-    <div>
-      <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
-      </a>
-      <br />
+    <div className='px-4 sm:px-[30px]'>
+      <div className='bg-[#1B1F23] text-white py-6 flex items-center justify-center rounded-xl'>
+        <a href={checkoutUrl} target="_self" className=''>
+          <p>Checkout</p>
+        </a>
+      </div>
     </div>
   );
 }

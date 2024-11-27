@@ -34,33 +34,33 @@ export function CartMain({ layout, cart: originalCart, enhanceCollection }: Cart
   const data = useLoaderData();
 
   const cart = useOptimisticCart(originalCart);
-  const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
   const withDiscount =
     cart &&
     Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length);
   const cartHasItems = cart?.totalQuantity > 0;
 
+  const linesCount = cart?.lines?.nodes?.length > 3
+
 
 
   return (
     <div>
-      <div className='px-[30px]' >
+      <div className=' px-4 sm:px-[30px]' >
         <HeaderCart totalQuantity={cart?.totalQuantity ?? 0} />
         <FreeShipping total={cart?.cost?.subtotalAmount?.amount ?? '0'} />
         <CartEmpty hidden={linesCount} layout={layout} />
         <div>
           <div aria-labelledby="cart-lines">
-            <ul className='bg-[#F6F6F5] p-4 rounded-xl'>
+            <ul className={`bg-[#F6F6F5] flex flex-col gap-4 p-4 rounded-xl ${linesCount ? 'max-h-[420px] overflow-y-auto' : ''}`}>
               {(cart?.lines?.nodes ?? []).map((line) => (
                 <CartLineItem key={line.id} line={line} layout={layout} />
               ))}
             </ul>
           </div>
-          {/*         {cartHasItems && <CartSummary cart={cart} layout={layout} />}
- */}      </div>
+        </div>
       </div>
       <RecommendProducts enhanceCollection={enhanceCollection} />
-
+      {cartHasItems && <CartSummary cart={cart} layout={layout} />}
     </div>
 
   );

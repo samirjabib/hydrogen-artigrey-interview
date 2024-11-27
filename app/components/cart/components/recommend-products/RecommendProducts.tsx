@@ -30,8 +30,8 @@ export const RecommendProducts = ({
                     const products = resolvedCollection.collectionByHandle.products.edges;
 
                     return (
-                        <div className="mt-8">
-                            <div className="flex items-center justify-between mb-5 px-[30px]">
+                        <div className="mt-8 pb-9">
+                            <div className="flex items-center justify-between mb-5 px-4 sm:px-[30px]">
                                 <h3 className="text-lg font-medium">Enhance Your Performance</h3>
                                 <div className="flex flex-row gap-3">
                                     <SwiperNavButton
@@ -46,7 +46,7 @@ export const RecommendProducts = ({
                                     />
                                 </div>
                             </div>
-                            <div className='pl-[30px]'>
+                            <div className='pl-4 sm:pl-[30px]'>
                                 <Swiper
                                     onSwiper={handleSwiperInit}
                                     onSlideChange={handleSlideChange}
