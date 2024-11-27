@@ -9,7 +9,6 @@ export type CartProductCardProps = {
 }
 
 export const CartProductCard = ({ product }: CartProductCardProps) => {
-    console.log(product)
     const merchandiseId = product.variants.nodes[0].id;
     return (
         <div className="p-5 bg-[#F6F6F5] rounded-lg flex flex-col">
@@ -25,23 +24,25 @@ export const CartProductCard = ({ product }: CartProductCardProps) => {
             <h3 className="font-medium text-xs leading-[18px] mb-4 text-[#1B1F23] h-9 line-clamp-2 overflow-hidden">
                 {product.title}
             </h3>
-            <div className="flex flex-row items-center justify-between mt-auto gap-2">
+            <div className="flex flex-row items-center justify-between mt-auto">
                 <ProductPrice
                     price={product.priceRange.minVariantPrice}
-                    className="text-[#1B1F23] font-normal text-sm leading-5 shrink-0"
+                    className="text-[#1B1F23] font-normal text-sm leading-5"
                 />
 
                 <AddToCartButton
-                    className="flex flex-row items-center gap-1 bg-[#1B1F23] text-white rounded-lg px-2 py-[6px] whitespace-nowrap" lines={[{
+                    className="flex items-center bg-[#1B1F23] text-white rounded-lg h-8 px-3"
+                    lines={[{
                         merchandiseId,
                         quantity: 1,
                     }]}
                 >
-                    <span className="text-xs font-normal leading-4">Add to cart</span>
-                    <Plus size={13} />
+                    <div className="flex items-center whitespace-nowrap">
+                        <span className="text-xs font-normal">Add to cart</span>
+                        <Plus size={13} className="ml-1 flex-shrink-0" />
+                    </div>
                 </AddToCartButton>
             </div>
         </div>
     );
-}
-
+};
