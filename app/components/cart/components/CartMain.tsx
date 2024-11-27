@@ -10,8 +10,6 @@ import { FreeShipping } from './FreeShipping';
 import { ProductSlider } from '~/components/design-system/produc-slider/ProductSlider';
 import { Await, useLoaderData } from '@remix-run/react';
 import { RootLayoutProps } from '~/types';
-import { Suspense } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { RecommendProducts } from './recommend-products/RecommendProducts';
 
 
@@ -45,19 +43,21 @@ export function CartMain({ layout, cart: originalCart, enhanceCollection }: Cart
 
   return (
     <div>
-      <div className=' px-4 sm:px-[30px]' >
+      <div className='px-4 sm:px-[30px]'>
         <HeaderCart totalQuantity={cart?.totalQuantity ?? 0} />
         <FreeShipping total={cart?.cost?.subtotalAmount?.amount ?? '0'} />
-        <CartEmpty hidden={linesCount} layout={layout} />
-        <div>
-          <div aria-labelledby="cart-lines">
-            <ul className={`bg-[#F6F6F5] flex flex-col gap-4 p-4 rounded-xl ${linesCount ? 'max-h-[420px] overflow-y-auto' : ''}`}>
-              {(cart?.lines?.nodes ?? []).map((line) => (
-                <CartLineItem key={line.id} line={line} layout={layout} />
-              ))}
-            </ul>
+        {!cartHasItems && <CartEmpty layout={layout} />}
+        {cartHasItems && (
+          <div>
+            <div aria-labelledby="cart-lines">
+              <ul className={`bg-[#F6F6F5] flex flex-col gap-4 p-4 rounded-xl ${linesCount ? 'max-h-[420px] overflow-y-auto' : ''}`}>
+                {(cart?.lines?.nodes ?? []).map((line) => (
+                  <CartLineItem key={line.id} line={line} layout={layout} />
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <RecommendProducts enhanceCollection={enhanceCollection} />
       {cartHasItems && <CartSummary cart={cart} layout={layout} />}
@@ -65,5 +65,3 @@ export function CartMain({ layout, cart: originalCart, enhanceCollection }: Cart
 
   );
 }
-
-

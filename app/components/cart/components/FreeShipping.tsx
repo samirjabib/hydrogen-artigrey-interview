@@ -10,20 +10,21 @@ export const FreeShipping = ({ total }: FreeShippingProps) => {
     const progress = Math.min((currentTotal / FREE_SHIPPING_THRESHOLD) * 100, 100);
     const remaining = FREE_SHIPPING_THRESHOLD - currentTotal;
 
-    const getMessage = () => {
-        if (currentTotal >= FREE_SHIPPING_THRESHOLD) {
-            return "Congratulations! You're eligible for free shipping! ";
-        }
+    if (currentTotal >= FREE_SHIPPING_THRESHOLD) {
         return (
-            <>
-                You are <strong className="font-medium">${remaining.toFixed(2)}</strong> away from eligible for free shipping
-            </>
+            <div className="py-6">
+                <p className="font-normal leading-5 text-base text-center text-[#1B1F23]">
+                    Congratulations! You're eligible for free shipping!
+                </p>
+            </div>
         );
-    };
+    }
 
     return (
         <div className="py-6">
-            <p className="font-normal leading-5 text-base text-center text-[#1B1F23] mb-2">{getMessage()}</p>
+            <p className="font-normal leading-5 text-base text-center text-[#1B1F23] mb-2">
+                You are <strong className="font-medium">${remaining.toFixed(2)}</strong> away from eligible for free shipping
+            </p>
             <div className="flex flex-row items-center gap-4">
                 <p className="text-sm leading-4 text-[#1B1F23]">${currentTotal.toFixed(2)}</p>
                 <Progress value={progress} className="h-1" />
