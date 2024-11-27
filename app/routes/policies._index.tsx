@@ -1,5 +1,6 @@
 import { json, type LoaderFunctionArgs } from '@netlify/remix-runtime';
 import { useLoaderData, Link } from '@remix-run/react';
+import { ErrorBoundary } from '~/components/error/ErrorBoundary';
 
 export async function loader({ context }: LoaderFunctionArgs) {
   const data = await context.storefront.query(POLICIES_QUERY);
@@ -18,8 +19,7 @@ export default function Policies() {
   return (
     <div className="policies">
       <h1>Policies</h1>
-
-      Page:
+      <ErrorBoundary />
     </div>
   );
 }

@@ -1,11 +1,12 @@
-import {defer, type LoaderFunctionArgs} from '@netlify/remix-runtime';
-import {Link, useLoaderData, type MetaFunction} from '@remix-run/react';
-import {Image, getPaginationVariables} from '@shopify/hydrogen';
-import type {ArticleItemFragment} from 'storefrontapi.generated';
-import {PaginatedResourceSection} from '~/components/search/PaginatedResourceSection';
+import { defer, type LoaderFunctionArgs } from '@netlify/remix-runtime';
+import { Link, useLoaderData, type MetaFunction } from '@remix-run/react';
+import { Image, getPaginationVariables } from '@shopify/hydrogen';
+import type { ArticleItemFragment } from 'storefrontapi.generated';
+import { ErrorBoundary } from '~/components/error/ErrorBoundary';
+import { PaginatedResourceSection } from '~/components/search/PaginatedResourceSection';
 
-export const meta: MetaFunction<typeof loader> = ({data}) => {
-  return [{title: `Hydrogen | ${data?.blog.title ?? ''} blog`}];
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  return [{ title: `Hydrogen | ${data?.blog.title ?? ''} blog` }];
 };
 
 export async function loader(args: LoaderFunctionArgs) {
@@ -15,7 +16,7 @@ export async function loader(args: LoaderFunctionArgs) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  return defer({...deferredData, ...criticalData});
+  return defer({ ...deferredData, ...criticalData });
 }
 
 /**
@@ -32,10 +33,10 @@ async function loadCriticalData({
   });
 
   if (!params.blogHandle) {
-    throw new Response(`blog not found`, {status: 404});
+    throw new Response(`blog not found`, { status: 404 });
   }
 
-  const [{blog}] = await Promise.all([
+  const [{ blog }] = await Promise.all([
     context.storefront.query(BLOGS_QUERY, {
       variables: {
         blogHandle: params.blogHandle,
@@ -46,10 +47,10 @@ async function loadCriticalData({
   ]);
 
   if (!blog?.articles) {
-    throw new Response('Not found', {status: 404});
+    throw new Response('Not found', { status: 404 });
   }
 
-  return {blog};
+  return { blog };
 }
 
 /**
@@ -57,29 +58,17 @@ async function loadCriticalData({
  * fetched after the initial page load. If it's unavailable, the page should still 200.
  * Make sure to not throw any errors here, as it will cause the page to 500.
  */
-function loadDeferredData({context}: LoaderFunctionArgs) {
+function loadDeferredData({ context }: LoaderFunctionArgs) {
   return {};
 }
 
 export default function Blog() {
-  const {blog} = useLoaderData<typeof loader>();
-  const {articles} = blog;
+  const { blog } = useLoaderData<typeof loader>();
+  const { articles } = blog;
 
   return (
-    <div className="blog">
-      <h1>{blog.title}</h1>
-      <div className="blog-grid">
-        <PaginatedResourceSection connection={articles}>
-          {({node: article, index}) => (
-            <ArticleItem
-              article={article}
-              key={article.id}
-              loading={index < 2 ? 'eager' : 'lazy'}
-            />
-          )}
-        </PaginatedResourceSection>
-      </div>
-    </div>
+    <ErrorBoundary />
+
   );
 }
 

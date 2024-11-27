@@ -5,6 +5,7 @@ import type { HeaderActionsProps } from '../types';
 import { Button } from '~/components/ui/Button';
 import { Icon } from '~/components/ui/Icon';
 import { SearchToggle } from '~/components/search/SearchToggle';
+import { LoginModal } from '~/components/auth/Login';
 
 export function HeaderActions({
   isLoggedIn,
@@ -41,7 +42,7 @@ export function HeaderActions({
       </div>
 
       <div className="space-x-4">
-        <NavLink prefetch="intent" to="/account">
+        {/*     <NavLink prefetch="intent" to="/account">
           <Suspense fallback="Sign in">
             <Await resolve={isLoggedIn} errorElement="Sign in">
               {(isLoggedIn) =>
@@ -58,7 +59,8 @@ export function HeaderActions({
               }
             </Await>
           </Suspense>
-        </NavLink>
+        </NavLink> */}
+        <LoginModal />
         <CartToggle cart={cart} />
       </div>
     </nav>
