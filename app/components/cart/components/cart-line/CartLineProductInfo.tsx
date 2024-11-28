@@ -2,13 +2,9 @@ import { Link } from '@remix-run/react';
 import { useVariantUrl } from '~/lib/variants';
 import { ProductPrice } from '../../../product/ProductPrice';
 import { useAside } from '../../../../providers/Aside';
-import type { CartLayout } from '~/components/cart/components/CartMain';
-import type { CartLine } from './CartLineItem';
+import { CartLineProductInfoProps } from '../../types';
 
-type CartLineProductInfoProps = {
-  line: CartLine;
-  layout: CartLayout;
-};
+
 
 export function CartLineProductInfo({ line, layout }: CartLineProductInfoProps) {
   const { merchandise } = line;

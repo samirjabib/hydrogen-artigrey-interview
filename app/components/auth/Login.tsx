@@ -12,7 +12,6 @@ export function LoginModal() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         // Handle login logic here
-        console.log('Login submitted')
     }
 
     return (

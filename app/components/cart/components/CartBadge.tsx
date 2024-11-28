@@ -1,6 +1,4 @@
-import type { CartViewPayload } from '@shopify/hydrogen';
-import { useAnalytics } from '@shopify/hydrogen';
-import { useAside } from '~/providers/Aside';
+
 
 export function CartBadge({ count }: { count: number | null }) {
   return (

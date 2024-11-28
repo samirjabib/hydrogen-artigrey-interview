@@ -1,10 +1,8 @@
-import { Minus, Plus } from "lucide-react";
-import { CartLine } from "./CartLineItem";
-import { CartLineRemoveButton } from "./CartLineRemoveButton";
 import { CartLineUpdateButton } from "./CartLineUpdateButton";
 import { QuantityButton } from "~/components/product/product-quick-view/components/add-to-cart-section/QuantityButton";
+import { CartLineProps } from "../../types";
 
-export function CartLineQuantity({ line }: { line: CartLine }) {
+export function CartLineQuantity({ line }: { line: CartLineProps }) {
     if (!line || typeof line?.quantity === 'undefined') return null;
     const { id: lineId, quantity, isOptimistic } = line;
     const prevQuantity = Math.max(0, quantity - 1);

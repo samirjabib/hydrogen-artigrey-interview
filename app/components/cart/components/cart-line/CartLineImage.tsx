@@ -1,5 +1,5 @@
 import { Image } from '@shopify/hydrogen';
-import type { CartLine } from './CartLineItem';
+import { CartLine } from '@shopify/hydrogen/storefront-api-types';
 
 type CartLineImageProps = {
   image: CartLine['merchandise']['image'];

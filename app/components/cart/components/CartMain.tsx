@@ -20,10 +20,9 @@ export type CartMainProps = {
 };
 
 export function CartMain({ layout, cart: originalCart, enhanceCollection }: CartMainProps) {
-  console.log(originalCart, 'originalCart');
   const cart = useOptimisticCart(originalCart);
-  const cartHasItems = cart?.totalQuantity > 0;
-  const linesCount = cart?.lines?.nodes?.length > 3;
+  const cartHasItems = cart?.totalQuantity !== undefined && cart?.totalQuantity > 0;
+  const linesCount = cart?.lines?.nodes?.length !== undefined && cart?.lines?.nodes?.length > 3;
 
   return (
     <div>
@@ -38,7 +37,7 @@ export function CartMain({ layout, cart: originalCart, enhanceCollection }: Cart
                 {(cart?.lines?.nodes ?? []).map((line) => {
                   console.log(line, 'line');
                   return ((
-                    <CartLineItem key={line.id} line={line} layout={layout} />
+                    <CartLineItem key={line.id} line={line} />
                   ))
                 })}
               </ul>
