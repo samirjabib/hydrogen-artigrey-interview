@@ -23,7 +23,6 @@ import { FOOTER_QUERY, HEADER_QUERY } from '~/queries/fragments/fragments';
 import './styles/tailwind.css';
 
 import { RootProvider } from './components';
-import { CollectionByHandleQuery } from 'storefrontapi.generated';
 import { COLLECTION_BY_HANDLE_QUERY } from './queries/fragments/collection';
 import { Button } from './components/ui/Button';
 

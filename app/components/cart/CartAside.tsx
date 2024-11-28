@@ -9,7 +9,6 @@ import {
   SheetTitle,
 } from "~/components/ui/sheet";
 import { useCartStore } from './components/cartStore';
-import { Heading } from '../design-system/Heading';
 
 export function CartAside({ cart, enhanceCollection }: { cart: RootLayoutProps['cart'], enhanceCollection: RootLayoutProps['enhanceCollection'] }) {
   const isOpen = useCartStore((set) => set.isOpen);
@@ -26,6 +25,7 @@ export function CartAside({ cart, enhanceCollection }: { cart: RootLayoutProps['
         <Suspense fallback={<p>Loading cart ...</p>}>
           <Await resolve={cart}>
             {(cart) => {
+              console.log('cart', cart);
               return <CartMain cart={cart} layout="aside" enhanceCollection={enhanceCollection} />;
             }}
           </Await>

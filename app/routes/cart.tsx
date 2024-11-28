@@ -3,8 +3,8 @@ import { Suspense } from 'react';
 import type { CartQueryDataReturn } from '@shopify/hydrogen';
 import { CartForm } from '@shopify/hydrogen';
 import { json, type ActionFunctionArgs } from '@netlify/remix-runtime';
-import { CartMain } from '~/components/cart/components/CartMain';
 import type { RootLoader } from '~/root';
+import { CartMain } from '~/components/cart/components/CartMain';
 
 export const meta: MetaFunction = () => {
   return [{ title: `Hydrogen | Cart` }];
@@ -80,7 +80,6 @@ export async function action({ request, context }: ActionFunctionArgs) {
   );
 }
 
-
 export default function Cart() {
   const rootData = useRouteLoaderData<RootLoader>('root');
   if (!rootData) return null;
@@ -94,7 +93,7 @@ export default function Cart() {
           errorElement={<div>An error occurred</div>}
         >
           {(cart) => {
-            return <CartMain layout="page" cart={cart} />;
+            return <CartMain layout="page" cart={cart} enhanceCollection={rootData.enhanceCollection} />;
           }}
         </Await>
       </Suspense>
