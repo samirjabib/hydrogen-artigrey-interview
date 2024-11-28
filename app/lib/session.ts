@@ -1,4 +1,4 @@
-import type {HydrogenSession} from '@shopify/hydrogen';
+import type { HydrogenSession } from '@shopify/hydrogen';
 import {
   createCookieSessionStorage,
   type SessionStorage,
@@ -27,8 +27,10 @@ export class AppSession implements HydrogenSession {
         name: 'session',
         httpOnly: true,
         path: '/',
-        sameSite: 'lax',
+        sameSite: 'strict',  // Cambiado de 'lax' a 'strict' para mayor seguridad
         secrets,
+        maxAge: 60 * 60 * 24 * 7, // 7 días
+        secure: true,  // Siempre true en producción
       },
     });
 
