@@ -1,8 +1,10 @@
-import {defineConfig} from 'vite';
-import {hydrogen} from '@shopify/hydrogen/vite';
-import {netlifyPlugin} from '@netlify/remix-edge-adapter/plugin';
-import {vitePlugin as remix} from '@remix-run/dev';
+import { defineConfig } from 'vite';
+import { hydrogen } from '@shopify/hydrogen/vite';
+import { netlifyPlugin } from '@netlify/remix-edge-adapter/plugin';
+import { vitePlugin as remix } from '@remix-run/dev';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import path from 'path';
+
 
 export default defineConfig({
   plugins: [
@@ -18,6 +20,11 @@ export default defineConfig({
     netlifyPlugin(),
     tsconfigPaths(),
   ],
+  resolve: {
+    alias: {
+      '~': path.resolve(__dirname, 'app')
+    },
+  },
   build: {
     // Allow a strict Content-Security-Policy
     // withtout inlining assets as base64:
