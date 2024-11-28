@@ -48,12 +48,24 @@ export const CART_QUERY_FRAGMENT = `#graphql
           height
 
         }
-        product {
-          handle
-          title
-          id
-          vendor
-        }
+      product {
+              handle
+              title
+              id
+              vendor
+              sellingPlanGroups(first:3){
+                edges{
+                  node{
+                    sellingPlans(first:3){
+                      nodes{
+                        id
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
         selectedOptions {
           name
           value

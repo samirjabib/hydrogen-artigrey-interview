@@ -20,6 +20,7 @@ export type CartMainProps = {
 };
 
 export function CartMain({ layout, cart: originalCart, enhanceCollection }: CartMainProps) {
+  console.log(originalCart, 'originalCart');
   const cart = useOptimisticCart(originalCart);
   const cartHasItems = cart?.totalQuantity > 0;
   const linesCount = cart?.lines?.nodes?.length > 3;
