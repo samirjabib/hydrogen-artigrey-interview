@@ -35,7 +35,6 @@ export function CartMain({ layout, cart: originalCart, enhanceCollection }: Cart
             <div aria-labelledby="cart-lines">
               <ul className={`bg-[#F6F6F5] flex flex-col gap-4 p-4 rounded-xl ${linesCount ? 'max-h-[420px] overflow-y-auto' : ''}`}>
                 {(cart?.lines?.nodes ?? []).map((line) => {
-                  console.log(line, 'line');
                   return ((
                     <CartLineItem key={line.id} line={line} />
                   ))
