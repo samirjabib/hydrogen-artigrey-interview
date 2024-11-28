@@ -16,8 +16,8 @@ export type CartLayout = 'page' | 'aside';
 export type CartMainProps = {
   cart: CartApiQueryFragment | null;
   layout: CartLayout;
-  enhanceCollection: RootLayoutProps['enhanceCollection']
-};
+/*   enhanceCollection: RootLayoutProps['enhanceCollection']
+ */};
 
 export function CartMain({ layout, cart: originalCart, enhanceCollection }: CartMainProps) {
   const cart = useOptimisticCart(originalCart);
@@ -44,8 +44,8 @@ export function CartMain({ layout, cart: originalCart, enhanceCollection }: Cart
           </div>
         )}
       </div>
-      <RecommendProducts enhanceCollection={enhanceCollection} />
-      {cartHasItems && <CartSummary cart={cart} layout={layout} />}
+      {/*       <RecommendProducts enhanceCollection={enhanceCollection} />
+ */}      {cartHasItems && <CartSummary cart={cart} layout={layout} />}
     </div>
 
   );

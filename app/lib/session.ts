@@ -27,10 +27,10 @@ export class AppSession implements HydrogenSession {
         name: 'session',
         httpOnly: true,
         path: '/',
-        sameSite: 'strict',  // Cambiado de 'lax' a 'strict' para mayor seguridad
+        sameSite: 'lax',
         secrets,
-        maxAge: 60 * 60 * 24 * 7, // 7 días
-        secure: true,  // Siempre true en producción
+
+
       },
     });
 
