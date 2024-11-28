@@ -19,7 +19,7 @@ export function CartLineItem({
   layout: CartLayout;
   line: CartLine;
 }) {
-  const { id, merchandise } = line;
+  const { id, merchandise, sellingPlanAllocation } = line;
   const { product, title, image, selectedOptions } = merchandise;
 
   /*   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
@@ -68,10 +68,13 @@ export function CartLineItem({
               <ProductPrice price={line?.cost?.totalAmount} />
             </div>
           </div>
-          <div className='flex border border-dashed border-black/20 flex-row items-center py-2 px-4 rounded-[6px] justify-center w-full sm:w-auto gap-2'>
-            <RotateCw size={14} color='#0E0804B2' />
-            <p className='text-xs leading-4 text-[#1B1F23]/70 font-normal whitespace-nowrap'>Subscribe & Save 10%</p>
-          </div>
+
+          {sellingPlanAllocation && (
+            <div className='flex border border-dashed border-black/20 flex-row items-center py-2 px-4 rounded-[6px] justify-center w-full sm:w-auto gap-2'>
+              <RotateCw size={14} color='#0E0804B2' />
+              <p className='text-xs leading-4 text-[#1B1F23]/70 font-normal whitespace-nowrap'>Subscribe & Save 10%</p>
+            </div>
+          )}
         </div>
       </div>
     </li>

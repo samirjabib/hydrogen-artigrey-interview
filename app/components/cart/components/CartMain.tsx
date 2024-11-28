@@ -1,7 +1,5 @@
 import 'swiper/css';
 
-import { useEffect } from 'react';
-import { useFetcher, useRevalidator, useSearchParams } from '@remix-run/react';
 import { useOptimisticCart } from '@shopify/hydrogen';
 import type { CartApiQueryFragment } from 'storefrontapi.generated';
 import { CartLineItem } from '~/components/cart/components/cart-line/CartLineItem';
@@ -23,19 +21,8 @@ export type CartMainProps = {
 
 export function CartMain({ layout, cart: originalCart, enhanceCollection }: CartMainProps) {
   const cart = useOptimisticCart(originalCart);
-  console.log('cart original', originalCart);
-  console.log('cart', cart);
   const cartHasItems = cart?.totalQuantity > 0;
   const linesCount = cart?.lines?.nodes?.length > 3;
-
-  const cartFetcher = useFetcher();
-
-  useEffect(() => {
-    // Forzar recarga del carrito si hay discrepancias
-    if (cart?.totalQuantity !== originalCart?.totalQuantity) {
-      cartFetcher.load('/cart'); // Asume que tienes una ruta para cargar el carrito
-    }
-  }, [cart, originalCart]);
 
   return (
     <div>
@@ -48,8 +35,7 @@ export function CartMain({ layout, cart: originalCart, enhanceCollection }: Cart
             <div aria-labelledby="cart-lines">
               <ul className={`bg-[#F6F6F5] flex flex-col gap-4 p-4 rounded-xl ${linesCount ? 'max-h-[420px] overflow-y-auto' : ''}`}>
                 {(cart?.lines?.nodes ?? []).map((line) => {
-
-
+                  console.log(line, 'line');
                   return ((
                     <CartLineItem key={line.id} line={line} layout={layout} />
                   ))
