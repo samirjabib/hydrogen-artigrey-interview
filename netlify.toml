@@ -22,7 +22,6 @@ for = "/products/*"
 [headers.values]
   Cache-Control = "no-store, no-cache, must-revalidate"
 
-# Si tienes una API personalizada para obtener productos o gestionar carritos, desactiva el caché en esa ruta también.
 [[headers]]
 for = "/api/*"
 [headers.values]
@@ -39,7 +38,6 @@ for = "/order/*"
 [headers.values]
   Cache-Control = "no-store, no-cache, must-revalidate"
 
-# Estos son solo valores de plantilla, cambia según tu entorno de producción
 [template.environment]
-PUBLIC_STORE_DOMAIN = "Store domain - set this to 'mock.shop' to try the demo site"
-SESSION_SECRET = "Session secret - set this to a random value for production
+PUBLIC_STORE_DOMAIN =artic-grey-samir.myshopify.com
+SESSION_SECRET =foobar
