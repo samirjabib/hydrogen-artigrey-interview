@@ -25,6 +25,8 @@ export function CartAside({ cart, enhanceCollection }: { cart: RootLayoutProps['
         <Suspense fallback={<p>Loading cart ...</p>}>
           <Await resolve={cart}>
             {(cart) => {
+
+              console.log(cart)
               return <CartMain cart={cart} layout="aside" enhanceCollection={enhanceCollection} />;
             }}
           </Await>
