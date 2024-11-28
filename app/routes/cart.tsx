@@ -2,7 +2,7 @@ import { Await, type MetaFunction, useRouteLoaderData } from '@remix-run/react';
 import { Suspense } from 'react';
 import type { CartQueryDataReturn } from '@shopify/hydrogen';
 import { CartForm } from '@shopify/hydrogen';
-import { json, type ActionFunctionArgs } from '@netlify/remix-runtime';
+import { json, LoaderFunctionArgs, type ActionFunctionArgs } from '@netlify/remix-runtime';
 import type { RootLoader } from '~/root';
 import { CartMain } from '~/components/cart/components/CartMain';
 
@@ -79,6 +79,9 @@ export async function action({ request, context }: ActionFunctionArgs) {
     { status, headers },
   );
 }
+
+
+
 
 export default function Cart() {
   const rootData = useRouteLoaderData<RootLoader>('root');
