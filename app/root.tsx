@@ -61,14 +61,13 @@ export function links() {
 }
 
 export async function loader(args: LoaderFunctionArgs) {
+  // Start fetching non-critical data without blocking time to first byte
   const deferredData = loadDeferredData(args);
 
+  // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
   const { storefront, env } = args.context;
-
-  // Log para verificar cómo se está cargando el carrito
-  console.log('Cart fetched during loader:', criticalData.cart);
 
   return defer({
     ...deferredData,
@@ -140,6 +139,7 @@ function loadDeferredData({ context, request }: LoaderFunctionArgs) {
       console.error(error);
       return null;
     });
+
 
   return {
     cart: cart.get(),

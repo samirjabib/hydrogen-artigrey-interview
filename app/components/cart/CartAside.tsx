@@ -26,7 +26,6 @@ export function CartAside({ cart, enhanceCollection }: { cart: RootLayoutProps['
           <Await resolve={cart}>
             {(cart) => {
 
-              console.log(cart)
               return <CartMain cart={cart} layout="aside" enhanceCollection={enhanceCollection} />;
             }}
           </Await>
