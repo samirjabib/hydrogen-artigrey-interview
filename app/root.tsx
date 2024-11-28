@@ -47,14 +47,6 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
 };
 
 
-export function headers() {
-  return {
-    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-    'Pragma': 'no-cache',
-    'Expires': '0',
-  };
-}
-
 export function links() {
   return [
     { rel: 'stylesheet', href: '/styles/tailwind.css' },
