@@ -5,39 +5,8 @@
 [dev]
   command = "npm run dev"
 
-# Set immutable caching for static files, because they have fingerprinted filenames
+# Desactivar el caché para todo el contenido
 [[headers]]
-for = "/assets/*"
-[headers.values]
-  "Cache-Control" = "public, max-age=31560000, immutable"
-
-# Desactivar caché para las rutas dinámicas (carrito, productos, etc.)
-[[headers]]
-for = "/cart/*"
-[headers.values]
-  Cache-Control = "no-store, no-cache, must-revalidate"
-
-[[headers]]
-for = "/products/*"
-[headers.values]
-  Cache-Control = "no-store, no-cache, must-revalidate"
-
-[[headers]]
-for = "/api/*"
-[headers.values]
-  Cache-Control = "no-store, no-cache, must-revalidate"
-
-# Puedes añadir más rutas dinámicas si es necesario, por ejemplo:
-[[headers]]
-for = "/checkout/*"
-[headers.values]
-  Cache-Control = "no-store, no-cache, must-revalidate"
-
-[[headers]]
-for = "/order/*"
-[headers.values]
-  Cache-Control = "no-store, no-cache, must-revalidate"
-
-[template.environment]
-PUBLIC_STORE_DOMAIN =artic-grey-samir.myshopify.com
-SESSION_SECRET =foobar
+  for = "/*"
+  [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate, proxy-revalidate"
