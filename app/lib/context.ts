@@ -4,7 +4,7 @@ import {
   InMemoryCache,
 } from '@shopify/hydrogen';
 import { AppSession } from '~/lib/session';
-import { CART_QUERY_FRAGMENT } from '~/lib/fragments';
+import { CART_QUERY_FRAGMENT } from '~/queries/fragments/fragments';
 
 /**
  * The context implementation is separate from server.ts
