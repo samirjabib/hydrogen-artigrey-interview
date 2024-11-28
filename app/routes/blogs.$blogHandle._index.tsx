@@ -68,7 +68,6 @@ export default function Blog() {
 
   return (
     <ErrorBoundary />
-
   );
 }
 
