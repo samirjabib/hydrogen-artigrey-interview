@@ -11,14 +11,14 @@ import { SubscriptionToggle } from './SubscriptionToggle';
 
 
 export function CartLineItem({ line }: { line: CartLineProps }) {
-  if (!line) return null;
+
+  console.log(line, 'line');
 
   const { merchandise } = line;
   const { product, title, image, selectedOptions } = merchandise;
   const typedProduct = product as ExtendedProduct;
 
   const sellingPlan = typedProduct.sellingPlanGroups?.edges[0]?.node?.sellingPlans?.nodes[0];
-  if (!sellingPlan) return null;
 
   return (
     <li className="flex flex-col sm:flex-row gap-4 py-5 bg-white p-4 rounded-lg">
@@ -43,7 +43,7 @@ export function CartLineItem({ line }: { line: CartLineProps }) {
             </div>
           </div>
 
-          <SubscriptionToggle line={line} sellingPlan={sellingPlan} />
+          {sellingPlan && <SubscriptionToggle line={line} sellingPlan={sellingPlan} />}
         </div>
       </div>
     </li>
