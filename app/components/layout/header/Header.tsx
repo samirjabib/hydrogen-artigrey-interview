@@ -24,22 +24,6 @@ export function Header({
     setIsClient(true);
   }, []);
 
-  useEffect(() => {
-    // Función para detectar un hard refresh usando sessionStorage
-    function detectHardRefresh() {
-      const isHardRefresh = !sessionStorage.getItem('pageReloaded');
-      sessionStorage.setItem('pageReloaded', 'true');
-      return isHardRefresh;
-    }
-
-    if (detectHardRefresh()) {
-      console.log('Hard refresh detectado!');
-    } else {
-      console.log('Navegación normal o soft refresh');
-    }
-  }, []); // Solo se ejecuta una vez cuando el componente se monta
-
-
   return (
     <header
       role="banner"

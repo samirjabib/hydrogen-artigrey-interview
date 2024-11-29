@@ -37,12 +37,10 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
 }) => {
   const revalidateOnMutation = formMethod && formMethod !== 'GET';
   const revalidateOnNavigation = currentUrl.toString() !== nextUrl.toString();
-  const revalidateonHardRefresh = sessionStorage.getItem('pageReloaded') === 'true';
 
   const result = (
     revalidateOnMutation ||
-    revalidateOnNavigation ||
-    revalidateonHardRefresh
+    revalidateOnNavigation
   );
 
   return result || defaultShouldRevalidate;
