@@ -33,9 +33,10 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
   return (
     <Sheet open={isOpen} onOpenChange={handleClose}>
       <SheetContent className="overflow-y-scroll">
-        <Suspense fallback={null}>
+        <Suspense fallback={<p>Loading...</p>}>
           <Await
             resolve={cart}
+            a
             errorElement={<div>Error loading cart</div>}
           >
             {(resolvedCart) => {

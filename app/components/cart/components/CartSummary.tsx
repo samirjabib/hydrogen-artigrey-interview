@@ -1,6 +1,5 @@
 import type { CartApiQueryFragment } from 'storefrontapi.generated';
-import type { CartLayout } from '~/components/cart/components/CartMain';
-import { CartForm, Money, type OptimisticCart } from '@shopify/hydrogen';
+import { CartForm, Money } from '@shopify/hydrogen';
 import { useRef } from 'react';
 import type { FetcherWithComponents } from '@remix-run/react';
 import { CartSummaryProps } from '../types';

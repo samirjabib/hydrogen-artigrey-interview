@@ -17,7 +17,7 @@ export function CartToggle({ cart }: CartToggleProps) {
 
 
   return (
-    <Suspense fallback={<CartBadge count={cartUpdated?.totalQuantity ?? 0} />}>
+    <Suspense fallback={<div>error de hydratacion</div>}>
       <Await resolve={cart}>
         {(resolvedCart) => (
           <button
