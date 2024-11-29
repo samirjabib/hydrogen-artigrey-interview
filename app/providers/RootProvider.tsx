@@ -28,12 +28,12 @@ export function RootProvider({
       {/*       <SearchAside />
   */}      {header && (
         <div className="wrapper relative">
-          {/*   <Header
+          <Header
             header={header}
             cart={cart}
             isLoggedIn={isLoggedIn}
             publicStoreDomain={publicStoreDomain}
-          /> */}
+          />
         </div>
       )}
       <main>{children}</main>
