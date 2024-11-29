@@ -48,6 +48,7 @@ Before running the project, you'll need to set up the environment variables. The
 
 Please refer to the following [Google Docs link](https://docs.google.com/document/d/e/2PACX-1vRLUG-dqx5szSMVceUS-lVDWe_o6p7gTy9SvGvIheoyMa6MawA3vFkdueXY0xsYuBEfPcol6kEIjj7P/pub) to get the environment variables configuration.
 
+
 **Note**: For the purpose of this test, the variables are public in the document. In a real-world scenario, make sure to keep sensitive variables **private** and **secure**.
 
 ## 🚀 Run the Project
@@ -56,3 +57,6 @@ Once you've set up the environment variables, you can run the project locally us
 
 ```bash
 npm run dev
+
+**Store Password:** `naiwoo`
+
