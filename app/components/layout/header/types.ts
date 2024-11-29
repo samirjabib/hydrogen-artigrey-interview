@@ -1,11 +1,14 @@
-import type {CartApiQueryFragment, HeaderQuery} from 'storefrontapi.generated';
-import {MenuItems} from './shared/MenuItems';
+import type { CartApiQueryFragment, HeaderQuery } from 'storefrontapi.generated';
+import { MenuItems } from './shared/MenuItems';
+import { CartReturn } from '@shopify/hydrogen';
+import { Root } from 'postcss';
+import { RootLayoutProps } from '~/types';
 
 type Viewport = 'desktop' | 'mobile';
 
 export type HeaderProps = {
   header: HeaderQuery;
-  cart: Promise<CartApiQueryFragment | null>;
+  cart: CartReturn | null;
   isLoggedIn: Promise<boolean>;
   publicStoreDomain: string;
 };
@@ -23,7 +26,7 @@ export type MenuDesktopProps = {
   menu: HeaderProps['header']['menu'];
   primaryDomainUrl: HeaderProps['header']['shop']['primaryDomain']['url'];
   publicStoreDomain: HeaderProps['publicStoreDomain'];
-  cart: Promise<CartApiQueryFragment | null>;
+  cart: RootLayoutProps['cart'];
   shopName: string;
   isLoggedIn: Promise<boolean>;
 };
@@ -35,13 +38,13 @@ export type MenuItemsProps = {
 };
 
 export type MenuMobileProps = {
-  cart: Promise<CartApiQueryFragment | null>;
+  cart: RootLayoutProps['cart'];
   shopName: string;
   isLoggedIn: Promise<boolean>;
 };
 
 export type HeaderActionsProps = {
   isLoggedIn: Promise<boolean>;
-  cart: Promise<CartApiQueryFragment | null>;
+  cart: RootLayoutProps['cart'];
   isMobile?: boolean;
 };

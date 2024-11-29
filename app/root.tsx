@@ -68,11 +68,16 @@ export async function loader(args: LoaderFunctionArgs) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  const { storefront, env } = args.context;
+  const { storefront, env, cart } = args.context;
+
+  const resolvedCart = await cart.get();
+
 
   return defer({
     ...deferredData,
     ...criticalData,
+
+    resolvedCart,
     publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
     shop: getShopAnalytics({
       storefront,
@@ -113,7 +118,7 @@ async function loadCriticalData({ context }: LoaderFunctionArgs) {
  * Make sure to not throw any errors here, as it will cause the page to 500.
  */
 function loadDeferredData({ context, request }: LoaderFunctionArgs) {
-  const { storefront, customerAccount, cart } = context;
+  const { storefront, customerAccount } = context;
 
   const footer = storefront
     .query(FOOTER_QUERY, {
@@ -143,7 +148,6 @@ function loadDeferredData({ context, request }: LoaderFunctionArgs) {
 
 
   return {
-    cart: cart.get(),
     isLoggedIn: customerAccount.isLoggedIn(),
     footer,
     enhanceCollection,
@@ -164,11 +168,11 @@ export function Layout({ children }: { children?: React.ReactNode }) {
       <body>
         {data ? (
           <Analytics.Provider
-            cart={data.cart}
+            cart={data.resolvedCart}
             shop={data.shop}
             consent={data.consent}
           >
-            <RootProvider {...data}>{children}</RootProvider>
+            <RootProvider {...data} cart={data.resolvedCart}>{children}</RootProvider>
           </Analytics.Provider>
         ) : (
           children

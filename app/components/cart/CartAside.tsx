@@ -22,14 +22,8 @@ export function CartAside({ cart, enhanceCollection }: { cart: RootLayoutProps['
             Cart
           </SheetTitle>
         </SheetHeader>
-        <Suspense fallback={<p>Loading cart ...</p>}>
-          <Await resolve={cart}>
-            {(cart) => {
 
-              return <CartMain cart={cart} layout="aside" enhanceCollection={enhanceCollection} />;
-            }}
-          </Await>
-        </Suspense>
+        <CartMain cart={cart} layout="aside" enhanceCollection={enhanceCollection} />;
       </SheetContent>
     </Sheet>
   );
