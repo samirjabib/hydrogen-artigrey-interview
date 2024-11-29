@@ -6,7 +6,7 @@ import {
   type SeoConfig,
   getSelectedProductOptions,
 } from '@shopify/hydrogen';
-import { defer, type LoaderFunctionArgs } from '@netlify/remix-runtime';
+import { defer, HeadersFunction, type LoaderFunctionArgs } from '@netlify/remix-runtime';
 import {
   Links,
   Meta,
@@ -46,6 +46,13 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
   return result || defaultShouldRevalidate;
 }
 
+export const headers: HeadersFunction = ({ loaderHeaders }) => {
+  return {
+    "Cache-Control": "no-store, no-cache, must-revalidate", // Evitar caché
+    "Vary": "Accept", // Para asegurarse de que el contenido cambie según el tipo de solicitud
+    ...loaderHeaders, // Incluir encabezados de loaders si los hubiera
+  };
+};
 
 
 export function links() {
