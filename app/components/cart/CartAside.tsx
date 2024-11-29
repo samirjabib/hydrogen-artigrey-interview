@@ -1,6 +1,3 @@
-import { Await } from '@remix-run/react';
-import { Suspense } from 'react';
-import { CartMain } from '~/components/cart/components/CartMain';
 import type { RootLayoutProps } from '~/types';
 import {
   Sheet,
@@ -9,10 +6,14 @@ import {
   SheetTitle,
 } from "~/components/ui/sheet";
 import { useCartStore } from './components/cartStore';
+import { CartApiQueryFragment } from 'storefrontapi.generated';
+import { CartMain } from '~/components/cart/components/CartMain';
 
-export function CartAside({ cart, enhanceCollection }: { cart: RootLayoutProps['cart'], enhanceCollection: RootLayoutProps['enhanceCollection'] }) {
+export function CartAside({ cart, enhanceCollection }: { cart: CartApiQueryFragment | null, enhanceCollection: RootLayoutProps['enhanceCollection'] }) {
   const isOpen = useCartStore((set) => set.isOpen);
   const close = useCartStore((set) => set.close);
+
+  if (!cart) return null;
 
   return (
     <Sheet open={isOpen} onOpenChange={close}>
@@ -22,14 +23,7 @@ export function CartAside({ cart, enhanceCollection }: { cart: RootLayoutProps['
             Cart
           </SheetTitle>
         </SheetHeader>
-        <Suspense fallback={<p>Loading cart ...</p>}>
-          <Await resolve={cart}>
-            {(cart) => {
-
-              return <CartMain cart={cart} layout="aside" enhanceCollection={enhanceCollection} />;
-            }}
-          </Await>
-        </Suspense>
+        <CartMain cart={cart} layout="aside" enhanceCollection={enhanceCollection} />
       </SheetContent>
     </Sheet>
   );
