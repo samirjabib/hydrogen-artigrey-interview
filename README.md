@@ -59,6 +59,8 @@ Once you've set up the environment variables, you can run the project locally us
 npm run dev
 
 **Store Password:** `naiwoo`
+
+```
     
 ## 🚀 Deployment
 
