@@ -1,36 +1,54 @@
-import { Await } from '@remix-run/react';
-import { Suspense } from 'react';
-import { CartMain } from '~/components/cart/components/CartMain';
-import type { RootLayoutProps } from '~/types';
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "~/components/ui/sheet";
-import { useCartStore } from './components/cartStore';
+import { Await, useAsyncValue } from '@remix-run/react';
+import { CartBadge } from './CartBadge';
+import { Suspense, useEffect, useState } from 'react';
+import type { CartToggleProps } from '../types';
+import { ShoppingBag } from 'lucide-react';
+import type { CartApiQueryFragment } from 'storefrontapi.generated';
+import { useAnalytics, useOptimisticCart } from '@shopify/hydrogen';
+import { Icon } from '../../ui/Icon';
+import { useCartStore } from './cartStore';
 
-export function CartAside({ cart, enhanceCollection }: { cart: RootLayoutProps['cart'], enhanceCollection: RootLayoutProps['enhanceCollection'] }) {
-  const isOpen = useCartStore((set) => set.isOpen);
-  const close = useCartStore((set) => set.close);
+function CartButton({ cart }: { cart: CartApiQueryFragment | null }) {
+  const [isClient, setIsClient] = useState(false);
+  const cartUpdated = useOptimisticCart(cart);
+  const open = useCartStore((set) => set.open);
+  const { publish, shop, cart: cartAnalytics, prevCart } = useAnalytics();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const quantity = cartUpdated?.totalQuantity ?? cart?.totalQuantity ?? 0;
 
   return (
-    <Sheet open={isOpen} onOpenChange={close}>
-      <SheetContent side="right" className="w-full sm:max-w-[580px] overflow-y-scroll pt-[26px] px-0" classNameCloseButton='right-6 top-10'>
-        <SheetHeader>
-          <SheetTitle className='sr-only'>
-            Cart
-          </SheetTitle>
-        </SheetHeader>
-        <Suspense fallback={<p>Loading cart ...</p>}>
-          <Await resolve={cart}>
-            {(cart) => {
+    <button
+      aria-label="Open cart"
+      className="relative cursor-pointer transition-all hover:bg-gray-200 rounded-lg"
+      onClick={(e) => {
+        e.preventDefault();
+        open();
+        if (isClient) {
+          publish('cart_viewed', {
+            cart: cartAnalytics,
+            prevCart,
+            shop,
+            url: window.location.href || '',
+          });
+        }
+      }}
+    >
+      <CartBadge count={quantity} />
+      <Icon name="bag" size={30} />
+    </button>
+  );
+}
 
-              return <CartMain cart={cart} layout="aside" enhanceCollection={enhanceCollection} />;
-            }}
-          </Await>
-        </Suspense>
-      </SheetContent>
-    </Sheet>
+export function CartToggle({ cart }: CartToggleProps) {
+  return (
+    <Suspense fallback={<CartButton cart={null} />}>
+      <Await resolve={cart} errorElement={<CartButton cart={null} />}>
+        {(resolvedCart) => <CartButton cart={resolvedCart} />}
+      </Await>
+    </Suspense>
   );
 }

@@ -80,14 +80,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
   );
 }
 
-export async function loader({ context }: LoaderFunctionArgs) {
-  const { cart } = context;
-  const cartData = await cart.get();
-
-  return json({
-    cart: cartData,
-  });
-}
+6
 
 
 export default function Cart() {
