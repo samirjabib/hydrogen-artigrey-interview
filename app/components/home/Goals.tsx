@@ -27,7 +27,7 @@ export function Goals({ goals }: GoalsProps) {
         </p>
       </div>
 
-      <ul className="flex flex-wrap justify-center gap-4 sm:gap-8 md:gap-6 lg:gap-9 lg:grid lg:grid-cols-5">
+      <ul className="flex flex-wrap justify-center gap-5 lg:grid lg:grid-cols-5">
         {goals.map(({ node }) => {
           const title = node.fields.find((f) => f.key === 'title')?.value || '';
           const description =

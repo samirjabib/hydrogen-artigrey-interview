@@ -20,6 +20,8 @@ export function RootProvider({
 }: RootLayoutProps) {
 
 
+
+
   return (
     <Aside.Provider>
       <ProductsQuickView cart={cart} />

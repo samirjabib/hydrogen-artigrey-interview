@@ -1,13 +1,16 @@
-import { Suspense } from 'react';
+import { useRouteLoaderData, useAsyncValue } from '@remix-run/react';
 import { Sheet, SheetContent, SheetTitle } from '~/components/ui/sheet';
-import { RootLayoutProps } from '~/types';
 import { useQuickViewStore } from './quickViewStore';
 import { useProductFetcher } from './hooks/useProductFetcher';
 import { QuickViewContent } from './components/QuickViewContent';
 import { QuickViewSkeleton } from './components/QuickViewSkeleton';
-import { Await } from '@remix-run/react';
+import type { RootLoader } from '~/root';
+import type { CartApiQueryFragment } from 'storefrontapi.generated';
+import { useState, useEffect } from 'react';
 
-export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
+export function ProductsQuickView() {
+  const rootData = useRouteLoaderData<RootLoader>('root');
+  const cartPromise = rootData?.cart;
 
   const isOpen = useQuickViewStore((set) => set.isOpen);
   const close = useQuickViewStore((set) => set.close);
@@ -27,40 +30,40 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
     }
   };
 
-
   const shouldShowSkeleton = isOpen && state === 'loading' && !product && productHandle;
+
+  // Usamos useEffect para manejar la promesa del carrito
+  useEffect(() => {
+    if (cartPromise) {
+      cartPromise.then((cart) => {
+        if (cart) {
+          setCartData(cart as CartApiQueryFragment);
+        }
+      });
+    }
+  }, [cartPromise]);
+
+  const [cartData, setCartData] = useState<CartApiQueryFragment | null>(null);
+
+  if (!cartData) {
+    return null;
+  }
 
   return (
     <Sheet open={isOpen} onOpenChange={handleClose}>
       <SheetContent className="overflow-y-scroll">
-        <Suspense fallback={<p>Loading...</p>}>
-          <Await
-            resolve={cart}
-            a
-            errorElement={<div>Error loading cart</div>}
-          >
-            {(resolvedCart) => {
-              if (!isOpen) return null;
-
-              if (shouldShowSkeleton) {
-                return <QuickViewSkeleton key={`skeleton-${productHandle}`} />;
-              }
-
-              if (!product) return null;
-
-              return (
-                <>
-                  <SheetTitle className='sr-only'>{product.title}</SheetTitle>
-                  <QuickViewContent
-                    key={`content-${productHandle}`}
-                    product={product}
-                    cart={resolvedCart}
-                  />
-                </>
-              );
-            }}
-          </Await>
-        </Suspense>
+        {!isOpen ? null : shouldShowSkeleton ? (
+          <QuickViewSkeleton key={`skeleton-${productHandle}`} />
+        ) : !product ? null : (
+          <>
+            <SheetTitle className='sr-only'>{product.title}</SheetTitle>
+            <QuickViewContent
+              key={`content-${productHandle}`}
+              product={product}
+              cart={cartData}
+            />
+          </>
+        )}
       </SheetContent>
     </Sheet>
   );
