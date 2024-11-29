@@ -57,6 +57,14 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+import { type HeadersFunction } from "@netlify/remix-runtime";
+
+export const headers: HeadersFunction = () => ({
+  "Cache-Control": "public, max-age=0, must-revalidate",
+  "CDN-Cache-Control": "public, max-age=3600",
+  "Netlify-Vary": "query=_data",
+});
+
 type LoaderData = {
   goals: GoalsCardsQuery['metaobjects']['edges'];
   brands: BrandsCardsQuery['metaobjects']['edges'];

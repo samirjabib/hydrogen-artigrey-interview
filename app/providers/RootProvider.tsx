@@ -17,37 +17,30 @@ export function RootProvider({
   header,
   isLoggedIn,
   publicStoreDomain,
-  enhanceCollection
+  enhanceCollection,
 }: RootLayoutProps) {
-
-
   return (
-    <CartProvider>
-      <Aside.Provider>
-        <ProductsQuickView />
-        <CartAside cart={cart} enhanceCollection={enhanceCollection} />
-        <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
-        {/*       <SearchAside />
-  */}      {header && (
-          <div className="wrapper relative">
-            <Header
-              header={header}
-              cart={cart}
-              isLoggedIn={isLoggedIn}
-              publicStoreDomain={publicStoreDomain}
-            />
-          </div>
-        )}
-        <main>{children}</main>
-        {footer && (
-          <Footer
-            footer={footer}
-            header={header}
-            publicStoreDomain={publicStoreDomain}
-          />
-        )}
-        <Toaster />
-      </Aside.Provider>
-    </CartProvider>
+    <Aside.Provider>
+      <ProductsQuickView cart={cart} />
+      <CartAside cart={cart} enhanceCollection={enhanceCollection} />
+      <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
+      <div className="wrapper relative">
+        <Header
+          header={header}
+          cart={cart}
+          isLoggedIn={isLoggedIn}
+          publicStoreDomain={publicStoreDomain}
+        />
+      </div>
+      <main>{children}</main>
+      {footer && (
+        <Footer
+          footer={footer}
+          header={header}
+          publicStoreDomain={publicStoreDomain}
+        />
+      )}
+      <Toaster />
+    </Aside.Provider>
   );
 }

@@ -15,6 +15,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         fetcher.load("/cart");
     }, [fetcher]);
 
+
+
     return <CartContext.Provider value={fetcher.data as Cart}>{children}</CartContext.Provider>;
 }
 
