@@ -7,12 +7,12 @@ This project is an **online store** built using **Shopify Hydrogen** and **Remix
 - **Shopify Hydrogen**: Headless framework for building custom Shopify storefronts.
 - **Remix**: Full-stack framework focused on performance and UX, enabling SSR and data fetching optimizations.
 - **Lucide React**: Lightweight and optimized icon set with tree shaking for performance.
+- **Shadcn UI**: Modern, high-performance UI component library.
 - **TailwindCSS**: Utility-first CSS framework for rapid UI development.
 - **GraphQL**: API for interacting with Shopify’s Storefront API.
 - **Zustand**: Simple, fast state management for React.
 - **Vite**: High-speed bundler to optimize the development experience.
 - **Shopify CDN**: Content Delivery Network for fast, global delivery of static assets.
-
 ## 🚀 Features
 
 - **SSR and Optimistic UI Updates**: Server-side rendering with fast, responsive updates to the UI without page reloads.
