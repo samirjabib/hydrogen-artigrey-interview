@@ -38,6 +38,11 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
   // Revalidate on mutations (non-GET requests)
   if (formMethod && formMethod !== 'GET') return true;
 
+  // Revalidate on navigation to different URLs
+  if (currentUrl.toString() !== nextUrl.toString()) return true;
+
+  // Revalidate on hard refresh (same URL and no form submission)
+  if (currentUrl.toString() === nextUrl.toString() && !formMethod) return true;
 
 
   return defaultShouldRevalidate;

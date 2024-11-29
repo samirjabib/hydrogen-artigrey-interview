@@ -30,7 +30,7 @@ export function ErrorBoundary() {
             <p className="text-lg mb-8">Please continue exploring our test site!</p>
             <Button >
                 <Link to="/">
-                    Back to Test Site
+                    Back to home
                 </Link>
             </Button>
         </main>
