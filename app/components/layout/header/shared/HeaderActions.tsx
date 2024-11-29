@@ -15,11 +15,11 @@ export function HeaderActions({
   if (isMobile) {
     return (
       <nav
-        className="flex flex-row items-center gap-x-4 justify-center"
+        className="flex flex-row items-center gap-x-2 justify-center"
         role="navigation"
         aria-label="header-actions"
       >
-        <SearchToggle />
+        <LoginModal />
         <CartToggle cart={cart} />
       </nav>
     );
@@ -32,13 +32,13 @@ export function HeaderActions({
       aria-label="header-actions"
     >
       <div className="space-x-1">
-        <Button variant="terciary" className="gap-2 px-4 py-2">
+        <Button variant="terciary" className="gap-2 px-4 py-2 rounded-lg">
           <span>Men</span>
           <div className="bg-white rounded-full w-8 h-8 flex items-center justify-center">
             <Icon name="employer" size={16} />
           </div>
         </Button>
-        <Button variant="primary">Take the quiz</Button>
+        <Button variant="primary" className='rounded-lg'>Take the quiz</Button>
       </div>
 
       <div className="space-x-4">

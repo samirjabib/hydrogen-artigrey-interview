@@ -24,7 +24,7 @@ export function LoginModal() {
                     <Icon name="user" size={30} />
                 </button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[425px] w-[90%] rounded-xl">
                 <DialogHeader>
                     <DialogTitle>Login</DialogTitle>
                     <DialogDescription>

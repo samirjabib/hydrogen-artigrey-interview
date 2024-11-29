@@ -9,8 +9,8 @@ import { useMobileMenuStore } from './mobileMenuStore';
 
 import { Link } from '@remix-run/react';
 import { Icon } from '~/components/ui/Icon';
-import { Separator } from '~/components/ui/separator';
 import { Button } from '~/components/ui/Button';
+import { Input } from "~/components/ui/input";
 
 export function MobileMenuAside({
   header,
@@ -30,10 +30,22 @@ export function MobileMenuAside({
           <SheetHeader className="px-6 py-6 border-b">
             <SheetTitle className="text-xl font-bold">{header.shop.name}</SheetTitle>
           </SheetHeader>
+          <div className="px-6 pb-5 border-b border-black/10">
+            <div className="relative">
+              <Input
+                type="search"
+                placeholder="Search products..."
+                className="pl-10 h-12 rounded-lg"
+              />
+              <Icon
+                name="search"
+                className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#1B1F23]"
+              />
+            </div>
+          </div>
           <div className="flex-1 overflow-y-auto">
             <div className="px-6 py-6 space-y-6">
               <Link to='/' className="flex items-center space-x-3 hover:text-primary transition-colors" >
-                <Icon name="home" className="h-5 w-5" />
                 <span className="font-medium">Home</span>
               </Link>
               <div className="space-y-4">
@@ -56,10 +68,10 @@ export function MobileMenuAside({
             </div>
           </div>
           <div className="px-6 py-6 bg-muted/30 border-t border-black/10">
-            <div className="flex gap-3">
+            <div className="flex flex-col gap-3">
               <Button
                 variant="outline"
-                className="flex-1 text-sm gap-2 h-12 font-medium text-[#1B1F23]"
+                className="w-full text-sm gap-2 h-12 font-medium text-[#1B1F23] bg-[#E4E4E4] border-none rounded-lg"
               >
                 <span>Men</span>
                 <div className="bg-background rounded-full w-7 h-7 flex items-center justify-center shadow-sm">
@@ -68,7 +80,7 @@ export function MobileMenuAside({
               </Button>
               <Button
                 variant="primary"
-                className="flex-1 text-sm h-12 font-medium"
+                className="w-full text-sm h-12 font-medium rounded-lg"
               >
                 Take the quiz
               </Button>

@@ -9,7 +9,7 @@ export const MenuMobile = ({ shopName, isLoggedIn, cart }: MenuMobileProps) => {
   const open = useMobileMenuStore((state) => state.open);
   return (
     <nav
-      className="flex flex-row justify-between bg-white py-[23px] px-6 rounded-lg"
+      className="flex flex-row justify-between bg-white py-[23px] px-6 rounded-lg items-center"
       role="navigation"
       aria-label="Mobile menu"
     >
