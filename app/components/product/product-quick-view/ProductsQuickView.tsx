@@ -1,4 +1,4 @@
-import { useRouteLoaderData, useAsyncValue } from '@remix-run/react';
+import { useFetcher, useRouteLoaderData } from '@remix-run/react';
 import { Sheet, SheetContent, SheetTitle } from '~/components/ui/sheet';
 import { useQuickViewStore } from './quickViewStore';
 import { useProductFetcher } from './hooks/useProductFetcher';
@@ -6,11 +6,11 @@ import { QuickViewContent } from './components/QuickViewContent';
 import { QuickViewSkeleton } from './components/QuickViewSkeleton';
 import type { RootLoader } from '~/root';
 import type { CartApiQueryFragment } from 'storefrontapi.generated';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 export function ProductsQuickView() {
+  const fetcher = useFetcher();
   const rootData = useRouteLoaderData<RootLoader>('root');
-  const cartPromise = rootData?.cart;
 
   const isOpen = useQuickViewStore((set) => set.isOpen);
   const close = useQuickViewStore((set) => set.close);
@@ -24,37 +24,30 @@ export function ProductsQuickView() {
     isOpen,
   });
 
+  useEffect(() => {
+    if (isOpen && !fetcher.data) {
+      fetcher.load('/cart');
+    }
+  }, [isOpen]);
+
   const handleClose = () => {
     if (product) {
       close();
     }
   };
 
-  const shouldShowSkeleton = isOpen && state === 'loading' && !product && productHandle;
+  const shouldShowSkeleton = isOpen && (state === 'loading' || fetcher.state === 'loading') && !product && productHandle;
+  const cartData = fetcher.data?.cart as CartApiQueryFragment;
 
-  // Usamos useEffect para manejar la promesa del carrito
-  useEffect(() => {
-    if (cartPromise) {
-      cartPromise.then((cart) => {
-        if (cart) {
-          setCartData(cart as CartApiQueryFragment);
-        }
-      });
-    }
-  }, [cartPromise]);
 
-  const [cartData, setCartData] = useState<CartApiQueryFragment | null>(null);
-
-  if (!cartData) {
-    return null;
-  }
+  console.log(cartData)
 
   return (
     <Sheet open={isOpen} onOpenChange={handleClose}>
       <SheetContent className="overflow-y-scroll">
         {!isOpen ? null : shouldShowSkeleton ? (
           <QuickViewSkeleton key={`skeleton-${productHandle}`} />
-        ) : !product ? null : (
+        ) : !product || !cartData ? null : (
           <>
             <SheetTitle className='sr-only'>{product.title}</SheetTitle>
             <QuickViewContent

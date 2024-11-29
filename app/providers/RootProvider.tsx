@@ -20,11 +20,9 @@ export function RootProvider({
 }: RootLayoutProps) {
 
 
-
-
   return (
     <Aside.Provider>
-      <ProductsQuickView cart={cart} />
+      <ProductsQuickView />
       <CartAside cart={cart} enhanceCollection={enhanceCollection} />
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
       {/*       <SearchAside />
