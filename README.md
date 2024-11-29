@@ -26,7 +26,40 @@ To get started with the project, follow these steps:
 
 1. Clone the repository from GitHub:
 
+    ```bash
+    git clone https://github.com/samirjabib/hydrogen-artigrey-interview.git
+    ```
 
+2. Navigate to the project directory:
+
+    ```bash
+    cd hydrogen-artigrey-interview
+    ```
+
+3. Install the required dependencies:
+
+    ```bash
+    npm install
+    ```
+
+## 🔑 Set Up Environment Variables
+
+Before running the project, you'll need to set up the environment variables. These are the required variables for the project.
+
+Please refer to the following [Google Docs link](https://docs.google.com/document/d/e/2PACX-1vRLUG-dqx5szSMVceUS-lVDWe_o6p7gTy9SvGvIheoyMa6MawA3vFkdueXY0xsYuBEfPcol6kEIjj7P/pub) to get the environment variables configuration.
+
+
+**Note**: For the purpose of this test, the variables are public in the document. In a real-world scenario, make sure to keep sensitive variables **private** and **secure**.
+
+## 🚀 Run the Project
+
+Once you've set up the environment variables, you can run the project locally using the following command:
+
+```bash
+npm run dev
+
+**Store Password:** `naiwoo`
+    
 ## 🚀 Deployment
 
 The project is configured for deployment to Netlify. Once set up, the site will be live and accessible at a custom domain.
