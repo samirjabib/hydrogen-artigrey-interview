@@ -2,7 +2,9 @@ import {
   useNonce,
   getShopAnalytics,
   Analytics,
-
+  getSeoMeta,
+  type SeoConfig,
+  getSelectedProductOptions,
 } from '@shopify/hydrogen';
 import { defer, type LoaderFunctionArgs } from '@netlify/remix-runtime';
 import {

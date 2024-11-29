@@ -17,28 +17,26 @@ export function CartToggle({ cart }: CartToggleProps) {
 
 
   return (
-    <Suspense fallback={<div>error de hydratacion</div>}>
-      <Await resolve={cart}>
-        {(resolvedCart) => (
-          <button
-            aria-label="Open cart"
-            className="relative cursor-pointer transition-all hover:bg-gray-200 rounded-lg"
-            onClick={(e) => {
-              e.preventDefault();
-              open();
-              publish('cart_viewed', {
-                cart: cartAnalytics,
-                prevCart,
-                shop,
-                url: window.location.href || '',
-              });
-            }}
-          >
-            <CartBadge count={resolvedCart?.totalQuantity ?? cartUpdated?.totalQuantity ?? 0} />
-            <Icon name="bag" size={30} />
-          </button>
-        )}
-      </Await>
-    </Suspense>
+    <Await resolve={cart}>
+      {(resolvedCart) => (
+        <button
+          aria-label="Open cart"
+          className="relative cursor-pointer transition-all hover:bg-gray-200 rounded-lg"
+          onClick={(e) => {
+            e.preventDefault();
+            open();
+            publish('cart_viewed', {
+              cart: cartAnalytics,
+              prevCart,
+              shop,
+              url: window.location.href || '',
+            });
+          }}
+        >
+          <CartBadge count={resolvedCart?.totalQuantity ?? cartUpdated?.totalQuantity ?? 0} />
+          <Icon name="bag" size={30} />
+        </button>
+      )}
+    </Await>
   );
 }
