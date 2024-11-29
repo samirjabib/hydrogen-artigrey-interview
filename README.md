@@ -44,20 +44,11 @@ To get started with the project, follow these steps:
 
 ## 🔑 Set Up Environment Variables
 
-Before running the project, you need to set up the environment variables. These are the required environment variables:
+Before running the project, you'll need to set up the environment variables. These are the required variables for the project.
 
-1. Create a `.env` file in the root of the project and add the following variables:
+Please refer to the following [Google Docs link](https://docs.google.com/document/d/e/2PACX-1vRLUG-dqx5szSMVceUS-lVDWe_o6p7gTy9SvGvIheoyMa6MawA3vFkdueXY0xsYuBEfPcol6kEIjj7P/pub) to get the environment variables configuration.
 
-    **Note**: For the purpose of this test, the variables are set to be public in the env.example file. In a real-world scenario, make sure to keep sensitive variables **private** and **secure**.
-
-    ```env
-    PUBLIC_CUSTOMER_ACCOUNT_API_URL=
-    SESSION_SECRET=
-    PUBLIC_STOREFRONT_API_TOKEN=
-    PRIVATE_STOREFRONT_API_TOKEN=
-    PUBLIC_STOREFRONT_ID=
-    PUBLIC_STORE_DOMAIN=
-    ```
+**Note**: For the purpose of this test, the variables are public in the document. In a real-world scenario, make sure to keep sensitive variables **private** and **secure**.
 
 ## 🚀 Run the Project
 
