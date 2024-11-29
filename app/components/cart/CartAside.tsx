@@ -28,7 +28,7 @@ export function CartAside({ cart, enhanceCollection }: { cart: RootLayoutProps['
               </SheetTitle>
             </SheetHeader>
 
-            <CartMain cart={cart} layout="aside" enhanceCollection={enhanceCollection} />;
+            <CartMain cart={resolvedCart} layout="aside" enhanceCollection={enhanceCollection} />;
           </SheetContent>
         )}
       </Await>
