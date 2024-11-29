@@ -1,4 +1,4 @@
-# Project: Home, Quick View, Cart, and Subscriptions Design
+# Project: Home, Quick View, Cart
 
 This project is an **online store** built using **Shopify Hydrogen** and **Remix**, optimized for **SSR (Server-Side Rendering)** and **optimistic UI updates**. Dynamic components like **Quick View**, **Cart**, and **Bundles** are loaded efficiently using **Remix fetchers**. All components are connected to **Shopify** and loaded from the **CDN**, ensuring superior performance. Additionally, the system includes **product subscriptions** and **quantity-based discounts**, providing a seamless shopping experience.
 
