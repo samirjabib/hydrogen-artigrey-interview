@@ -26,37 +26,9 @@ To get started with the project, follow these steps:
 
 1. Clone the repository from GitHub:
 
-    ```bash
-    git clone https://github.com/samirjabib/hydrogen-artigrey-interview.git
-    ```
 
-2. Navigate to the project directory:
+## 🚀 Deployment
 
-    ```bash
-    cd hydrogen-artigrey-interview
-    ```
+The project is configured for deployment to Netlify. Once set up, the site will be live and accessible at a custom domain.
 
-3. Install the required dependencies:
-
-    ```bash
-    npm install
-    ```
-
-## 🔑 Set Up Environment Variables
-
-Before running the project, you'll need to set up the environment variables. These are the required variables for the project.
-
-Please refer to the following [Google Docs link](https://docs.google.com/document/d/e/2PACX-1vRLUG-dqx5szSMVceUS-lVDWe_o6p7gTy9SvGvIheoyMa6MawA3vFkdueXY0xsYuBEfPcol6kEIjj7P/pub) to get the environment variables configuration.
-
-
-**Note**: For the purpose of this test, the variables are public in the document. In a real-world scenario, make sure to keep sensitive variables **private** and **secure**.
-
-## 🚀 Run the Project
-
-Once you've set up the environment variables, you can run the project locally using the following command:
-
-```bash
-npm run dev
-
-**Store Password:** `naiwoo`
-
+**Note:** The deployment works well, but there is an issue with the hard reload cache. The cache is revalidated every certain amount of time by the browser, which can cause validation errors between routes. This is a known issue between Hydrogen and Netlify, as the hard reload does not seem to revalidate the cache, but the `shouldRevalidate` function provided by Remix does. This issue is specific to the integration of Hydrogen and Netlify, and is not related to the project code.
