@@ -80,7 +80,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
   );
 }
 
-6
+
 
 
 export default function Cart() {
@@ -92,7 +92,7 @@ export default function Cart() {
       <h1>Cart</h1>
       <Suspense fallback={<p>Loading cart ...</p>}>
         <Await
-          resolve={rootData.cart}
+          resolve={rootData.resolvedCart}
           errorElement={<div>An error occurred</div>}
         >
           {(cart) => {
