@@ -1,10 +1,8 @@
-import { Await, useAsyncValue } from '@remix-run/react';
+import { Await } from '@remix-run/react';
 import { CartBadge } from './CartBadge';
-import { Suspense } from 'react';
 import type { CartToggleProps } from '../types';
-import { ShoppingBag } from 'lucide-react';
-import type { CartApiQueryFragment } from 'storefrontapi.generated';
-import { useAnalytics, useOptimisticCart } from '@shopify/hydrogen';
+
+import { useAnalytics } from '@shopify/hydrogen';
 import { Icon } from '../../ui/Icon';
 import { useCartStore } from './cartStore';
 
@@ -14,28 +12,26 @@ export function CartToggle({ cart }: CartToggleProps) {
 
 
   return (
-    <Suspense fallback={<div>error de hydratacion</div>}>
-      <Await resolve={cart}>
-        {(resolvedCart) => (
-          <button
-            aria-label="Open cart"
-            className="relative cursor-pointer transition-all hover:bg-gray-200 rounded-lg"
-            onClick={(e) => {
-              e.preventDefault();
-              open();
-              publish('cart_viewed', {
-                cart: cartAnalytics,
-                prevCart,
-                shop,
-                url: window.location.href || '',
-              });
-            }}
-          >
-            <CartBadge count={resolvedCart?.totalQuantity ?? 0} />
-            <Icon name="bag" size={30} />
-          </button>
-        )}
-      </Await>
-    </Suspense>
+    <Await resolve={cart}>
+      {(resolvedCart) => (
+        <button
+          aria-label="Open cart"
+          className="relative cursor-pointer transition-all hover:bg-gray-200 rounded-lg"
+          onClick={(e) => {
+            e.preventDefault();
+            open();
+            publish('cart_viewed', {
+              cart: cartAnalytics,
+              prevCart,
+              shop,
+              url: window.location.href || '',
+            });
+          }}
+        >
+          <CartBadge count={resolvedCart?.totalQuantity ?? 0} />
+          <Icon name="bag" size={30} />
+        </button>
+      )}
+    </Await>
   );
 }

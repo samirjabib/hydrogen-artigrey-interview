@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import { Sheet, SheetContent, SheetTitle } from '~/components/ui/sheet';
 import { RootLayoutProps } from '~/types';
 import { useQuickViewStore } from './quickViewStore';
@@ -33,33 +32,31 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
   return (
     <Sheet open={isOpen} onOpenChange={handleClose}>
       <SheetContent className="overflow-y-scroll">
-        <Suspense fallback={null}>
-          <Await
-            resolve={cart}
-            errorElement={<div>Error loading cart</div>}
-          >
-            {(resolvedCart) => {
-              if (!isOpen) return null;
+        <Await
+          resolve={cart}
+          errorElement={<div>Error loading cart</div>}
+        >
+          {(resolvedCart) => {
+            if (!isOpen) return null;
 
-              if (shouldShowSkeleton) {
-                return <QuickViewSkeleton key={`skeleton-${productHandle}`} />;
-              }
+            if (shouldShowSkeleton) {
+              return <QuickViewSkeleton key={`skeleton-${productHandle}`} />;
+            }
 
-              if (!product) return null;
+            if (!product) return null;
 
-              return (
-                <>
-                  <SheetTitle className='sr-only'>{product.title}</SheetTitle>
-                  <QuickViewContent
-                    key={`content-${productHandle}`}
-                    product={product}
-                    cart={resolvedCart}
-                  />
-                </>
-              );
-            }}
-          </Await>
-        </Suspense>
+            return (
+              <>
+                <SheetTitle className='sr-only'>{product.title}</SheetTitle>
+                <QuickViewContent
+                  key={`content-${productHandle}`}
+                  product={product}
+                  cart={resolvedCart}
+                />
+              </>
+            );
+          }}
+        </Await>
       </SheetContent>
     </Sheet>
   );
