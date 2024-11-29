@@ -48,9 +48,9 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return {
-    "Cache-Control": "no-store, no-cache, must-revalidate", // Evitar caché
-    "Vary": "Accept", // Para asegurarse de que el contenido cambie según el tipo de solicitud
-    ...loaderHeaders, // Incluir encabezados de loaders si los hubiera
+    "Cache-Control": "no-store, no-cache, must-revalidate",
+    "Vary": "Accept",
+    ...loaderHeaders,
   };
 };
 
