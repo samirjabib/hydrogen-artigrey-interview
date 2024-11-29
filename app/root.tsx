@@ -33,17 +33,11 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
   formMethod,
   currentUrl,
   nextUrl,
-  defaultShouldRevalidate,
 }) => {
   const revalidateOnMutation = formMethod && formMethod !== 'GET';
   const revalidateOnNavigation = currentUrl.toString() !== nextUrl.toString();
 
-  const result = (
-    revalidateOnMutation ||
-    revalidateOnNavigation
-  );
-
-  return result || defaultShouldRevalidate;
+  return revalidateOnMutation || revalidateOnNavigation;
 }
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
