@@ -66,3 +66,5 @@ npm run dev
 
 The project is configured for deployment to Netlify. Once set up, the site will be live and accessible at a custom domain.
 
+Important Note: Netlify’s caching can sometimes have issues when using defer with Remix and Hydrogen. The recommended deployment option for optimal compatibility is Oxygen. If you encounter caching problems on Netlify, try clearing your browser's cache and test the app again. 😊
+
