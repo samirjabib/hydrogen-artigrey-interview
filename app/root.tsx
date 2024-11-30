@@ -43,6 +43,13 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
     return true;
   }
 
+  if (currentUrl.pathname.includes('checkout') || nextUrl.pathname.includes('checkout')) {
+    return true;
+  }
+
+  if (actionResult?.cart) {
+    return true;
+  }
 
 
 

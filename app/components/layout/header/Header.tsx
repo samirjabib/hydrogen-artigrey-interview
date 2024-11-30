@@ -20,7 +20,6 @@ export function Header({
   const { matches: isMobile } = useMediaQuery('(max-width: 1100px)');
   const { isHeaderVisible } = useHeaderVisibility(0.2);
   const [isClient, setIsClient] = useState(false);
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const { revalidate } = useRevalidator();
 
   useEffect(() => {
@@ -28,11 +27,9 @@ export function Header({
   }, []);
 
   useEffect(() => {
-    if (isInitialLoad) {
-      revalidate();
-      setIsInitialLoad(false);
-    }
-  }, [isInitialLoad]);
+    revalidate();
+  }, []);
+
 
   return (
     <header
