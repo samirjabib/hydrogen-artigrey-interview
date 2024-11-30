@@ -9,6 +9,7 @@ import { Toaster } from '~/components/ui/toaster';
 import { CartAside } from '~/components/cart/CartAside';
 import { useRevalidator } from '@remix-run/react';
 import { useEffect } from 'react';
+import setupViewportHeight from '~/utils/setup-viewport-height';
 
 export function RootProvider({
   cart,
@@ -21,16 +22,15 @@ export function RootProvider({
 }: RootLayoutProps) {
   const revalidator = useRevalidator();
 
-  useEffect(() => {
-    const handleFocus = () => {
-      if (revalidator.state === 'idle') {
-        revalidator.revalidate();
-      }
-    };
 
-    window.addEventListener('focus', handleFocus);
-    return () => window.removeEventListener('focus', handleFocus);
+  useEffect(() => {
+    // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+    setupViewportHeight()
   }, [revalidator]);
+
+  useEffect(() => {
+    revalidator.revalidate();
+  }, []);
 
 
   return (
