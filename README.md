@@ -66,4 +66,3 @@ npm run dev
 
 The project is configured for deployment to Netlify. Once set up, the site will be live and accessible at a custom domain.
 
-**Note:** The deployment works well, but there is an issue with the hard reload cache. When a hard reload is made, the cache is not revalidated, but rather the previous cache is used. This is a known issue between Hydrogen and Netlify, and is not related to the project code. As a result, the `shouldRevalidate` function provided by Remix does not work as expected in this case. However, the normal revalidation functionality works as expected in all route flows and checkout, etc. I have identified this issue and am close to resolving it.
