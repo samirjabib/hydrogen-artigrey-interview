@@ -28,29 +28,12 @@ export const calculateDiscount = async (
         // Sumar la nueva cantidad para obtener el total real
         const totalQuantity = currentCartTotal + quantity;
 
-        console.log('Cart quantities:', {
-            currentCartTotal,
-            newQuantity: quantity,
-            totalQuantity
-        });
 
         const discountPercentage = getDiscountPercentage(totalQuantity);
 
         if (discountPercentage > 0) {
             const discountedAmount = originalPrice * quantity * (discountPercentage / 100);
             const finalPrice = originalPrice - (originalPrice * (discountPercentage / 100));
-
-            console.log('Discount calculation:', {
-                cartId,
-                lineId,
-                currentCartTotal,
-                newQuantity: quantity,
-                totalQuantity,
-                discountPercentage,
-                discountedAmount,
-                originalTotal: originalPrice * quantity,
-                finalPrice
-            });
 
             return {
                 discountPercentage,

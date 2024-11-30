@@ -13,7 +13,11 @@ import { RecommendProducts } from './recommend-products/RecommendProducts';
 
 export type CartLayout = 'page' | 'aside';
 
-
+export type CartMainProps = {
+  cart: CartApiQueryFragment | null;
+  layout: CartLayout;
+  enhanceCollection: RootLayoutProps['enhanceCollection']
+};
 
 export function CartMain({ layout, cart: originalCart, enhanceCollection }: CartMainProps) {
   const cart = useOptimisticCart(originalCart);

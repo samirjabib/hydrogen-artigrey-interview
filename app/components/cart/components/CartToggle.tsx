@@ -36,7 +36,6 @@ export function CartToggle({ cart }: CartToggleProps) {
     <Suspense fallback={cartButton()}>
       <Await resolve={cart}>
         {(resolvedCart) => {
-          console.log(resolvedCart, 'resolvedCart');
           return (
             <button
               aria-label="Open cart"

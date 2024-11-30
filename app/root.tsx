@@ -38,7 +38,6 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
   defaultShouldRevalidate,
   actionResult,
 }) => {
-  // Siempre revalidar después de mutaciones (POST, PUT, PATCH, DELETE)
   if (formMethod && formMethod !== 'GET') {
     return true;
   }
@@ -48,17 +47,14 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
     return true;
   }
 
-  // Revalidar cuando volvemos del checkout
   if (currentUrl.pathname.includes('checkout') || nextUrl.pathname.includes('checkout')) {
     return true;
   }
 
-  // Revalidar cuando hay cambios en el carrito
   if (actionResult?.cart) {
     return true;
   }
 
-  // Por defecto, usar la lógica de revalidación de Remix
   return defaultShouldRevalidate;
 };
 

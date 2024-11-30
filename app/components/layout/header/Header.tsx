@@ -4,6 +4,7 @@ import { MenuMobile } from './mobile/MenuMobile';
 import { useMediaQuery } from '~/hooks/useMediaQuery';
 import { useHeaderVisibility } from './hooks';
 import { useEffect, useState } from 'react';
+import { useRevalidator } from '@remix-run/react';
 
 export function Header({
   header,
@@ -19,9 +20,15 @@ export function Header({
   const { matches: isMobile } = useMediaQuery('(max-width: 1100px)');
   const { isHeaderVisible } = useHeaderVisibility(0.2);
   const [isClient, setIsClient] = useState(false);
+  const { revalidate } = useRevalidator();
+
 
   useEffect(() => {
     setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    revalidate();
   }, []);
 
   return (

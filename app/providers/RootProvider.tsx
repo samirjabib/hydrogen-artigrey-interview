@@ -17,6 +17,8 @@ export function RootProvider({
   publicStoreDomain,
   enhanceCollection,
 }: RootLayoutProps) {
+
+
   return (
     <Aside.Provider>
       <ProductsQuickView cart={cart} />
