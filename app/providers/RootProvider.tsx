@@ -26,7 +26,7 @@ export function RootProvider({
   useEffect(() => {
     // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
     setupViewportHeight()
-  }, [revalidator]);
+  }, []);
 
   useEffect(() => {
     revalidator.revalidate();
