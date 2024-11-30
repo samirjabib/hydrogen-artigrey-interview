@@ -13,7 +13,7 @@ export const BackgroundVideo: React.FC<BackgroundVideoProps> = ({
 
   return (
     <div
-      className={cn('absolute top-0 left-0 w-f', className)}
+      className={cn('absolute top-0 left-0 w-full', className)}
       aria-hidden="true"
       role="img"
     >
@@ -26,6 +26,8 @@ export const BackgroundVideo: React.FC<BackgroundVideoProps> = ({
         muted={muted}
         controls={false}
         preload="auto"
+        playsInline
+        webkit-playsinline="true"
         crossOrigin="anonymous"
         aria-label="Background video"
       >
