@@ -1,4 +1,4 @@
-import { defer, type LoaderFunctionArgs } from '@netlify/remix-runtime';
+import { defer, MetaArgs, type LoaderFunctionArgs } from '@netlify/remix-runtime';
 import { useLoaderData, type MetaFunction } from '@remix-run/react';
 
 import type {
@@ -30,34 +30,9 @@ import { mockImages } from '~/components/home/instagram-feed/constants';
 import type { BlogsQuery } from '~/queries/blogs';
 import { getCriticalData, getDeferredData } from '~/services/home';
 
-export const meta: MetaFunction = () => {
-  return [
-    { title: 'Uncomfort | Premium Supplements & Wellness Products' },
-    {
-      name: 'description',
-      content:
-        'Discover premium supplements and wellness products at Uncomfort. Clean ingredients, scientifically backed formulas for optimal health and performance.',
-    },
-    {
-      name: 'keywords',
-      content:
-        'supplements, wellness, clean supplements, health products, performance nutrition',
-    },
-    {
-      property: 'og:title',
-      content: 'Uncomfort | Premium Supplements & Wellness Products',
-    },
-    {
-      property: 'og:description',
-      content:
-        'Premium supplements and wellness products with clean ingredients',
-    },
-    { property: 'og:type', content: 'website' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-  ];
-};
 
 import { type HeadersFunction } from "@netlify/remix-runtime";
+import { getSeoMeta } from '@shopify/hydrogen';
 
 export const headers: HeadersFunction = () => ({
   "Cache-Control": "public, max-age=0, must-revalidate",
@@ -77,11 +52,19 @@ type LoaderData = {
 };
 
 export async function loader(args: LoaderFunctionArgs) {
+  // no use defer option for now, because it doesn't work well with netlify
+  // and it's not necessary, since the data is not too big and it's already
+  // pretty fast without blocking
   const deferredData = getDeferredData(args);
+
   const criticalData = await getCriticalData(args);
 
   return defer({ ...deferredData, ...criticalData });
 }
+
+export const meta = ({ matches }: MetaArgs<typeof loader>) => {
+  return getSeoMeta(...matches.map((match) => (match.data as any).seo));
+};
 
 export default function Homepage() {
   const data = useLoaderData<typeof loader>() as LoaderData;

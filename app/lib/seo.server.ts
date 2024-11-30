@@ -73,28 +73,9 @@ export function home({ url }: { url: Request['url'] }): SeoConfig {
     };
 }
 
-export function getMetaTags(seo: SeoConfig) {
-    return [
-        { title: seo.title },
-        { name: 'description', content: seo.description },
-        { name: 'keywords', content: 'supplements, wellness, clean supplements, health products, performance nutrition' },
-        { property: 'og:title', content: seo.title },
-        { property: 'og:description', content: seo.description },
-        { property: 'og:type', content: 'website' },
-        { property: 'og:url', content: seo.url },
-        { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:site', content: seo.handle },
-        { name: 'twitter:title', content: seo.title },
-        { name: 'twitter:description', content: seo.description },
-        ...(seo.robots?.noIndex ? [{ name: 'robots', content: 'noindex' }] : []),
-        ...(seo.robots?.noFollow ? [{ name: 'robots', content: 'nofollow' }] : []),
-        {
-            property: 'og:image',
-            content: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/og-image.jpg',
-        },
-        {
-            name: 'twitter:image',
-            content: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/twitter-image.jpg',
-        },
-    ];
-}
+
+
+export const seoPayload = {
+    home,
+    root,
+};

@@ -11,8 +11,6 @@ import { SubscriptionToggle } from './SubscriptionToggle';
 
 
 export function CartLineItem({ line }: { line: CartLineProps }) {
-
-
   const { merchandise } = line;
   const { product, title, image, selectedOptions } = merchandise;
   const typedProduct = product as ExtendedProduct;

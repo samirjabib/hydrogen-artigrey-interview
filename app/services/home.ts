@@ -1,4 +1,5 @@
 import type { LoaderFunctionArgs } from '@netlify/remix-runtime';
+import { SeoConfig } from '@shopify/hydrogen';
 import type {
   BrandsCardsQuery,
   GoalsCardsQuery,
@@ -7,6 +8,7 @@ import type {
   CollectionByHandleQuery,
   VideosSwiperQuery,
 } from 'storefrontapi.generated';
+import { seoPayload } from '~/lib/seo.server';
 import type { BlogsQuery } from '~/queries/blogs';
 import { GET_BLOGS_QUERY } from '~/queries/blogs';
 import { COLLECTION_BY_HANDLE_QUERY } from '~/queries/fragments/collection';
@@ -17,7 +19,6 @@ import {
   CLEAN_SUPPLEMENTS_QUERY,
   VIDEOS_SWIPER_QUERY,
 } from '~/queries/home';
-import { defer } from '@remix-run/node';
 
 export type CriticalData = {
   featuredCollection: FeaturedCollectionQuery['collections']['nodes'][0];
@@ -28,6 +29,7 @@ export type CriticalData = {
   trendingProducts: CollectionByHandleQuery['collectionByHandle'];
   bundleCollection: CollectionByHandleQuery['collectionByHandle'];
   videoSwiper: VideosSwiperQuery['metaobjects'];
+  seo: SeoConfig;
 };
 
 type DeferredData = {} | null;
@@ -39,6 +41,7 @@ type DeferredData = {} | null;
  */
 export async function getCriticalData({
   context,
+  request,
 }: LoaderFunctionArgs): Promise<CriticalData> {
   const [
     { collections },
@@ -88,6 +91,8 @@ export async function getCriticalData({
     trendingProducts: trendingProductsData.collectionByHandle,
     bundleCollection: bundleCollectionData.collectionByHandle,
     videoSwiper: videoSwiperData.metaobjects,
+    seo: seoPayload.home({ url: request.url }),
+
   };
 }
 
@@ -98,10 +103,22 @@ export async function getCriticalData({
   context,
   request,
 }: LoaderFunctionArgs): Promise<DeferredData> {
-  const url = new URL(request.url);
 
-  const productHandle = url.searchParams.get('product');
-  if (!productHandle) return null;
+  const trendingProducts = context.storefront.query<CollectionByHandleQuery>(
+    COLLECTION_BY_HANDLE_QUERY,
+    {
+      variables: {
+        handle: 'trending-products',
+      },
+      //NOTE: this is the hydrogen way to handle the requests
+      cache: context.storefront.CacheLong(),
+    },
+  );
 
-  return defer({});
+
+
+
+  return {
+    trendingProducts,
+  }
 }
