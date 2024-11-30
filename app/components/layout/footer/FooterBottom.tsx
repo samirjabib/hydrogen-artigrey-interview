@@ -1,4 +1,4 @@
-export const FooterBottom = ({shopName}: {shopName: string}) => {
+export const FooterBottom = ({ shopName }: { shopName: string }) => {
   return (
     <div
       className="border-t border-gray-200 flex  flex-col md:flex-row items-center justify-between py-4"

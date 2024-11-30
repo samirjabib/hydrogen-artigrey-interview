@@ -28,17 +28,39 @@ import { Button } from './components/ui/Button';
 
 export type RootLoader = typeof loader;
 
-
+/**
+ * Revalida la página después de una acción
+ */
 export const shouldRevalidate: ShouldRevalidateFunction = ({
   formMethod,
   currentUrl,
   nextUrl,
+  defaultShouldRevalidate,
+  actionResult,
 }) => {
-  const revalidateOnMutation = formMethod && formMethod !== 'GET';
-  const revalidateOnNavigation = currentUrl.toString() !== nextUrl.toString();
+  // Siempre revalidar después de mutaciones (POST, PUT, PATCH, DELETE)
+  if (formMethod && formMethod !== 'GET') {
+    return true;
+  }
 
-  return revalidateOnMutation || revalidateOnNavigation;
-}
+  // Revalidar cuando cambiamos de URL
+  if (currentUrl.toString() !== nextUrl.toString()) {
+    return true;
+  }
+
+  // Revalidar cuando volvemos del checkout
+  if (currentUrl.pathname.includes('checkout') || nextUrl.pathname.includes('checkout')) {
+    return true;
+  }
+
+  // Revalidar cuando hay cambios en el carrito
+  if (actionResult?.cart) {
+    return true;
+  }
+
+  // Por defecto, usar la lógica de revalidación de Remix
+  return defaultShouldRevalidate;
+};
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
   return {
@@ -48,7 +70,9 @@ export const headers: HeadersFunction = ({ loaderHeaders }) => {
   };
 };
 
-
+/**
+ * Define las relaciones entre los recursos
+ */
 export function links() {
   return [
     { rel: 'stylesheet', href: '/styles/tailwind.css' },
@@ -70,16 +94,12 @@ export async function loader(args: LoaderFunctionArgs) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  const { storefront, env, cart } = args.context;
-
-  const resolvedCart = await cart.get();
-
+  const { storefront, env } = args.context;
 
   return defer({
     ...deferredData,
     ...criticalData,
 
-    resolvedCart,
     publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
     shop: getShopAnalytics({
       storefront,
@@ -120,7 +140,7 @@ async function loadCriticalData({ context }: LoaderFunctionArgs) {
  * Make sure to not throw any errors here, as it will cause the page to 500.
  */
 function loadDeferredData({ context, request }: LoaderFunctionArgs) {
-  const { storefront, customerAccount } = context;
+  const { storefront, customerAccount, cart } = context;
 
   const footer = storefront
     .query(FOOTER_QUERY, {
@@ -152,6 +172,7 @@ function loadDeferredData({ context, request }: LoaderFunctionArgs) {
   return {
     isLoggedIn: customerAccount.isLoggedIn(),
     footer,
+    cart: cart.get(),
     enhanceCollection,
   };
 }
@@ -170,11 +191,11 @@ export function Layout({ children }: { children?: React.ReactNode }) {
       <body>
         {data ? (
           <Analytics.Provider
-            cart={data.resolvedCart}
+            cart={data.cart}
             shop={data.shop}
             consent={data.consent}
           >
-            <RootProvider {...data} cart={data.resolvedCart}>{children}</RootProvider>
+            <RootProvider {...data}>{children}</RootProvider>
           </Analytics.Provider>
         ) : (
           children

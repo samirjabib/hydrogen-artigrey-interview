@@ -85,6 +85,7 @@ export async function loader(args: LoaderFunctionArgs) {
 
 export default function Homepage() {
   const data = useLoaderData<typeof loader>() as LoaderData;
+
   return (
     <div className="home">
       <Banner />

@@ -20,17 +20,20 @@ export function CartAside({ cart, enhanceCollection }: { cart: RootLayoutProps['
         resolve={cart}
         errorElement={<div>Error loading cart</div>}
       >
-        {(resolvedCart) => (
-          <SheetContent side="right" className="w-full sm:max-w-[580px] overflow-y-scroll pt-[26px] px-0" classNameCloseButton='right-6 top-10'>
-            <SheetHeader>
-              <SheetTitle className='sr-only'>
-                Cart
-              </SheetTitle>
-            </SheetHeader>
+        {(resolvedCart) => {
+          return (
+            <SheetContent side="right" className="w-full sm:max-w-[580px] overflow-y-scroll pt-[26px] px-0" classNameCloseButton='right-6 top-10'>
+              <SheetHeader>
+                <SheetTitle className='sr-only'>
+                  Cart
+                </SheetTitle>
+              </SheetHeader>
 
-            <CartMain cart={resolvedCart} layout="aside" enhanceCollection={enhanceCollection} />;
-          </SheetContent>
-        )}
+              <CartMain cart={resolvedCart} layout="aside" enhanceCollection={enhanceCollection} />;
+            </SheetContent>
+          )
+        }
+        }
       </Await>
 
     </Sheet>

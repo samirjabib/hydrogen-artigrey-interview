@@ -1,5 +1,6 @@
-import {Image} from '@shopify/hydrogen';
-import {cn} from '~/utils/cn';
+import { Image } from '@shopify/hydrogen';
+import React from 'react';
+import { cn } from '~/utils/cn';
 
 export const icons = [
   {
@@ -47,11 +48,38 @@ export const icons = [
     path: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/todo.png?v=1731742189',
     alt: 'Todo Icon',
   },
+  {
+    name: 'heart',
+    path: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/heart.png?v=1732926951',
+    alt: 'Heart Icon',
+  },
+  {
+    name: 'instagram',
+    path: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/instagram.png?v=1732926951',
+    alt: 'Instagram Icon',
+  },
+  {
+    name: 'facebook',
+    path: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/facebook.png?v=1732926951',
+    alt: 'Facebook Icon',
+  },
+  {
+    name: 'twitter',
+    path: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/twitter.png?v=1732926951',
+    alt: 'Twitter Icon',
+  },
+  {
+    name: 'youtube',
+    path: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/youtube.png?v=1732926951',
+    alt: 'Youtube Icon',
+  },
+
+
 ] as const;
 
 export type IconName = (typeof icons)[number]['name'];
 
-export const Icon = ({
+export const Icon = React.memo(({
   name,
   size = 24,
   className,
@@ -60,7 +88,7 @@ export const Icon = ({
   size?: number;
   className?: string;
 }) => {
-  const icon = icons.find((icon) => icon.name === name);
+  const icon = React.useMemo(() => icons.find((icon) => icon.name === name), [name]);
 
   if (!icon) {
     return null;
@@ -75,4 +103,4 @@ export const Icon = ({
       className={cn('object-contain', className)}
     />
   );
-};
+});

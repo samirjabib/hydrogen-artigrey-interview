@@ -8,7 +8,7 @@ type Viewport = 'desktop' | 'mobile';
 
 export type HeaderProps = {
   header: HeaderQuery;
-  cart: CartReturn | null;
+  cart: RootLayoutProps['cart'];
   isLoggedIn: Promise<boolean>;
   publicStoreDomain: string;
 };

@@ -10,7 +10,7 @@ import type {
 import { CartReturn } from '@shopify/hydrogen';
 
 export type RootLayoutProps = {
-  cart: CartReturn | null
+  cart: Promise<CartApiQueryFragment | null>;
   footer: Promise<FooterQuery | null>;
   header: HeaderQuery;
   isLoggedIn: Promise<boolean>;

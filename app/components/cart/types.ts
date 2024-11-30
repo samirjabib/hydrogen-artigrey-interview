@@ -4,6 +4,7 @@ import { CartApiQueryFragment } from 'storefrontapi.generated';
 import type { HeaderProps } from '~/components/layout/header/types';
 import { CartLayout } from './components/CartMain';
 import { OptimisticCart } from '@shopify/hydrogen';
+import { RootLayoutProps } from '~/types';
 
 export type CartToggleProps = Pick<HeaderProps, 'cart'>;
 
@@ -46,4 +47,10 @@ export type CartLineProductInfoProps = {
 export type CartSummaryProps = {
     cart: OptimisticCart<CartApiQueryFragment | null>;
     layout: CartLayout;
+};
+
+export type CartMainProps = {
+    cart: RootLayoutProps['cart'];
+    layout: CartLayout;
+    enhanceCollection: RootLayoutProps['enhanceCollection']
 };
