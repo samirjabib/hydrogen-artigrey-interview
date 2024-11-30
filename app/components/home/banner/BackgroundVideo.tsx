@@ -1,6 +1,6 @@
-import React, {useRef} from 'react';
-import {cn} from '~/utils/cn';
-import type {BackgroundVideoProps} from './types';
+import React, { useRef } from 'react';
+import { cn } from '~/utils/cn';
+import type { BackgroundVideoProps } from './types';
 
 export const BackgroundVideo: React.FC<BackgroundVideoProps> = ({
   videoUrl,
@@ -24,6 +24,7 @@ export const BackgroundVideo: React.FC<BackgroundVideoProps> = ({
         autoPlay={autoPlay}
         loop={loop}
         muted={muted}
+        controls={false}
         preload="auto"
         crossOrigin="anonymous"
         aria-label="Background video"

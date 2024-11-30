@@ -1,5 +1,5 @@
-import {Button} from '~/components/ui/Button';
-import {BackgroundVideo} from './BackgroundVideo';
+import { Button } from '~/components/ui/Button';
+import { BackgroundVideo } from './BackgroundVideo';
 
 export const Banner: React.FC = () => {
   return (
