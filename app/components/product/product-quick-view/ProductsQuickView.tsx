@@ -5,6 +5,7 @@ import { useProductFetcher } from './hooks/useProductFetcher';
 import { QuickViewContent } from './components/QuickViewContent';
 import { QuickViewSkeleton } from './components/QuickViewSkeleton';
 import { Await } from '@remix-run/react';
+import { Suspense } from 'react';
 
 export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
 
@@ -32,31 +33,34 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
   return (
     <Sheet open={isOpen} onOpenChange={handleClose}>
       <SheetContent className="w-full sm:max-w-[580px] overflow-y-scroll">
-        <Await
-          resolve={cart}
-          errorElement={<div>Error loading cart</div>}
-        >
-          {(resolvedCart) => {
-            if (!isOpen) return null;
+        <Suspense fallback={<QuickViewSkeleton key={`skeleton-${productHandle}`} />}>
+          <Await
+            resolve={cart}
+            errorElement={<div>Error loading cart</div>}
+          >
+            {(resolvedCart) => {
+              if (!isOpen) return null;
 
-            if (shouldShowSkeleton) {
-              return <QuickViewSkeleton key={`skeleton-${productHandle}`} />;
-            }
+              if (shouldShowSkeleton) {
+                return <QuickViewSkeleton key={`skeleton-${productHandle}`} />;
+              }
 
-            if (!product) return null;
+              if (!product) return null;
 
-            return (
-              <>
-                <SheetTitle className='sr-only'>{product.title}</SheetTitle>
-                <QuickViewContent
-                  key={`content-${productHandle}`}
-                  product={product}
-                  cart={resolvedCart}
-                />
-              </>
-            );
-          }}
-        </Await>
+              return (
+                <>
+                  <SheetTitle className='sr-only'>{product.title}</SheetTitle>
+                  <QuickViewContent
+                    key={`content-${productHandle}`}
+                    product={product}
+                    cart={resolvedCart}
+                  />
+                </>
+              );
+            }}
+          </Await>
+        </Suspense>
+
       </SheetContent>
     </Sheet>
   );

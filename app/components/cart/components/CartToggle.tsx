@@ -1,15 +1,21 @@
-import { Await } from '@remix-run/react';
+import { Await, useRevalidator } from '@remix-run/react';
 import { CartBadge } from './CartBadge';
 import type { CartToggleProps } from '../types';
 
 import { useAnalytics } from '@shopify/hydrogen';
 import { Icon } from '../../ui/Icon';
 import { useCartStore } from './cartStore';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 
 export function CartToggle({ cart }: CartToggleProps) {
   const open = useCartStore((set) => set.open);
   const { publish, shop, cart: cartAnalytics, prevCart } = useAnalytics();
+  const { revalidate } = useRevalidator();
+
+
+  useEffect(() => {
+    revalidate();
+  }, []);
 
   const cartButton = () => (
     <button

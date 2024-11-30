@@ -11,7 +11,7 @@ export const SearchToggle = () => {
       aria-label="Open search"
       className="cursor-pointer"
     >
-      <Icon name="search" size={30} />
+      <Icon name="search" size={24} />
     </button>
   );
 };

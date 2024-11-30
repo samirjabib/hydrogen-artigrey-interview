@@ -1,9 +1,9 @@
-import {NavLink} from '@remix-run/react';
-import type {MenuDesktopProps} from '../types';
+import { NavLink } from '@remix-run/react';
+import type { MenuDesktopProps } from '../types';
 
-import {SearchToggle} from '../../../search/SearchToggle';
-import {HeaderActions} from '../shared/HeaderActions';
-import {MenuItems} from '../shared/MenuItems';
+import { SearchToggle } from '../../../search/SearchToggle';
+import { HeaderActions } from '../shared/HeaderActions';
+import { MenuItems } from '../shared/MenuItems';
 
 export const MenuDesktop = ({
   menu,
@@ -24,7 +24,7 @@ export const MenuDesktop = ({
           {shopName}
         </strong>
       </NavLink>
-      <div className="flex flex-row items-center gap-10">
+      <div className="flex flex-row items-center gap-7">
         <SearchToggle aria-label="Toggle search" />
         <MenuItems
           menu={menu}

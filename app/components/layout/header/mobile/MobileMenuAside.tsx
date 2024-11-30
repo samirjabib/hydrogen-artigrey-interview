@@ -22,6 +22,12 @@ export function MobileMenuAside({
   const isOpen = useMobileMenuStore((state) => state.isOpen);
   const close = useMobileMenuStore((state) => state.close);
 
+  const getFormattedUrl = (url: string | undefined) => {
+    if (!url) return '#';
+    const path = url.split(header.shop.primaryDomain.url)[1] || '';
+    return path || '/';
+  };
+
   return (
     header.menu &&
     header.shop.primaryDomain?.url && (
@@ -30,16 +36,16 @@ export function MobileMenuAside({
           <SheetHeader className="px-6 py-6 border-b">
             <SheetTitle className="text-xl font-bold">{header.shop.name}</SheetTitle>
           </SheetHeader>
-          <div className="px-6 pb-5 border-b border-black/10">
-            <div className="relative">
+          <div className="px-6 pt-6 border-black/10">
+            <div className="relative flex items-center">
+              <Icon
+                name="search"
+                className="absolute left-4 w-[18px] h-[18px] text-[#1B1F23]/60"
+              />
               <Input
                 type="search"
                 placeholder="Search products..."
-                className="pl-10 h-12 rounded-lg"
-              />
-              <Icon
-                name="search"
-                className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#1B1F23]"
+                className="pl-11 h-11 rounded-lg bg-[#F6F6F5] border-none text-sm placeholder:text-[#1B1F23]/60 focus-visible:ring-1 focus-visible:ring-[#1B1F23]/20"
               />
             </div>
           </div>
@@ -51,18 +57,15 @@ export function MobileMenuAside({
               <div className="space-y-4">
                 <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Pages</h3>
                 <div className="space-y-3">
-                  {header.menu.items.map((item) => {
-                    const url = item.url?.replace(header.shop.primaryDomain.url, `/${publicStoreDomain}`);
-                    return (
-                      <Link
-                        key={item.id}
-                        to={url || '#'}
-                        className="flex items-center space-x-3 hover:text-primary transition-colors"
-                      >
-                        <span>{item.title}</span>
-                      </Link>
-                    );
-                  })}
+                  {header.menu.items.map((item) => (
+                    <Link
+                      key={item.id}
+                      to={getFormattedUrl(item.url ?? undefined)}
+                      className="flex items-center space-x-3 hover:text-primary transition-colors"
+                    >
+                      <span>{item.title}</span>
+                    </Link>
+                  ))}
                 </div>
               </div>
             </div>

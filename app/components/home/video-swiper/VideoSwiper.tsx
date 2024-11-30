@@ -1,33 +1,31 @@
-import React, { useState, useRef, useCallback } from 'react';
-
-
-import { Swiper, SwiperSlide } from 'swiper/react';
-import type { VideosSwiperQuery } from 'storefrontapi.generated';
-
-import { useVideoProcessing } from './hooks/useVideoProcessing';
-import { useIntersectionVisibility } from './hooks/useIntersectionVisibility';
 import 'swiper/css';
 import 'swiper/css/navigation';
+
+import React, { useState, useCallback } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import type { VideosSwiperQuery } from 'storefrontapi.generated';
+import { useVideoProcessing } from './hooks/useVideoProcessing';
+import { useIntersectionVisibility } from './hooks/useIntersectionVisibility';
 import { HeadingSwiper } from '~/components/design-system/HeadingSwiper';
 import VideoSlideContent from './components/VideoSlideContent';
 import { VideoSliceProductCard } from './components/VideoSliceProductCard';
 import { SwiperType } from '~/types';
 import { useQuickViewStore } from '~/components/product/product-quick-view/quickViewStore';
 import { useCartStore } from '~/components/cart/components/cartStore';
+import { useSwiper } from '~/hooks/useSwiper';
 
 export const VideoSwiper: React.FC<{
   videoSwiper: VideosSwiperQuery['metaobjects'];
 }> = ({ videoSwiper }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const swiperRef = useRef<SwiperType | null>(null);
   const { containerRef, isVisible } = useIntersectionVisibility();
   const { videosUrl, middleIndex, product } = useVideoProcessing(videoSwiper);
   const isOpenQuickView = useQuickViewStore((state) => state.isOpen);
   const isOpenCart = useCartStore((state) => state.isOpen);
 
-  const handleSwiperInit = useCallback((swiper: SwiperType) => {
-    swiperRef.current = swiper;
-  }, []);
+  const { swiperRef, isBeginning, isEnd, handleSwiperInit } = useSwiper();
+
 
   const handleSlideChange = useCallback((swiper: SwiperType) => {
     if (!swiper) return;
@@ -46,8 +44,8 @@ export const VideoSwiper: React.FC<{
         subtitle="Trusted & Proven by Science"
         className="pt-14"
         swiperRef={swiperRef}
-        isEnd={swiperRef.current ? swiperRef.current.isEnd : false}
-        isBeginning={swiperRef.current ? swiperRef.current.isBeginning : true}
+        isEnd={isEnd}
+        isBeginning={isBeginning}
       />
       <Swiper
         onSwiper={handleSwiperInit}
