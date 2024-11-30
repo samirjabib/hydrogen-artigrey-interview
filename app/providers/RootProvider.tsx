@@ -7,7 +7,6 @@ import { Footer } from '../components/layout/footer/Footer';
 import { ProductsQuickView } from '~/components/product/product-quick-view/ProductsQuickView';
 import { Toaster } from '~/components/ui/toaster';
 import { CartAside } from '~/components/cart/CartAside';
-import { useRevalidator } from '@remix-run/react';
 import { useEffect } from 'react';
 import setupViewportHeight from '~/utils/setup-viewport-height';
 
@@ -20,7 +19,6 @@ export function RootProvider({
   publicStoreDomain,
   enhanceCollection,
 }: RootLayoutProps) {
-  const revalidator = useRevalidator();
 
 
   useEffect(() => {
@@ -28,9 +26,6 @@ export function RootProvider({
     setupViewportHeight()
   }, []);
 
-  useEffect(() => {
-    revalidator.revalidate();
-  }, []);
 
 
   return (
