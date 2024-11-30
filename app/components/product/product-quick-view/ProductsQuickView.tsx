@@ -5,13 +5,14 @@ import { useProductFetcher } from './hooks/useProductFetcher';
 import { QuickViewContent } from './components/QuickViewContent';
 import { QuickViewSkeleton } from './components/QuickViewSkeleton';
 import { Await } from '@remix-run/react';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 
 export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
 
   const isOpen = useQuickViewStore((set) => set.isOpen);
   const close = useQuickViewStore((set) => set.close);
   const productHandle = useQuickViewStore((set) => set.productHandle);
+
 
   const {
     state,
@@ -20,6 +21,7 @@ export function ProductsQuickView({ cart }: { cart: RootLayoutProps['cart'] }) {
     productHandle,
     isOpen,
   });
+
 
   const handleClose = () => {
     if (product) {

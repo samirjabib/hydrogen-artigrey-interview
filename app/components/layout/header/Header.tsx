@@ -27,9 +27,15 @@ export function Header({
   }, []);
 
   useEffect(() => {
-    revalidate();
-  }, []);
+    // Check if it's a hard refresh using the modern navigation API
+    const navigationEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+    const isHardRefresh = navigationEntry?.type === 'reload';
 
+    if (isHardRefresh) {
+      console.log('Hard refresh detected');
+      revalidate();
+    }
+  }, []);
 
   return (
     <header
