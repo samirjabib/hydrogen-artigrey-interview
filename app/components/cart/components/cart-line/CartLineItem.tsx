@@ -27,7 +27,7 @@ export function CartLineItem({ line }: { line: CartLineProps }) {
         <div className='flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2'>
           <div className='flex gap-2 items-center'>
             <h3 className='text-sm font-medium leading-5 text-[#1B1F23] max-w-[200px]'>{typedProduct.title}</h3>
-            b          </div>
+          </div>
           <div className="hidden sm:block">
             <ProductPrice price={line?.cost?.totalAmount} />
           </div>
