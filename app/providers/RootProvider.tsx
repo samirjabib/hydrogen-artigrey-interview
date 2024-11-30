@@ -7,6 +7,8 @@ import { Footer } from '../components/layout/footer/Footer';
 import { ProductsQuickView } from '~/components/product/product-quick-view/ProductsQuickView';
 import { Toaster } from '~/components/ui/toaster';
 import { CartAside } from '~/components/cart/CartAside';
+import { useRevalidator } from '@remix-run/react';
+import { useEffect } from 'react';
 
 export function RootProvider({
   cart,
@@ -17,6 +19,18 @@ export function RootProvider({
   publicStoreDomain,
   enhanceCollection,
 }: RootLayoutProps) {
+  const revalidator = useRevalidator();
+
+  useEffect(() => {
+    const handleFocus = () => {
+      if (revalidator.state === 'idle') {
+        revalidator.revalidate();
+      }
+    };
+
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
+  }, [revalidator]);
 
 
   return (
