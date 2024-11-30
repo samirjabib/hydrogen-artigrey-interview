@@ -2,9 +2,6 @@ import {
   useNonce,
   getShopAnalytics,
   Analytics,
-  getSeoMeta,
-  type SeoConfig,
-  getSelectedProductOptions,
 } from '@shopify/hydrogen';
 import { defer, HeadersFunction, type LoaderFunctionArgs } from '@netlify/remix-runtime';
 import {
@@ -42,7 +39,6 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
     return true;
   }
 
-  // Revalidar cuando cambiamos de URL
   if (currentUrl.toString() !== nextUrl.toString()) {
     return true;
   }
@@ -66,9 +62,7 @@ export const headers: HeadersFunction = ({ loaderHeaders }) => {
   };
 };
 
-/**
- * Define las relaciones entre los recursos
- */
+
 export function links() {
   return [
     { rel: 'stylesheet', href: '/styles/tailwind.css' },

@@ -20,21 +20,17 @@ export function Header({
   const { matches: isMobile } = useMediaQuery('(max-width: 1100px)');
   const { isHeaderVisible } = useHeaderVisibility(0.2);
   const [isClient, setIsClient] = useState(false);
-  const revalidate = useRevalidator();
+  const { revalidate } = useRevalidator();
 
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   useEffect(() => {
-    revalidate.revalidate();
+    revalidate();
   }, []);
-
 
 
   return (
