@@ -1,22 +1,17 @@
-import { Await, useRevalidator } from '@remix-run/react';
+import { Await } from '@remix-run/react';
 import { CartBadge } from './CartBadge';
 import type { CartToggleProps } from '../types';
+
 import { useAnalytics } from '@shopify/hydrogen';
 import { Icon } from '../../ui/Icon';
 import { useCartStore } from './cartStore';
-import { Suspense, useEffect } from 'react';
+import { Suspense } from 'react';
 
 export function CartToggle({ cart }: CartToggleProps) {
   const open = useCartStore((set) => set.open);
   const { publish, shop, cart: cartAnalytics, prevCart } = useAnalytics();
-  const { revalidate } = useRevalidator();
 
-  // Revalidar el carrito cuando el componente se monta
-  useEffect(() => {
-    revalidate();
-  }, []);
-
-  const cartButton = (count: number = 0) => (
+  const cartButton = () => (
     <button
       aria-label="Open cart"
       className="relative cursor-pointer transition-all hover:bg-gray-200 rounded-lg"
@@ -31,19 +26,36 @@ export function CartToggle({ cart }: CartToggleProps) {
         });
       }}
     >
-      <CartBadge count={count} />
+      <CartBadge count={0} />
       <Icon name="bag" size={30} />
     </button>
   );
 
+
   return (
-    <Suspense fallback={cartButton(0)}>
+    <Suspense fallback={cartButton()}>
       <Await resolve={cart}>
         {(resolvedCart) => {
-          if (!resolvedCart) {
-            return cartButton(0);
-          }
-          return cartButton(resolvedCart.totalQuantity ?? 0);
+          console.log(resolvedCart, 'resolvedCart');
+          return (
+            <button
+              aria-label="Open cart"
+              className="relative cursor-pointer transition-all hover:bg-gray-200 rounded-lg"
+              onClick={(e) => {
+                e.preventDefault();
+                open();
+                publish('cart_viewed', {
+                  cart: cartAnalytics,
+                  prevCart,
+                  shop,
+                  url: window.location.href || '',
+                });
+              }}
+            >
+              <CartBadge count={resolvedCart?.totalQuantity ?? 0} />
+              <Icon name="bag" size={30} />
+            </button>
+          )
         }}
       </Await>
     </Suspense>
