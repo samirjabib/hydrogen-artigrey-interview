@@ -15,7 +15,7 @@ export function ErrorBoundary() {
     }
 
     return (
-        <main className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground">
+        <main className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground px-10">
             <div className="max-w-md w-full">
                 <Image
                     src="/placeholder.svg?height=300&width=300"

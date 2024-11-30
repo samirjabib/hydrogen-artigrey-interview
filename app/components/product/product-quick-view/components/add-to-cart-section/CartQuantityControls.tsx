@@ -14,6 +14,9 @@ export const CartQuantityControls = ({
   const prevQuantity = Math.max(0, quantity - 1);
   const nextQuantity = quantity + 1;
 
+
+  const disabled = quantity <= 0 || !!cartLine?.isOptimistic;
+
   const handleAddToCart = () => {
     toast({ title: "Product added to cart" });
   };
@@ -27,7 +30,7 @@ export const CartQuantityControls = ({
         <CartLineUpdateButton lines={[{ id: cartLine.id, quantity: prevQuantity }]}>
           <div className={buttonClasses}>
             <QuantityButton
-              disabled={quantity <= 0 || cartLine.isOptimistic}
+              disabled={quantity <= 0 || disabled}
               ariaLabel="Decrease quantity"
               icon="minus"
             />

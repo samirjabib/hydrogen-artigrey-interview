@@ -12,7 +12,7 @@ export const MainBlogCard: React.FC<MainBlogCardProps> = ({
 }) => {
   return (
     <article
-      className="relative w-full h-[300px] sm:h-[400px] lg:h-[450px] lg:w-1/2 group mb-8 md:mb-0"
+      className="relative w-full h-[300px] sm:h-[400px] lg:h-[450px] lg:w-1/2 group mb-8 md:mb-0 hover:opacity-90 transition-opacity transition-all cursor-pointer"
       aria-labelledby="main-blog-title"
     >
       <Image

@@ -70,7 +70,7 @@ export default function Homepage() {
   const data = useLoaderData<typeof loader>() as LoaderData;
 
   return (
-    <div className="home">
+    <>
       <Banner />
       <Promises />
       <Brands brands={data?.brands} />
@@ -83,6 +83,6 @@ export default function Homepage() {
       <SecondBanner />
       <BlogsBanner blogs={data?.blogs} />
       <InstagramFeed images={mockImages} username="uncmfrt.com" />
-    </div>
+    </>
   );
 }

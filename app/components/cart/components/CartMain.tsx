@@ -33,12 +33,23 @@ export function CartMain({ layout, cart: originalCart, enhanceCollection }: Cart
         {cartHasItems && (
           <div>
             <div aria-labelledby="cart-lines">
-              <ul className={`bg-[#F6F6F5] flex flex-col gap-4 p-4 rounded-xl ${linesCount ? 'max-h-[420px] overflow-y-auto' : ''}`}>
-                {(cart?.lines?.nodes ?? []).map((line) => {
-                  return ((
-                    <CartLineItem key={line.id} line={line} />
-                  ))
-                })}
+              <ul
+                className={`bg-[#F6F6F5] flex flex-col gap-4 p-4 rounded-xl min-h-[120px] relative
+                  ${linesCount ? 'max-h-[420px] overflow-y-auto' : ''}`}
+              >
+                {(cart?.lines?.nodes ?? []).map((line) => (
+                  <li
+                    key={line.id}
+                    className="transition-opacity duration-200"
+                  >
+                    <CartLineItem line={line} />
+                  </li>
+                ))}
+                {cart.lines?.nodes && cart.lines.nodes.length === 0 && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-6 h-6 border-2 border-gray-300 border-t-[#1B1F23] rounded-full animate-spin" />
+                  </div>
+                )}
               </ul>
             </div>
           </div>
@@ -47,6 +58,5 @@ export function CartMain({ layout, cart: originalCart, enhanceCollection }: Cart
       <RecommendProducts enhanceCollection={enhanceCollection} />
       {cartHasItems && <CartSummary cart={cart} layout={layout} />}
     </div>
-
   );
 }

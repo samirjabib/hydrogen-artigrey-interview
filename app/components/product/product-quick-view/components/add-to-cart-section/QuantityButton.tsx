@@ -16,6 +16,7 @@ export const QuantityButton = ({
   size = 14,
 }: QuantityButtonProps) => (
   <button
+    type="submit"
     className="text-[16px] text-[#1B1F23CC] flex items-center justify-center"
     disabled={disabled}
     aria-label={ariaLabel}

@@ -37,11 +37,12 @@ export const CartProductCard = ({ product }: CartProductCardProps) => {
                         quantity: 1,
                     }]}
                 >
-                    <div className="flex items-center whitespace-nowrap">
+                    <button className="flex items-center whitespace-nowrap" type='submit'>
                         <span className="text-xs font-normal">Add to cart</span>
                         <Plus size={13} className="ml-1 flex-shrink-0" />
-                    </div>
+                    </button>
                 </AddToCartButton>
+
             </div>
         </div>
     );

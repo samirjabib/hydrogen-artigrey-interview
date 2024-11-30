@@ -11,11 +11,11 @@ export const SecondaryBlogCard: React.FC<SecondaryBlogCardProps> = ({
 }) => {
   return (
     <article
-      className="flex flex-col sm:flex-row gap-4 sm:gap-5 h-auto sm:h-[180px] md:h-[215px] hover:opacity-90 transition-opacity"
+      className="flex flex-col sm:flex-row gap-4 sm:gap-5 h-auto sm:h-[180px] md:h-[215px] hover:opacity-90 transition-opacity cursor-pointer"
       role="listitem"
       aria-labelledby={`secondary-blog-title-${title}`}
     >
-      <div className="w-full sm:w-[240px] md:w-[300px] h-[200px] sm:h-full overflow-hidden rounded-lg shrink-0">
+      <div className="w-full sm:w-[240px] md:w-[300px] h-[200px] sm:h-full overflow-hidden rounded-lg shrink-0 ">
         <Image
           src={imageSrc}
           alt={title}

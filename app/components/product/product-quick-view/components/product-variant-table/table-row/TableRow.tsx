@@ -33,6 +33,8 @@ export const TableRow = ({ variant, cart: originalCart, selectedSellingPlanId, s
   const discount = calculateDiscount(quantity);
   const totalAmount = calculateDiscountedAmount(Number(baseAmount), quantity);
 
+  console.log(variant)
+
   const formattedSize = variant.metafield?.value ? formatSize(variant.metafield.value) : '';
 
   return (

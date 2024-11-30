@@ -54,3 +54,5 @@ export type CartMainProps = {
     layout: CartLayout;
     enhanceCollection: RootLayoutProps['enhanceCollection']
 };
+
+export type CartLineType = OptimisticCartLine<CartApiQueryFragment>;

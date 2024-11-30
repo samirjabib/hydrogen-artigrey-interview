@@ -1,3 +1,5 @@
+import { Icon } from "~/components/ui/Icon";
+
 export const FooterBottom = ({ shopName }: { shopName: string }) => {
   return (
     <div
@@ -9,11 +11,11 @@ export const FooterBottom = ({ shopName }: { shopName: string }) => {
         <span className="sr-only">Copyright</span>
         &#169; {shopName}. All right reserved.
       </p>
-      <p className="text-gray-400 text-xs mt-2">
+      <p className="text-gray-400 text-xs mt-2 flex items-center gap-1">
         <span className="sr-only">Made by</span>
-        Made with <span aria-hidden="true">❤️</span> and{' '}
-        <span aria-hidden="true">🛍️</span> by Arctic Grey
+        Made with <Icon name="heart" className="w-3 h-3" /> and{' '}
+        <span aria-hidden="true"><Icon name="cup" className="w-3 h-3" /></span> by Arctic Grey
       </p>
-    </div>
+    </div >
   );
 };

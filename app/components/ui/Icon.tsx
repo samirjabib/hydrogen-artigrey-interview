@@ -73,6 +73,11 @@ export const icons = [
     path: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/youtube.png?v=1732926951',
     alt: 'Youtube Icon',
   },
+  {
+    name: 'cup',
+    path: 'https://cdn.shopify.com/s/files/1/0917/5161/2725/files/cup.png?v=1732926951',
+    alt: 'Cup Icon',
+  },
 
 
 ] as const;

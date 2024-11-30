@@ -1,5 +1,5 @@
 import { CartApiQueryFragment, CollectionProductFragment, ProductQuery } from "storefrontapi.generated";
-import { CartLine } from "~/components/cart/components/cart-line/CartLineItem";
+import { CartLineType } from "~/components/cart/types";
 import { Variant } from "~/components/design-system/product-card/ProductCard";
 import { ExtendedProduct } from "~/types/product";
 
@@ -8,7 +8,7 @@ import { ExtendedProduct } from "~/types/product";
 
 export type QuantityCellProps = {
   variant: VariantWithMetaField
-  cartLine?: CartLine
+  cartLine?: CartLineType
   selectedSellingPlanId: string | null;
   selectedOption: string | null;
 };
@@ -104,7 +104,7 @@ export type PriceDisplayProps = {
 }
 
 export type CartQuantityControlsProps = {
-  cartLine?: CartLine
+  cartLine?: CartLineType
   quantity: number;
   merchandiseId: string;
   selectedSellingPlanId: string | null;

@@ -1,6 +1,7 @@
 import { json, type LoaderFunctionArgs } from '@netlify/remix-runtime';
 import { Link, useLoaderData, type MetaFunction } from '@remix-run/react';
 import { type Shop } from '@shopify/hydrogen/storefront-api-types';
+import { PageDevelopment } from '~/components/error/PageDevelopment';
 import { ErrorBoundary } from '~/root';
 
 type SelectedPolicies = keyof Pick<
@@ -46,29 +47,29 @@ export default function Policy() {
   const { policy } = useLoaderData<typeof loader>();
 
   return (
-    <ErrorBoundary />
+    <PageDevelopment title={policy?.title} />
   );
 }
 
 // NOTE: https://shopify.dev/docs/api/storefront/latest/objects/Shop
 const POLICY_CONTENT_QUERY = `#graphql
-  fragment Policy on ShopPolicy {
-    body
+      fragment Policy on ShopPolicy {
+        body
     handle
-    id
-    title
-    url
+      id
+      title
+      url
   }
-  query Policy(
-    $country: CountryCode
-    $language: LanguageCode
-    $privacyPolicy: Boolean!
-    $refundPolicy: Boolean!
-    $shippingPolicy: Boolean!
-    $termsOfService: Boolean!
-  ) @inContext(language: $language, country: $country) {
-    shop {
-      privacyPolicy @include(if: $privacyPolicy) {
+      query Policy(
+      $country: CountryCode
+      $language: LanguageCode
+      $privacyPolicy: Boolean!
+      $refundPolicy: Boolean!
+      $shippingPolicy: Boolean!
+      $termsOfService: Boolean!
+      ) @inContext(language: $language, country: $country) {
+        shop {
+        privacyPolicy @include(if: $privacyPolicy) {
         ...Policy
       }
       shippingPolicy @include(if: $shippingPolicy) {
@@ -82,4 +83,4 @@ const POLICY_CONTENT_QUERY = `#graphql
       }
     }
   }
-` as const;
+      ` as const;
