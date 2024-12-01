@@ -42,6 +42,9 @@ const VideoSlideContent = ({
         src={videoUrl}
         loop
         playsInline
+        webkit-playsinline="true"
+        crossOrigin="anonymous"
+        aria-label="Background video"
         className={cn(
           'w-full h- object-cover h-[420px] rounded-md transition-all',
           isActive ? 'h-[500px]' : null,
