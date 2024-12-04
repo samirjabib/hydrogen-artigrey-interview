@@ -7,6 +7,7 @@ export function useProductFetcher({
   productHandle,
   isOpen,
 }: UseProductFetcherOptions) {
+
   const fetcherKey = useMemo(() => `product-fetcher-${productHandle}`, [productHandle]);
   const fetcher = useFetcher<typeof loader>({
     key: fetcherKey,

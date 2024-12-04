@@ -34,10 +34,11 @@ export type CriticalData = {
 
 type DeferredData = {} | null;
 
+
+
 /**
- * Load data for rendering content below the fold. This data is deferred and will be
- * fetched after the initial page load. If it's unavailable, the page should still 200.
- * Make sure to not throw any errors here, as it will cause the page to 500.
+ * Load data necessary for rendering content above the fold. This is the critical data
+ * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  */
 export async function getCriticalData({
   context,
@@ -97,9 +98,12 @@ export async function getCriticalData({
 }
 
 /**
- * Load data necessary for rendering content above the fold. This is the critical data
- * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
- */ export async function getDeferredData({
+ * Load data for rendering content below the fold. This data is deferred and will be
+ * fetched after the initial page load. If it's unavailable, the page should still 200.
+ * Make sure to not throw any errors here, as it will cause the page to 500.
+ */
+
+export async function getDeferredData({
   context,
   request,
 }: LoaderFunctionArgs): Promise<DeferredData> {

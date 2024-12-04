@@ -25,9 +25,7 @@ import { Button } from './components/ui/Button';
 
 export type RootLoader = typeof loader;
 
-/**
- * Revalida la página después de una acción
- */
+
 export const shouldRevalidate: ShouldRevalidateFunction = ({
   formMethod,
   currentUrl,
@@ -52,7 +50,6 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
   }
 
 
-
   return defaultShouldRevalidate;
 };
 
@@ -63,6 +60,14 @@ export const headers: HeadersFunction = ({ loaderHeaders }) => {
     ...loaderHeaders,
   };
 };
+
+/* export const headers: HeadersFunction = ({ loaderHeaders }) => { this is the correct way to do it 
+  return {
+    "Cache-Control": "public, max-age=3600", 
+    "Vary": "Accept-Encoding",
+    ...loaderHeaders,
+  };
+}; */
 
 
 export function links() {

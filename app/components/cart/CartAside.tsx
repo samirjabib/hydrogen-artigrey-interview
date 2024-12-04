@@ -29,7 +29,7 @@ export function CartAside({ cart, enhanceCollection }: { cart: RootLayoutProps['
                     Cart
                   </SheetTitle>
                 </SheetHeader>
-                <CartMain cart={resolvedCart} layout="aside" enhanceCollection={enhanceCollection} />;
+                <CartMain cart={resolvedCart} layout="aside" enhanceCollection={enhanceCollection} />
               </SheetContent>
             )
           }

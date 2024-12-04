@@ -35,7 +35,6 @@ export const Bundles = ({ initialBundle, navItems }: BundlesProps) => {
         title='Bundles'
         subtitle="📦 Goals Specific"
       />
-
     </section>
   );
 };

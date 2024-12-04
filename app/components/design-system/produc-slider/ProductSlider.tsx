@@ -55,7 +55,6 @@ export const ProductSlider: React.FC<ProductSliderProps> = ({
         className="w-full"
       >
         {isLoading ? (
-          // Mostrar 4 skeletons durante la carga
           Array.from({ length: 4 }).map((_, index) => (
             <SwiperSlide key={`skeleton-${index}`} className="h-auto">
               <ProductCardSkeleton variant={variant} />

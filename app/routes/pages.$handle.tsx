@@ -1,7 +1,6 @@
 import { defer, type LoaderFunctionArgs } from '@netlify/remix-runtime';
-import { Link, useLoaderData, type MetaFunction } from '@remix-run/react';
+import { useLoaderData, type MetaFunction } from '@remix-run/react';
 import { PageDevelopment } from '~/components/error/PageDevelopment';
-import { Button } from '~/components/ui/Button';
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return [{ title: `Hydrogen | ${data?.page.title ?? ''}` }];
@@ -63,6 +62,8 @@ export default function Page() {
     <PageDevelopment title={page?.title} />
   );
 }
+
+
 
 const PAGE_QUERY = `#graphql
   query Page(

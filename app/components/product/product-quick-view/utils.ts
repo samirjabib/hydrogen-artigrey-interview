@@ -23,9 +23,7 @@ export const calculateDiscount = async (
     cart: CartApiQueryFragment | null
 ) => {
     try {
-        // Obtener el total actual excluyendo la línea que estamos modificando
         const currentCartTotal = getTotalQuantity(cart, lineId);
-        // Sumar la nueva cantidad para obtener el total real
         const totalQuantity = currentCartTotal + quantity;
 
 

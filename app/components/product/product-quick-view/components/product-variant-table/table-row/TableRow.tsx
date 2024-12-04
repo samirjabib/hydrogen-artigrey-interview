@@ -32,9 +32,6 @@ export const TableRow = ({ variant, cart: originalCart, selectedSellingPlanId, s
   const baseAmount = cartLine?.cost.totalAmount?.amount || 0;
   const discount = calculateDiscount(quantity);
   const totalAmount = calculateDiscountedAmount(Number(baseAmount), quantity);
-
-  console.log(variant)
-
   const formattedSize = variant.metafield?.value ? formatSize(variant.metafield.value) : '';
 
   return (
